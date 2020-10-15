@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Epilogue&family=Noto+Sans+JP&family=Roboto:wght@300&family=Secular+One&display=swap');
+@font-face {
+    font-family: lr;
+    src: url('./lr.ttf');
+  }
+#root {
+    margin: 0;
+}
+
+.is-black {
+    background-color: #111;
+}
+.is-background-white {
+    background-color: #fff;
+}
+.is-white {
+    color: #fff;
+}
+
+.button-color {
+    color: #000 !important;
+    background-color: #ffaf46 !important;
+}
+
+.font {
+    font-family: 'Roboto';
+}
+
+.list {
+    font-family: 'Epilogue';    
+}
+
+.current-list {
+    border-left: 3px !important;
+    border-right: 3px;
+    border-color: #fff;
+}
+
+.list-item:hover {
+    cursor: grabbing;
+}
+
+.lists {
+    border-left:  2px solid ;
+    border-right: 2px solid;
+    border-color: rgb(255, 255, 255, 0.3);
+
+}
+
+.radio {
+    display: none;
+}
+
+.radio-labels {
+    margin: 0.4rem;
+    font-family: 'Epilogue';
+    font-weight: 600;
+    padding: 6px;
+}
+
+.add-form input[type="radio"]:checked + label {
+    background: #fff;
+    opacity: 90%;
+    color: #111;
+    border-radius: 6px;
+}
+
+.item-menu:hover {
+    cursor: pointer;
+    background: rgba(70, 42, 42, 0.25);
+    border-radius: 10%;
+}
+
+.edit-popover {
+    width: 30rem !important;
+}
+
+.popover-title {
+    font-family: 'Epilogue';
+    background: #222 !important;
+    color: #fff;
+}

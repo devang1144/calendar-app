@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAC,AAAA,cAAc,CAAC;EACZ,UAAU,EAAC,IAAI;EACf,KAAK,EAAE,IAAI;CACd;;AACD,AAAA,gBAAgB,CAAC;EACb,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;CAKhB;;AAPD,AAGI,gBAHY,AAGX,MAAM,CAAC;EACJ,gBAAgB,EAAE,IAAI;EACtB,aAAa,EAAE,GAAG;CACrB",
+    "sources": [
+        "NavSignup.scss"
+    ],
+    "names": [],
+    "file": "NavSignup.css"
+}
