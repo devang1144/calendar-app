@@ -65,7 +65,7 @@ export default class Year extends Func {
 
     renderMonths() {
         let allMonths=[];
-        const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43", "#0DEF66", "#FF3495", "#3448FF", "#46D9AD", "#B24949"];
+        const colors = ["#888"];
         for(let i=0;i<12;i++) {
             let monthNo = i;
             let dateContext = Object.assign({}, moment());

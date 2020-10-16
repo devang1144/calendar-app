@@ -99,7 +99,8 @@ export default class Func extends Component {
         this.setState({
             selectedDay: day
         }, () => {
-            console.log("SELECTED DAY: ", this.state.selectedDay);
+            console.log(this.state.selectedDay);
+            console.log(this.state.dateContext);
         });
 
         this.props.onDayClick && this.props.onDayClick(e, day);
@@ -123,7 +124,7 @@ export default class Func extends Component {
     renderRadio(name, label, id, onChange, value, ...rest) {
         return (<div className="form-check">
                     <input {...rest} className="radio" type="radio" name={name} value={value} onChange={onChange} id={id}/>
-                    <label className="radio-labels" htmlFor={id}>{label}</label>
+                    <label className="radio-labels is-poppins" htmlFor={id}>{label}</label>
                 </div>
             );
     };
