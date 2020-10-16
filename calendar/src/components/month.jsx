@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { motion } from 'framer-motion';
 export default class Lists extends Component {
     state = {
         events:[]
@@ -24,14 +25,22 @@ export default class Lists extends Component {
     render() {
         return (
             <div>
-                <h1 className="is-white is-poppins mt-4 ml-2">My Dashboard</h1>
-                <ul className="list-group">
-                    {this.state.events.map(e => 
-                        <li className="list-group-item">
-                            {e.todo}
-                        </li>  
-                        )}
-                </ul>
+                <h1 className="is-white is-poppins mt-4 ml-2 m-5">My Dashboard</h1>
+                <div className="row">
+                    <div className="col-md-5 p-5">
+                        <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events</h3>
+                        <motion.ul className="p-0" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                            {this.state.events.map(e => 
+                                    <li className="p-3 is-poppins is-white"><strong>{e.todo}</strong></li>
+                                )}
+                        </motion.ul>
+                        
+                    </div>
+                    <div className="col d-flex justify-content-end">
+                        <h4 className="is-white p-4">add event<i className="fa fa-plus p-2" style={{color:"#89C283"}}></i></h4>
+                    </div>
+                </div>
+                       
             </div>
         )
     }

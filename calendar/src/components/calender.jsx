@@ -136,8 +136,8 @@ export default class Calendar extends Func {
         else if (this.state.data.qwerty === "2") {
             return <Lists/>
         }
-        else {
-            return <Week/>
+        else{
+            return <Lists/>
         }
     }
     logOut = async() => {

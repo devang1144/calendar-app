@@ -95,7 +95,7 @@ input[type=number] {
 }
 .day {
     &:hover {
-        background-color: #FFA41D;
+        background-color: #EDCF88;
         border-radius: 20%;
         color: #000;
         box-shadow: white;
@@ -103,6 +103,21 @@ input[type=number] {
         cursor: pointer;
     }
 }
+
+.add-event {
+    background-color: #333;
+}
+.day-year {
+    &:hover {
+        background-color: #796DCD;
+        border-radius: 20%;
+        color: #000;
+        box-shadow: white;
+        font-weight: 400;
+        cursor: pointer; 
+    }
+}
+
 .week-day {
     padding: 0;
 }
@@ -177,11 +192,16 @@ tr {
     box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);
 }
 
+ul {
+    list-style-type: none;
+}
   ul li{
+    color: #fff;
     cursor: pointer;
-    &:hover {
-        background-color: rgba(245, 245, 245, 1)
-    }
+    background: #2A2A32;
+    border-radius: 8px;
+    margin: 6px !important;
+
 }
 table {
     overflow: scroll;

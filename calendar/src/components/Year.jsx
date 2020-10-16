@@ -65,12 +65,12 @@ export default class Year extends Func {
 
     renderMonths() {
         let allMonths=[];
-        const colors = ["#888"];
+        const colors = ["#89C283"];
         for(let i=0;i<12;i++) {
             let monthNo = i;
             let dateContext = Object.assign({}, moment());
             dateContext = moment().set("month", monthNo);
-            allMonths.push({dateContext:dateContext,color:colors[i]});
+            allMonths.push({dateContext:dateContext,color:colors[0]});
         }
         return (
             <React.Fragment>
@@ -122,7 +122,7 @@ export default class Year extends Func {
                     </Popover>
                 }
                 >
-                <td key={d} className="day days-year">
+                <td key={d} className="day-year">
                     <span className="" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
                 </td>
             </OverlayTrigger>
