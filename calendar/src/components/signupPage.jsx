@@ -7,6 +7,7 @@ import {  Redirect } from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from './common/form';
 import Input from './common/input';
+import '../styles/login.css';
 
 export default class Signup extends Form {
     state = {
@@ -52,7 +53,7 @@ export default class Signup extends Form {
                     {this.renderInput("name", "name")}
                     {this.renderInput("email", "email")}
                     {this.renderInput("password", "password", "password")}                   
-                    <button disabled={this.validate()} className="btn btn-primary btn-md mt-3">Sign up</button>     
+                    <button disabled={this.validate()} className="bttn">Sign up</button>     
                     <p className="p-4">Already have a account, <Link to="/login">login</Link></p> 
                 </motion.form>
                    

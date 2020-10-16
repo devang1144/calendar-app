@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import { motion } from 'framer-motion';
 import NavLogin from './NavLogin';
 import Cookies from 'js-cookie';
+import '../styles/login.css';
 
 export default class LoginPage extends Component {
     state = {
@@ -63,7 +64,7 @@ export default class LoginPage extends Component {
                     <label for="pass">password</label>
                     <input className="form-control" name="password" id="pass" type="text" onChange={this.handleChangePass} value={this.state.password}/>
                     </div>
-                    <button className="btn btn-primary btn-md mt-3">Login</button> 
+                    <button className="bttn">Login</button> 
                     <p className="p-4">Don't have a account, <Link to="/signup">signup</Link></p>   
                 </motion.form>    
             </div>
