@@ -29,7 +29,8 @@ export default class Calendar extends Func {
             qwerty:"2",
             user:[], 
         },
-        logStatus:false
+        logStatus:false,
+        uname1:Cookies.get('uname')
     }
     componentDidMount = async() => {
         this.getEvents();
@@ -145,6 +146,11 @@ export default class Calendar extends Func {
         this.setState({
             logStatus:false
         })
+        this.setState({
+            user:[]
+        })
+        Cookies.remove('uname')
+        // Cookies.set('IsLoggedIn',false)
     }
 
     displayUserName(name) {
@@ -154,6 +160,7 @@ export default class Calendar extends Func {
     render() {
         console.log(this.state.logStatus)
         console.log(this.state.data.user.name);
+        console.log(Cookies.get())
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -214,10 +221,7 @@ export default class Calendar extends Func {
         return (
             <div className="container-fluid landingContainer m-0" style={this.style}>
                 <div className="row">
-                <div className="col-md-8 p-0 left">
-                    {this.calendarNav()}
-                    {this.showDifferentComp()}
-                </div>
+                
                 <div className="col-md-4 vh-100 p-0 right">
                     <nav className="navbar m-0">
                         <div className="navbar-brand">
@@ -225,7 +229,7 @@ export default class Calendar extends Func {
                         <i class="fa pl-2 fa-inbox" aria-hidden="true"></i>
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
-                        <h4 className="p-3 is-white">{this.state.data.user.name}</h4>
+                        <h4 className="p-3 is-white">{this.state.uname1}</h4>
                         
                         <img src={ArrowDown} className="dropdown img img-fluid pb-2 logout-section" alt=""/>
                         <div className="dropdown-content m-0">
@@ -266,6 +270,10 @@ export default class Calendar extends Func {
                     <i onClick={e => {this.nextMonth()}} className="fa p-3 arrow fa-arrow-right"></i>
                 </div>
                 
+                </div>
+                <div className="col-md-8 p-0 left">
+                    {this.calendarNav()}
+                    {this.showDifferentComp()}
                 </div>
                 </div>
                 

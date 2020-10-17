@@ -30,8 +30,10 @@ export default class LoginPage extends Component {
         const {data:user} = await axios.post('api/user', {_id:this.state.id})
         this.setState({userData:user})
         this.setState({redirect:true})
+        console.log(user.name)
         Cookies.set('lauth',this.state.id);
-        
+        Cookies.set('uname',user.name);
+        Cookies.set('IsloggedIn',true)
     }
     handleChangeMail = e => {
         const value = e.target.value;
