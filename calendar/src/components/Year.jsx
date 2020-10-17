@@ -65,7 +65,7 @@ export default class Year extends Func {
 
     renderMonths() {
         let allMonths=[];
-        const colors = ["#89C283"];
+        const colors = [""];
         for(let i=0;i<12;i++) {
             let monthNo = i;
             let dateContext = Object.assign({}, moment());
@@ -77,7 +77,7 @@ export default class Year extends Func {
             <div className="row">
                 {allMonths.map(m => 
                     <div className="col-md-4 p-5">
-                        <h2 className="month-name" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h2>
+                        <h2 className="month-name text-info" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h2>
                         <table className="table">
                             <tbody>
                             <tr>
@@ -122,8 +122,8 @@ export default class Year extends Func {
                     </Popover>
                 }
                 >
-                <td key={d} className="day-year">
-                    <span className="" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
+                <td key={d} className="day-year p-2 text-center">
+                    <span className="p-0" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
                 </td>
             </OverlayTrigger>
             );

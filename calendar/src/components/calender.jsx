@@ -9,7 +9,6 @@ import Func from './calendar_functions';
 import axios from 'axios';
 import '../styles/calender.scss';
 import Cookies from 'js-cookie';
-import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import Year from './Year';
 import Lists from './month';
 import Week from './weeks';
@@ -185,7 +184,7 @@ export default class Calendar extends Func {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                <span type="radio" className="day p-2 rounded" onClick={e => this.onDayClick(e, d)}>{d}</span>
+                <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e, d)}>{d}</span>
                 </td>  
                     
                 
@@ -212,7 +211,7 @@ export default class Calendar extends Func {
         });
         let trElems = rows.map((d, i) => {
             return (
-                <tr key={i*100} className="week-rows">
+                <tr key={i*100} className="">
                     {d}
                 </tr>
             );
@@ -225,11 +224,11 @@ export default class Calendar extends Func {
                 <div className="col-md-4 vh-100 p-0 right">
                     <nav className="navbar m-0">
                         <div className="navbar-brand">
-                        <i class="fa pr-2 fa-bell-o" aria-hidden="true"></i>
+                        <i class="fa pr-2 fa-bell-o text-info" aria-hidden="true"></i>
                         <i class="fa pl-2 fa-inbox" aria-hidden="true"></i>
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
-                        <h4 className="p-3 is-white">{this.state.uname1}</h4>
+                        <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
                         
                         <img src={ArrowDown} className="dropdown img img-fluid pb-2 logout-section" alt=""/>
                         <div className="dropdown-content m-0">
@@ -243,7 +242,7 @@ export default class Calendar extends Func {
                         
                     </nav>
                     <nav className="navbar m-0">
-                        <h4 className="navbar-brand is-poppins mt-4 mb-4">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                        <h4 className="navbar-brand is-poppins mt-4 date-heading mb-4">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
                         <div className=" justify-content-end">
                         <i className="fa fa-list-ul p-2" style={{fontSize:24}}></i> 
                             {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks">signup</span></Link>}

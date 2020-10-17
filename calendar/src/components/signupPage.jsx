@@ -53,7 +53,7 @@ export default class Signup extends Form {
                     {this.renderInput("name", "name")}
                     {this.renderInput("email", "email")}
                     {this.renderInput("password", "password", "password")}                   
-                    <button disabled={this.validate()} className="bttn">Sign up</button>     
+                    <button disabled={this.validate()} className="bttn bg-primary is-white">Sign up</button>     
                     <p className="p-4">Already have a account, <Link to="/login">login</Link></p> 
                 </motion.form>
                    
