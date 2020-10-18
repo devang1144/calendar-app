@@ -34,6 +34,7 @@ export default class Calendar extends Func {
         uname1:Cookies.get('uname'),
     }
     componentDidMount = async() => {
+        const userId = Cookies.get('lauth');
         this.getEvents();
         const {data:user} = await axios.post('/api/user', {_id:Cookies.get('lauth')});
         this.setState({
@@ -42,7 +43,7 @@ export default class Calendar extends Func {
             },
             logStatus:true
         })
-        console.log(this.state.data.user)
+        console.log(this.state.data.user.events)
     }
     
     getEvents = async() => {
@@ -136,12 +137,12 @@ export default class Calendar extends Func {
                 </motion.div>
             );
         }
-        else if (this.state.data.qwerty === "2") {
-            return <Lists/>
-        }
         else{
-            return <Lists/>
+            return <Lists ev={this.state.data.user.events}/>
         }
+        // else{
+        //     return <Lists />
+        // }
     }
     logOut = async() => {
         const data = await Cookies.remove('lauth');
@@ -160,14 +161,15 @@ export default class Calendar extends Func {
         return name;
     }
     handleSubmit = async (e) => {
+        const id = Cookies.get('lauth') ? Cookies.get('lauth') : console.log("fmklsdg"); 
         e.preventDefault();
         const event = {
             eventName:this.state.data.eventName,
-            eventDate:toString(this.state.selectedDay) +"/"+ toString(this.state.dateContext.month()) + toString(this.state.dateContext.year()),
+            eventDate:(this.state.selectedDay) + (this.state.dateContext.month()) + (this.state.dateContext.year()),
             moment:this.state.currentDateContext._d
-        }
-        const {data} = await axios.post("") 
-        this.state.data.user.events.push(event);
+        };
+         const { data:res } = await axios.post(`/api/user/${id}`, event);
+        console.log(res);        
 
     }
     render() {
@@ -281,7 +283,7 @@ export default class Calendar extends Func {
                     <i onClick={e => {this.prevMonth()}} className="fa p-3 arrow fa-arrow-left"></i>
                     <i onClick={e => {this.nextMonth()}} className="fa p-3 arrow fa-arrow-right"></i>
                 </div>
-                <form onSubmit={e => this.handleSubmit(e)} className="form-group">
+                <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group">
                     <label htmlFor="event">Event</label>
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control" id="event" type="text"/>
                     <button className="btn btn-primary">add event<i className="fa fa-plus pl-2 pt-1" style={{color:"#89C283"}}></i></button>

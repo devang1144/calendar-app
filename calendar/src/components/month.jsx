@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import Cookies from 'js-cookie';
+import {Link} from 'react-router-dom';
 export default class Lists extends Component {
     state = {
-        events:[]
+        events:[],
+        ev:[]
     }
     renderRadio(name, label, id, onChange, value, ...rest) {
         return (<div className="form-check">
@@ -20,20 +23,35 @@ export default class Lists extends Component {
     componentDidMount = async() => {
         const {data:events} = await axios.get("api/listItems");
         this.setState({events});
+        const { data: user } = await axios.get('/api/user/login')
+        console.log(user)
+        this.setState({ev:this.props.ev})
     }
-    
+    renderEvents() {
+        if(this.state.ev) {
+            return (
+                <motion.ul className="p-0" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                    {this.state.ev.map(e => 
+                            <li className="p-3 is-poppins is-white"><strong>{e.eventName}</strong></li>
+                        )}
+                </motion.ul>
+            );
+        }
+        else {
+            return (
+                <Link to="/login" className="is-white">Login to use</Link>   
+            );
+        }
+    }
     render() {
+        console.log(this.props.ev)
         return (
             <div>
                 <h1 className="is-white is-poppins mt-4 ml-2 m-5">My Dashboard</h1>
                 <div className="row">
                     <div className="col-md-5 p-5">
                         <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events</h3>
-                        <motion.ul className="p-0" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
-                            {this.state.events.map(e => 
-                                    <li className="p-3 is-poppins is-white"><strong>{e.todo}</strong></li>
-                                )}
-                        </motion.ul>
+                        {this.renderEvents()}
                         
                     </div>
                     <div className="col d-flex justify-content-end">

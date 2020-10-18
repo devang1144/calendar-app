@@ -20,11 +20,13 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use(express.json());
 app.use(cors());
 app.use('/api/posts', posts);
-app.use('/api/listItems', listRoute);
-//Route Middlwares
+
+//Route Middlewares
 app.use('/api/user', authRoute);
+app.use('/api/listItems', listRoute);
+
 app.get('/api/user/register', (req, res) => {
-    Data.find({ }).then(data => res.json(data));
+    Data.find({}).then(data => res.json(data));
 })
 
 app.get('/api/user/login', (req, res) => {
@@ -33,8 +35,32 @@ app.get('/api/user/login', (req, res) => {
 app.get('/api/listItems', (req, res) => {
     list.find({ }).then(data => res.json(data));
 })
+// app.get('/api/:id/events', (req, res) => {
+//     list.find({ }).then(data => res.json(data));
+// })
+app.post('/api/user/:id',(req,res)=>{
+    try{
+        Data.findByIdAndUpdate({_id:req.params.id}, 
+        { $push: {
+                events:{
+                    "eventName":req.body.eventName,
+                    "eventDate":req.body.eventDate,
+                    "moment":req.body.moment
+                }
+            }
+        }).exec()
+        res.send("success")
+    }
+    catch(err) {
+        res.status(400).send(err);
+    }
+    
+})
 app.get('/api/user', (req, res) => {
     Data.find({ }).then(data => res.json(data));
+})
+app.get('/api/user/:id', (req, res) => {
+    Data.findById({_id:req.params.id}).then(data => res.json(data));
 })
 app.post('/api/user', async(req, res) => {
     try{
