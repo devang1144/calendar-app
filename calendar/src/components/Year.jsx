@@ -77,7 +77,7 @@ export default class Year extends Func {
             <div className="row">
                 {allMonths.map(m => 
                     <div className="col-md-4 p-5">
-                        <h2 className="month-name text-info" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h2>
+                        <h3 className="month-name is-poppins text-info is-bold" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h3>
                         <table className="table">
                             <tbody>
                             <tr>
@@ -123,7 +123,7 @@ export default class Year extends Func {
                 }
                 >
                 <td key={d} className="day-year p-2 text-center">
-                    <span className="p-0" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
+                    <span className="p-0 is-poppins" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
                 </td>
             </OverlayTrigger>
             );

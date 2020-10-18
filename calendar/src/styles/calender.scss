@@ -5,6 +5,9 @@ $backgroundColorHover: rgba(200, 200, 200, 0.33);
 .is-white {
     color: #fff;
 }
+.is-bold {
+    font-weight: 600;
+}
 .year-value {
     width: 100px !important;
     background: #222 !important;
@@ -29,6 +32,13 @@ label:focus,
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
+}
+.fa {
+    &:hover {
+        background-color: rgba(50,50,50,1);
+        border-radius: 50%;
+    }
+    
 }
 
 input::-webkit-outer-spin-button,
@@ -113,9 +123,9 @@ input[type=number] {
 }
 .day-year {
     &:hover {
-        background-color: #CB4D4D;
+        background-color: rgba(95, 34, 36, 0.4);
         border-radius: 50%;
-        color: #000;
+        color: #fff;
         font-weight: 400;
         cursor: pointer; 
     }

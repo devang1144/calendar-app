@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+const event = new mongoose.Schema({
+    eventname:String,
+    eventDate:String,
+    moment:String
+})
+
 const userSchema = new mongoose.Schema({
     name: {
         type:String,
@@ -19,6 +25,9 @@ const userSchema = new mongoose.Schema({
         max:1024,
         min:8
     },
+    events: [
+        event
+    ],
     date: {
         type:Date,
         default:Date.now

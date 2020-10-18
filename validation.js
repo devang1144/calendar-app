@@ -4,7 +4,12 @@ const registerValidation = (data) => {
     const schema = Joi.object({
         name:Joi.string().min(6).required(),
         email:Joi.string().email().required(),
-        password:Joi.string().min(6).required()
+        password:Joi.string().min(6).required(),
+        events:Joi.array().items(Joi.object({
+            eventName:Joi.string(),
+            eventDate:Joi.string(),
+            moment:Joi.string()
+        }))
     });
     return schema.validate(data);    
 }

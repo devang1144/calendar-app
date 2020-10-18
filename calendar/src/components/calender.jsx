@@ -16,6 +16,7 @@ import ArrowDown from '../assets/arrow_down.svg';
 export default class Calendar extends Func {
     state = {
         dateContext: moment(),
+        currentDateContext: moment(),
         today: moment(),
         showMonthPopup: false,
         showYearPopup: false,
@@ -27,9 +28,10 @@ export default class Calendar extends Func {
         data: {
             qwerty:"2",
             user:[], 
+            eventName:""
         },
         logStatus:false,
-        uname1:Cookies.get('uname')
+        uname1:Cookies.get('uname'),
     }
     componentDidMount = async() => {
         this.getEvents();
@@ -83,7 +85,8 @@ export default class Calendar extends Func {
                 <div className="navbar-text">
                 </div>
                     <div className="col d-flex justify-content-start align-items-center flex-row">
-                    <i className="fa fa-calendar-o is-white"></i>
+                    
+                    
                     <DropdownButton size="md" title={this.month()} className="month-button p-2">
                             {this.months.map(m => 
                                 <Dropdown.Item onClick={(e)=> {this.changeMonth(e, m)}}> 
@@ -156,10 +159,19 @@ export default class Calendar extends Func {
         if (name === undefined)return;
         return name;
     }
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const event = {
+            eventName:this.state.data.eventName,
+            eventDate:toString(this.state.selectedDay) +"/"+ toString(this.state.dateContext.month()) + toString(this.state.dateContext.year()),
+            moment:this.state.currentDateContext._d
+        }
+        const {data} = await axios.post("") 
+        this.state.data.user.events.push(event);
+
+    }
     render() {
-        console.log(this.state.logStatus)
-        console.log(this.state.data.user.name);
-        console.log(Cookies.get())
+        console.log(this.state.data.user.events)
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -224,8 +236,9 @@ export default class Calendar extends Func {
                 <div className="col-md-4 vh-100 p-0 right">
                     <nav className="navbar m-0">
                         <div className="navbar-brand">
-                        <i class="fa pr-2 fa-bell-o text-info" aria-hidden="true"></i>
-                        <i class="fa pl-2 fa-inbox" aria-hidden="true"></i>
+                        <i className="fa p-2  fa-calendar-o is-white"></i>
+                        <i class="fa  p-2 fa-bell-o text-info" aria-hidden="true"></i>
+                        <i class="fa p-2  fa-inbox" aria-hidden="true"></i>
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
                         <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
@@ -268,7 +281,11 @@ export default class Calendar extends Func {
                     <i onClick={e => {this.prevMonth()}} className="fa p-3 arrow fa-arrow-left"></i>
                     <i onClick={e => {this.nextMonth()}} className="fa p-3 arrow fa-arrow-right"></i>
                 </div>
-                
+                <form onSubmit={e => this.handleSubmit(e)} className="form-group">
+                    <label htmlFor="event">Event</label>
+                    <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control" id="event" type="text"/>
+                    <button className="btn btn-primary">add event<i className="fa fa-plus pl-2 pt-1" style={{color:"#89C283"}}></i></button>
+                </form>
                 </div>
                 <div className="col-md-8 p-0 left">
                     {this.calendarNav()}

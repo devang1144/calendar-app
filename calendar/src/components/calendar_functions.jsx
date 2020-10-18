@@ -100,7 +100,6 @@ export default class Func extends Component {
             selectedDay: day
         }, () => {
             console.log(this.state.selectedDay);
-            console.log(this.state.dateContext);
         });
 
         this.props.onDayClick && this.props.onDayClick(e, day);
