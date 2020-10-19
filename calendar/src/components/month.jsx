@@ -37,7 +37,10 @@ export default class Lists extends Component {
                                         <span className="eventName">{e.eventName}</span>
                                     </div>
                                     <div className="col">
-                                        Created on {e.moment}
+                                        Created on {e.moment.slice(0, 10)}
+                                    </div>
+                                    <div className="col">
+                                        Deadline {e.eventDate}
                                     </div>
                                     <div className="col d-flex change-menu justify-content-end">
                                         <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
@@ -64,7 +67,7 @@ export default class Lists extends Component {
                     
                 </div>
                 <div className="row">
-                    <div className="col-md-5 p-5">
+                    <div className="col-md-6 p-5">
                         <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events<i class="fa pl-3 text-danger fa-clock-o" aria-hidden="true"></i></h3>
                         {this.displayEvents()}
                         

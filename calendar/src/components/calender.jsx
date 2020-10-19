@@ -9,6 +9,7 @@ import Func from './calendar_functions';
 import axios from 'axios';
 import '../styles/calender.scss';
 import Cookies from 'js-cookie';
+import { Redirect } from 'react-router-dom';
 import Year from './Year';
 import Lists from './month';
 import Week from './weeks';
@@ -148,12 +149,15 @@ export default class Calendar extends Func {
                 </motion.div>
             );
         }
-        else{
+        else if(this.state.data.qwerty === "2"){
             return <Lists ev={this.state.data.user.events}/>
         }
-        // else{
-        //     return <Lists />
-        // }
+        else if (this.state.data.qwerty === "3"){
+            return <Week />
+        }
+        else {
+            return <Lists ev={this.state.data.user.events}/>
+        }
     }
     logOut = async() => {
         const data = await Cookies.remove('lauth');
@@ -176,7 +180,7 @@ export default class Calendar extends Func {
         e.preventDefault();
         const event = {
             eventName:this.state.data.eventName,
-            eventDate:(this.state.selectedDay) + (this.state.dateContext.month()) + (this.state.dateContext.year()),
+            eventDate:(this.state.selectedDay) + " " + (this.state.dateContext.format("MMM")) + "," + (this.state.dateContext.format("yy")) ,
             moment:this.state.currentDateContext._d
         };
          const { data:res } = await axios.post(`/api/user/${id}`, event);
