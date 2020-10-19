@@ -12,6 +12,7 @@ import Cookies from 'js-cookie';
 import Year from './Year';
 import Lists from './month';
 import Week from './weeks';
+import Clock from './Clock';
 import ArrowDown from '../assets/arrow_down.svg';
 export default class Calendar extends Func {
     state = {
@@ -25,6 +26,7 @@ export default class Calendar extends Func {
         events:[],
         show:false,
         todo:"",
+        isOpen:false,
         data: {
             qwerty:"2",
             user:[], 
@@ -35,21 +37,29 @@ export default class Calendar extends Func {
     }
     componentDidMount = async() => {
         const userId = Cookies.get('lauth');
-        this.getEvents();
+        if (userId) {
+            this.setState({
+                logStatus:true
+            })
+        }
+        else {
+            this.setState({
+                logStatus:false
+            })
+        }
         const {data:user} = await axios.post('/api/user', {_id:Cookies.get('lauth')});
-        this.setState({
-            data: {
-                user,
-            },
-            logStatus:true
-        })
+        if (user) {
+            this.setState({
+                data: {
+                    user,
+                },
+                logStatus:true
+            })
+        }
+        
         console.log(this.state.data.user.events)
     }
     
-    getEvents = async() => {
-        const {data:events} =  await axios.get('/api/listItems');
-        this.setState({events});
-    }
     displayEvents() {
 
     }
@@ -68,38 +78,39 @@ export default class Calendar extends Func {
         const value = e.target.value;
         this.setState({todo:value});
     }
-    handelSubmit = e => {
-        e.preventDefault();
-        const payload = {
-            todo:this.state.todo,
-            day:this.state.dateContext.date(),
-            month:this.state.dateContext.month(),
-            year:this.state.dateContext.year()
-        }
-        axios.post('/api/listItems', payload)
-        .then(console.log("event added!"));
-    }
-
+    handleOpen = () => {
+        this.setState({ isOpen: true })
+      }
+    
+      handleClose = () => {
+         this.setState({ isOpen: false })
+      }
     calendarNav = () => {
         return (
-            <nav className="navbar navbar-left m-0 navbar-expand-lg navbar-sticky-top">
+            <nav className="navbar navbar-right m-0 navbar-expand-lg navbar-sticky-top">
                 <div className="navbar-text">
                 </div>
                     <div className="col d-flex justify-content-start align-items-center flex-row">
                     
-                    
-                    <DropdownButton size="md" title={this.month()} className="month-button p-2">
-                            {this.months.map(m => 
-                                <Dropdown.Item onClick={(e)=> {this.changeMonth(e, m)}}> 
-                                    {m}
-                                </Dropdown.Item>
-                            )}
-                        </DropdownButton>
+                        <div className="dropdown p-2">
+                            <span className="is-poppins">{this.state.dateContext.format("MMMM")}</span>
+                        <div className="dropdown-content m-0">
+                            <ul className="">
+                                {this.months.map(m => 
+                                    <li className="is-white" onClick={(e)=> {this.changeMonth(e, m)}}>
+                                        <span className="dropdown-months">{m}</span>
+                                    </li>
+                                    )}
+                                
+                            </ul>
+                        </div>
+                    </div>
                     <input
                         defaultValue = {this.year()}
                         className="form-control year-value"
                         ref={(yearInput) => { this.yearInput = yearInput}}
                         onKeyUp= {(e) => this.onKeyUpYear(e)}
+                        name="yearInput"
                         onChange = {(e) => this.onYearChange(e)}
                         type="number"
                         placeholder="year"/>
@@ -133,7 +144,7 @@ export default class Calendar extends Func {
         if (this.state.data.qwerty === "1") {
             return (
                 <motion.div initial={{y:10, opacity:0}} animate={{y:-10, opacity:1}} transition={{duration:0.5}}>
-                    <Year/>
+                    <Year dateContext={this.state.dateContext}/>
                 </motion.div>
             );
         }
@@ -173,7 +184,7 @@ export default class Calendar extends Func {
 
     }
     render() {
-        console.log(this.state.data.user.events)
+        console.log(this.state.dateContext)
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -233,35 +244,24 @@ export default class Calendar extends Func {
         
         return (
             <div className="container-fluid landingContainer m-0" style={this.style}>
-                <div className="row">
+                <div className="row landing-page-row">
                 
-                <div className="col-md-4 vh-100 p-0 right">
-                    <nav className="navbar m-0">
+                <div className="col-md-4 p-0 right">
+                    <nav className="navbar navbar-left navbar-fixed m-0">
                         <div className="navbar-brand">
-                        <i className="fa p-2  fa-calendar-o is-white"></i>
                         <i class="fa  p-2 fa-bell-o text-info" aria-hidden="true"></i>
                         <i class="fa p-2  fa-inbox" aria-hidden="true"></i>
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
                         <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
-                        
-                        <img src={ArrowDown} className="dropdown img img-fluid pb-2 logout-section" alt=""/>
-                        <div className="dropdown-content m-0">
-                            <ul className="list-group">
-                                <li className="list-group-item">Rural Sports</li>
-                                <li className="list-group-item">Quality Education</li>
-                                <li className="list-group-item">Vocational training</li>
-                            </ul>
-                        </div>
                         </div>
                         
                     </nav>
                     <nav className="navbar m-0">
-                        <h4 className="navbar-brand is-poppins mt-4 date-heading mb-4">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                        <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
                         <div className=" justify-content-end">
-                        <i className="fa fa-list-ul p-2" style={{fontSize:24}}></i> 
-                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks">signup</span></Link>}
-                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks">login</span></Link>}
+                            {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
+                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
                             {this.state.logStatus && <span className="is-white" onClick={this.logOut}>Logout</span> }
                         </div>
                     </nav>
@@ -280,13 +280,15 @@ export default class Calendar extends Func {
                     </tbody>
                 </motion.table>
                 <div className="row m-0 d-flex justify-content-around">
-                    <i onClick={e => {this.prevMonth()}} className="fa p-3 arrow fa-arrow-left"></i>
-                    <i onClick={e => {this.nextMonth()}} className="fa p-3 arrow fa-arrow-right"></i>
+                    {/*<i className="fa p-3 fa-2x fa-angle-double-left"></i>*/}
+                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
+                    <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
+                    {/* <i onClick={(e) => this.onKeyUpYear(e)} className="fa p-3 fa-2x fa-angle-double-right"></i> */}
                 </div>
-                <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group">
-                    <label htmlFor="event">Event</label>
-                    <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control" id="event" type="text"/>
-                    <button className="btn btn-primary">add event<i className="fa fa-plus pl-2 pt-1" style={{color:"#89C283"}}></i></button>
+                <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
+        <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
+                    <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
+                    <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
                 </div>
                 <div className="col-md-8 p-0 left">

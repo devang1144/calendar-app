@@ -24,15 +24,27 @@ export default class Lists extends Component {
         const {data:events} = await axios.get("api/listItems");
         this.setState({events});
         const { data: user } = await axios.get('/api/user/login')
-        console.log(user)
-        this.setState({ev:this.props.ev})
+        this.setState({ev:this.props.ev});
     }
-    renderEvents() {
+    displayEvents() {
         if(this.state.ev) {
             return (
-                <motion.ul className="p-0" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                <motion.ul className="p-0 events" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
                     {this.state.ev.map(e => 
-                            <li className="p-3 is-poppins is-white"><strong>{e.eventName}</strong></li>
+                            <li className="p-3 is-poppins is-white">
+                                <div className="row">
+                                    <div className="col">
+                                        <span className="eventName">{e.eventName}</span>
+                                    </div>
+                                    <div className="col">
+                                        Created on {e.moment}
+                                    </div>
+                                    <div className="col d-flex change-menu justify-content-end">
+                                        <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                        <i className="fa fa-trash pl-2"></i>
+                                    </div>
+                                </div>
+                            </li>
                         )}
                 </motion.ul>
             );
@@ -46,12 +58,15 @@ export default class Lists extends Component {
     render() {
         console.log(this.props.ev)
         return (
-            <div>
-                <h1 className="is-white is-poppins mt-4 ml-2 m-5">My Dashboard</h1>
+            <div> 
+                <div className="d-inline">
+                    <h1 className="is-white is-poppins mt-4 ml-2 m-5">My Dashboard<i class="fa pl-2 text-dark fa-calendar-check-o" aria-hidden="true"></i></h1>
+                    
+                </div>
                 <div className="row">
                     <div className="col-md-5 p-5">
-                        <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events</h3>
-                        {this.renderEvents()}
+                        <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events<i class="fa pl-3 text-danger fa-clock-o" aria-hidden="true"></i></h3>
+                        {this.displayEvents()}
                         
                     </div>
                     <div className="col d-flex justify-content-end">

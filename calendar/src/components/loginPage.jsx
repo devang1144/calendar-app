@@ -64,9 +64,9 @@ export default class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                     <label for="pass">password</label>
-                    <input className="form-control" name="password" id="pass" type="text" onChange={this.handleChangePass} value={this.state.password}/>
+                    <input className="form-control" name="password" id="pass" type="password" onChange={this.handleChangePass} value={this.state.password}/>
                     </div>
-                    <button className="bttn bg-primary is-white">Login</button> 
+                    <button className="add-event-btn is-white">Login</button> 
                     <p className="p-4">Don't have a account, <Link to="/signup">signup</Link></p>   
                 </motion.form>    
             </div>

@@ -8,7 +8,7 @@ export default class Year extends Func {
     weekdaysShort = moment.weekdaysShort();
     months = moment.months();
     state = {
-        dateContext:moment(),
+        dateContext:this.props.dateContext,
         allMonths:[],
         today:moment()
     }
@@ -42,11 +42,9 @@ export default class Year extends Func {
     }
 
     renderNavBar() {
+        
         return (
             <nav className="navbar m-0 navbar-expand-lg navbar-sticky-top">
-                    <h1 className="navbar-text">
-                        {moment().format("YYYY")}
-                    </h1>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -157,7 +155,7 @@ export default class Year extends Func {
         return [trElems];
     }
     render() {
-        
+        console.log(this.props.dateContext)
         return (
             <div className="container-fluid background-left">            
                 {this.renderMonths()}
