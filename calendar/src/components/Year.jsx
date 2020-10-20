@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment';
+import Cookies from 'js-cookie'
 import Func from './calendar_functions';
 import {Link} from 'react-router-dom';
 import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
@@ -8,9 +9,14 @@ export default class Year extends Func {
     weekdaysShort = moment.weekdaysShort();
     months = moment.months();
     state = {
-        dateContext:this.props.dateContext,
+        currentDateContext:moment(),
+        dateContext:moment(),
         allMonths:[],
-        today:moment()
+        today:moment(),
+        selsectedDay:null,
+        data :{
+            eventName:"",
+        }
     }
     year = (m) => {
         return m.format("Y");
@@ -112,10 +118,11 @@ export default class Year extends Func {
                     <Popover className="edit-popover">
                     <Popover.Title as="h3" className="popover-title">New event{d ===  today? " today":(d === today+1 ? " tomorrow":` on ${d}th`)}</Popover.Title>
                     <Popover.Content>
-                        <form className="form form-group"  action="">
-                            <input onChange={this.handleRadio} name="edit" type="textarea" className="form-control mb-3" type="text"/>
-                            <button  className="btn btn-success btn-sm">save changes</button>
-                        </form>
+                    <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                        <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
+                        <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
+                        <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                    </form>
                     </Popover.Content>
                     </Popover>
                 }
@@ -155,7 +162,7 @@ export default class Year extends Func {
         return [trElems];
     }
     render() {
-        console.log(this.props.dateContext)
+        console.log(Cookies.get('lauth'))
         return (
             <div className="container-fluid background-left">            
                 {this.renderMonths()}

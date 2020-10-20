@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import moment from 'moment';
 import '../styles/calender.scss';
-
+import Cookies from 'js-cookie';
 import axios from 'axios';
 export default class Func extends Component {
-    state = {
-        dropDownValue:"month",
-        name:""
-    }
+
     year = () => {
         return this.state.dateContext.format("Y");
     }
@@ -94,8 +91,32 @@ export default class Func extends Component {
             })
         }
     }
+    handleSubmit = async (e) => {
+        const id = Cookies.get('lauth') ? Cookies.get('lauth') : console.log("fmklsdg"); 
+        e.preventDefault();
+        const event = {
+            eventName:this.state.data.eventName,
+            eventDate:(this.state.selectedDay) + " " + (this.state.dateContext.format("MMM")) + "," + (this.state.dateContext.format("yy")) ,
+            moment:this.state.currentDateContext._d
+        };
+         const { data:res } = await axios.post(`/api/user/${id}`, event);
+        console.log(res);        
 
-    onDayClick = (e, day) => {
+    }
+    showEventOnThatDate = (e, events, day) => {
+        const eventThatDay = [];
+        const date = this.state.dateContext;
+        const thatDay = day + " " + date.format("MMM") + "," + date.format("YYYY");
+        const length = (events === undefined) ? 0: events.length;
+        for (let i=0;i<length;i++) {
+            if(thatDay === events[i].eventDate) {
+                eventThatDay.push({eventName:events[i].eventName})
+            }
+        }
+
+        console.log(eventThatDay)
+    }   
+    onDayClick = (e, events, day) => {
         this.setState({
             selectedDay: day
         }, () => {
@@ -104,6 +125,7 @@ export default class Func extends Component {
         });
 
         this.props.onDayClick && this.props.onDayClick(e, day);
+        this.showEventOnThatDate(e, events, day)
     }
     changeValue(text) {
         this.setState({dropDownValue: text})

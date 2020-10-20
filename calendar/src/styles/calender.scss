@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fjalla+One&display=swap');
 $backgroundColor : rgba(200, 200, 200, 0.25);
 $backgroundColorHover: rgba(200, 200, 200, 0.33);
 @import './nav';
 .is-white {
     color: #000;
 }
+.app-name {
+    font-family: 'Fjalla One';
+    
+}
 .is-bold {
     font-weight: 600;
 }
+.cursor-p {
+    cursor: pointer;
+} 
 .year-value {
     width: 100px !important;
     background: #222 !important;
@@ -60,7 +68,6 @@ input::-webkit-inner-spin-button {
     z-index: 1;
     border: 2px solid #000 !important;
     
-    box-shadow: 4px 4px rgba(1,1,1,0.2) !important;
     &:hover {
         cursor: pointer;
         
@@ -218,9 +225,8 @@ ul {
     list-style-type: none;
 }
 .events {
-    border: 2px solid #000;
     border-radius: 8px;
-    li {
+    tr {
         .eventName {
             &:hover {
                 border-bottom: 2px solid #B10DFF;
@@ -232,6 +238,19 @@ ul {
 }
 table {
     overflow: scroll;
+    td {
+        border-top: none !important;
+    }
+    thead {
+        border-top: none !important;
+    }
+    th {
+        border-top: none !important;
+        vertical-align: top !important;
+    }
+}
+.events-table {
+    border-radius: 20px !important;
 }
 .fa-trash, .fa-pencil {
     display: none !important;
@@ -239,7 +258,7 @@ table {
         color: #B10DFF;
     }
 }
-li {
+tr {
     &:hover {
         .fa-trash, .fa-pencil {
             display: block !important;
@@ -255,10 +274,15 @@ td {
 }
 
 .navbar-right {
-    background: rgb(250, 253, 253);
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.navbar-left {
+    background: rgba(255, 179, 0, 0.1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .right {
-    background-color: rgba(255, 179, 0, 0.5);
+    background-color: rgba(255, 179, 0, 0.55);
 }
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
@@ -326,9 +350,9 @@ td {
   ::-ms-input-placeholder {
    color: #000;
   }
-  .fa-inbox {
-      color: #C2A026;
-  }
+//   .fa-inbox {
+//       color: #C2A026;
+//   }
 .form-search button {
     background: transparent !important;
     border: none;

@@ -22,7 +22,7 @@ export default class Calendar extends Func {
         today: moment(),
         showMonthPopup: false,
         showYearPopup: false,
-        selectedDay: null,
+        selectedDay: moment().get("date"),
         popoverOpen:false,
         events:[],
         show:false,
@@ -58,7 +58,6 @@ export default class Calendar extends Func {
             })
         }
         
-        console.log(this.state.data.user.events)
     }
     
     displayEvents() {
@@ -88,11 +87,10 @@ export default class Calendar extends Func {
       }
     calendarNav = () => {
         return (
-            <nav className="navbar navbar-right m-0 navbar-expand-lg navbar-sticky-top">
+            <nav className="navbar shadow-sm navbar-right m-0 navbar-expand-lg navbar-sticky-top">
                 <div className="navbar-text">
                 </div>
                     <div className="col d-flex justify-content-start align-items-center flex-row">
-                    
                         <div className="dropdown p-2">
                             <span className="is-poppins">{this.state.dateContext.format("MMMM")}</span>
                         <div className="dropdown-content m-0">
@@ -132,6 +130,8 @@ export default class Calendar extends Func {
                     </div>
                     
                     <div className="collapse navbar-collapse justify-content-end">
+                    <i class="fa  p-2 fa-bell-o" aria-hidden="true"></i>
+                        <i class="fa p-2 mr-2 fa-inbox" aria-hidden="true"></i>
                     <form className="form-search" action="">
                         <input className="search-input-box" type="search" placeholder="search events.."/>
                         <button type="submit"><i class="fa fa-search"></i></button>
@@ -175,20 +175,8 @@ export default class Calendar extends Func {
         if (name === undefined)return;
         return name;
     }
-    handleSubmit = async (e) => {
-        const id = Cookies.get('lauth') ? Cookies.get('lauth') : console.log("fmklsdg"); 
-        e.preventDefault();
-        const event = {
-            eventName:this.state.data.eventName,
-            eventDate:(this.state.selectedDay) + " " + (this.state.dateContext.format("MMM")) + "," + (this.state.dateContext.format("yy")) ,
-            moment:this.state.currentDateContext._d
-        };
-         const { data:res } = await axios.post(`/api/user/${id}`, event);
-        console.log(res);        
-
-    }
+    
     render() {
-        console.log(this.state.dateContext)
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -213,7 +201,7 @@ export default class Calendar extends Func {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e, d)}>{d}</span>
+                <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events, d)}>{d}</span>
                 </td>  
                     
                 
@@ -251,10 +239,10 @@ export default class Calendar extends Func {
                 <div className="row landing-page-row">
                 
                 <div className="col-md-4 p-0 right">
-                    <nav className="navbar navbar-left navbar-fixed m-0">
+                    <nav className="navbar shadow-sm navbar-left navbar-fixed m-0">
                         <div className="navbar-brand">
-                        <i class="fa  p-2 fa-bell-o text-info" aria-hidden="true"></i>
-                        <i class="fa p-2  fa-inbox" aria-hidden="true"></i>
+                            <h2 className="app-name">1999 Sharp</h2>
+                        
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
                         <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
@@ -266,7 +254,7 @@ export default class Calendar extends Func {
                         <div className=" justify-content-end">
                             {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
                             {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
-                            {this.state.logStatus && <span className="is-white" onClick={this.logOut}>Logout</span> }
+                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
                         </div>
                     </nav>
                     <span>
@@ -290,14 +278,15 @@ export default class Calendar extends Func {
                     {/* <i onClick={(e) => this.onKeyUpYear(e)} className="fa p-3 fa-2x fa-angle-double-right"></i> */}
                 </div>
                 <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
-        <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
+                    <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
                     <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
+                
                 </div>
                 <div className="col-md-8 p-0 left">
                     {this.calendarNav()}
-                    {this.showDifferentComp()}
+                    {this.showDifferentComp(this.state.data.user.events)}
                 </div>
                 </div>
                 
@@ -307,4 +296,5 @@ export default class Calendar extends Func {
 
         );
     }
+    
 }
