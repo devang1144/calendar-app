@@ -103,17 +103,19 @@ export default class Func extends Component {
         console.log(res);        
 
     }
-    showEventOnThatDate = (e, events, day) => {
+    showEventOnThatDate = (events) => {
         const eventThatDay = [];
         const date = this.state.dateContext;
-        const thatDay = day + " " + date.format("MMM") + "," + date.format("YYYY");
+        const thatDay = date.format("MMM,YYYY");
         const length = (events === undefined) ? 0: events.length;
         for (let i=0;i<length;i++) {
-            if(thatDay === events[i].eventDate) {
+            if(thatDay === events[i].eventDate.split(" ")[1]) {
                 eventThatDay.push({eventName:events[i].eventName})
+                
             }
+            console.log(thatDay, events[i].eventDate.split(" ")[1])
         }
-
+        this.setState({eventThatDay})
         console.log(eventThatDay)
     }   
     onDayClick = (e, events, day) => {
@@ -121,10 +123,10 @@ export default class Func extends Component {
             selectedDay: day
         }, () => {
             console.log(this.state.selectedDay);
-
+            console.log(this.state.dateContext.format("MMM,YYYY"))
         });
-
         this.props.onDayClick && this.props.onDayClick(e, day);
+
         this.showEventOnThatDate(e, events, day)
     }
     changeValue(text) {

@@ -22,6 +22,7 @@ export default class Calendar extends Func {
         today: moment(),
         showMonthPopup: false,
         showYearPopup: false,
+        eventThatDay:[],
         selectedDay: moment().get("date"),
         popoverOpen:false,
         events:[],
@@ -57,7 +58,7 @@ export default class Calendar extends Func {
                 logStatus:true
             })
         }
-        
+        this.showEventOnThatDate(this.state.data.user.events)
     }
     
     displayEvents() {
@@ -141,7 +142,7 @@ export default class Calendar extends Func {
         );
     }
 
-    showDifferentComp() {
+    showDifferentComp(eventThatMonth) {
         if (this.state.data.qwerty === "1") {
             return (
                 <motion.div initial={{y:10, opacity:0}} animate={{y:-10, opacity:1}} transition={{duration:0.5}}>
@@ -150,13 +151,13 @@ export default class Calendar extends Func {
             );
         }
         else if(this.state.data.qwerty === "2"){
-            return <Lists ev={this.state.data.user.events}/>
+            return <Lists ev={this.state.data.user.events} eventThatDay={eventThatMonth}/>
         }
         else if (this.state.data.qwerty === "3"){
             return <Week />
         }
         else {
-            return <Lists ev={this.state.data.user.events}/>
+            return <Lists ev={this.state.data.user.events} eventThatDay={eventThatMonth}/>
         }
     }
     logOut = async() => {
@@ -177,6 +178,22 @@ export default class Calendar extends Func {
     }
     
     render() {
+        const events = this.state.data.user.events;
+        const eventThatDay = [];
+        const date = this.state.dateContext;
+        const thatDay = date.format("MMM,YYYY");
+        const length = (events === undefined) ? 0: events.length;
+        for (let i=0;i<length;i++) {
+            if(thatDay === events[i].eventDate.split(" ")[1]) {
+                eventThatDay.push({eventName:events[i].eventName, eventDate:events[i].eventDate})
+                
+            }
+            console.log(thatDay, events[i].eventDate.split(" ")[1])
+        }
+        console.log(eventThatDay)
+        
+        let eventThatMonth = eventThatDay.map(m => {return(<span>{m.eventName}</span>)})
+        
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -201,7 +218,7 @@ export default class Calendar extends Func {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events, d)}>{d}</span>
+                    <span className="day p-2 rounded text-center">{d}</span>
                 </td>  
                     
                 
@@ -250,7 +267,9 @@ export default class Calendar extends Func {
                         
                     </nav>
                     <nav className="navbar m-0">
+                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
                         <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
                         <div className=" justify-content-end">
                             {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
                             {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
@@ -273,8 +292,7 @@ export default class Calendar extends Func {
                 </motion.table>
                 <div className="row m-0 d-flex justify-content-around">
                     {/*<i className="fa p-3 fa-2x fa-angle-double-left"></i>*/}
-                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
-                    <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
+                    
                     {/* <i onClick={(e) => this.onKeyUpYear(e)} className="fa p-3 fa-2x fa-angle-double-right"></i> */}
                 </div>
                 <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
@@ -282,11 +300,10 @@ export default class Calendar extends Func {
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
                     <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
-                
                 </div>
                 <div className="col-md-8 p-0 left">
                     {this.calendarNav()}
-                    {this.showDifferentComp(this.state.data.user.events)}
+                    {this.showDifferentComp(eventThatDay)}
                 </div>
                 </div>
                 

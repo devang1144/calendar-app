@@ -6,7 +6,8 @@ import {Link} from 'react-router-dom';
 export default class Lists extends Component {
     state = {
         events:[],
-        ev:[]
+        ev:[],
+        eventThatDay:[]
     }
     renderRadio(name, label, id, onChange, value, ...rest) {
         return (<div className="form-check">
@@ -23,8 +24,10 @@ export default class Lists extends Component {
     componentDidMount = async() => {
         const {data:events} = await axios.get("api/listItems");
         this.setState({events});
-        const { data: user } = await axios.get('/api/user/login')
+        const { data: user } = await axios.get('/api/user/login');
         this.setState({ev:this.props.ev});
+        console.log(this.props)
+        this.setState({eventThatDay:this.props.eventThatDay});
     }
     displayEvents() {
         if(this.state.ev) {
@@ -58,12 +61,35 @@ export default class Lists extends Component {
             );
         }
     }
+    displayEventForThisMonth() {
+        return (
+            <motion.table className="table events-table shadow p-0 m-2 events" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                    <thead>
+                        <th>Events</th>
+                        <th>Scheduled On</th>
+                        <th>&nbsp;&nbsp;&nbsp;</th>
+                    </thead>
+                    <tbody>
+                    {this.props.eventThatDay.map(e => 
+                            <tr className="p-0 is-poppins is-white">
+                                <td><span className="eventName">{e.eventName}</span></td>
+                                <td><span className="eventName text-danger">{e.eventDate}</span></td>
+                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                <i className="fa fa-trash pl-2"></i>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                    
+                </motion.table>
+        );
+    }
     render() {
+        console.log(this.props)
         return (
             <div> 
                 <div className="d-inline">
                     <h1 className="is-white is-poppins mt-4 ml-2 m-5">My Dashboard<i class="fa pl-2 text-dark fa-calendar-check-o" aria-hidden="true"></i></h1>
-                    
                 </div>
                 <div className="row m-0">
                     <div className="col-md-7 p-5">
@@ -71,8 +97,9 @@ export default class Lists extends Component {
                         {this.displayEvents()}
                         
                     </div>
-                    <div className="col d-flex justify-content-end">
-                        <h4 className="is-white p-4">add event<i className="fa fa-plus p-2" style={{color:"#89C283"}}></i></h4>
+                    <div className="col-md-5 p-5">
+                    <h3 className="is-white is-poppins pb-2 pl-2">This month</h3>
+                        {this.displayEventForThisMonth()}
                     </div>
                 </div>
                        
