@@ -52,12 +52,17 @@ export default class LoginPage extends Component {
         if(this.state.redirect) {
             this.setState({redirect:false})
             return <Redirect to="/"/>
+            
         }
         return (
             <React.Fragment>
             <NavLogin/>
             <div className="container mt-3 d-flex justify-content-start">
-                <motion.form initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}} className="m-3 rounded p-3 border" onSubmit={this.handleSubmit}>
+                <motion.form initial={{y:40, opacity:0}} 
+                animate={{y:0, opacity:1}} 
+                transition={{duration:1}} 
+                className="m-3 rounded p-3 border" 
+                onSubmit={this.handleSubmit}>
                     <div className="form-group">
                     <label for="email">email</label>
                     <input className="form-control" id="email" name="email" type="text" onChange={this.handleChangeMail} value={this.state.email}/>

@@ -42,6 +42,7 @@ input {
 }
 .todays-date {
     font-weight: 500;
+    font-size: 14px !important;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -91,7 +92,7 @@ input::-webkit-inner-spin-button {
         opacity: 0;
     }
     to {
-        opacity: 1;
+        opacity: 1; 
     }
   }
 

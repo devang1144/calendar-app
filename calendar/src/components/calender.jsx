@@ -41,9 +41,9 @@ export default class Calendar extends Func {
         logStatus:false,
         uname1:Cookies.get('uname'),
     }
-    schema={
-        year:Joi.number().min(4).max(4).label("Year").required()
-    }
+    // schema={
+    //     year:Joi.number().min(4).max(4).label("Year").required()
+    // }
     componentDidMount = async() => {
         const userId = Cookies.get('lauth');
         if (userId) {
@@ -172,6 +172,7 @@ export default class Calendar extends Func {
             return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
         }
     }
+     
     logOut = async() => {
         const data = await Cookies.remove('lauth');
         this.setState({
@@ -179,8 +180,12 @@ export default class Calendar extends Func {
         })
         this.setState({
             user:[]
+        },()=>{
+            Cookies.remove('uname')
+            
         })
-        Cookies.remove('uname')
+        return <Redirect to="/login" />
+        // window.location.reload(false);
         // Cookies.set('IsLoggedIn',false)
     }
 
@@ -277,13 +282,14 @@ export default class Calendar extends Func {
                         
                     </nav>
                     <nav className="navbar m-0">
+                        <div style={{flex:7}}>
                     <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
-                        <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
-                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
-                        <div className=" justify-content-end">
-                            {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
-                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
-                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
+                        <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date ml-3">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i></div>
+                        <div className=" justify-content-end " style={{flex:3}}>
+                            {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks-ls is-white ">signup</span></Link>}
+                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks-ls is-white ml-2">login</span></Link>}
+                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p ml-5" onClick={this.logOut}>Logout</button> }
                         </div>
                     </nav>
                     <span>

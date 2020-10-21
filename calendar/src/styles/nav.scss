@@ -6,3 +6,31 @@
         opacity: 1;
     }
 }
+.navLinks-ls{
+    font-family: 'Nunito';
+    color: #fff;
+    padding: 3px !important;
+    border: 2px solid #000;
+    border-radius: 4px ;
+    // opacity: 0.7;
+    // &:hover {
+    //     opacity: 1;
+    // }
+    transition-delay: 0.1s !important;
+    -webkit-transition-property: background, transform;
+    -webkit-transition-duration: 0.5s, 0.2s;
+    &:focus {
+        outline: none !important;
+    }
+    &:hover {
+        .fa-plus {
+            color: #fff !important;
+            opacity: 0.9;
+        }
+        background: #000 !important;
+        color: #fff;
+        transition:all 0.2s !important;
+        transform: translateY(-3px) !important;
+        
+    }
+}
