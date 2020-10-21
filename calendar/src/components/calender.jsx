@@ -7,6 +7,7 @@ import list from '../assets/list.svg';
 import { Link } from 'react-router-dom';
 import Func from './calendar_functions';
 import axios from 'axios';
+import Joi from 'joi-browser';
 import '../styles/calender.scss';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
@@ -18,11 +19,14 @@ import ArrowDown from '../assets/arrow_down.svg';
 export default class Calendar extends Func {
     state = {
         dateContext: moment(),
+        year:"",
+        yearError:"",
         currentDateContext: moment(),
         today: moment(),
         showMonthPopup: false,
         showYearPopup: false,
         eventThatDay:[],
+        eventOnThatDay:[],
         selectedDay: moment().get("date"),
         popoverOpen:false,
         events:[],
@@ -36,6 +40,9 @@ export default class Calendar extends Func {
         },
         logStatus:false,
         uname1:Cookies.get('uname'),
+    }
+    schema={
+        year:Joi.number().min(4).max(4).label("Year").required()
     }
     componentDidMount = async() => {
         const userId = Cookies.get('lauth');
@@ -58,7 +65,6 @@ export default class Calendar extends Func {
                 logStatus:true
             })
         }
-        this.showEventOnThatDate(this.state.data.user.events)
     }
     
     displayEvents() {
@@ -105,6 +111,7 @@ export default class Calendar extends Func {
                             </ul>
                         </div>
                     </div>
+                    <div className="co">
                     <input
                         defaultValue = {this.year()}
                         className="form-control year-value"
@@ -113,8 +120,12 @@ export default class Calendar extends Func {
                         name="yearInput"
                         onChange = {(e) => this.onYearChange(e)}
                         type="number"
+                        value={this.state.year}
                         placeholder="year"/>
                     </div>
+                    <p className={this.state.yearError.length === 0 ? "" : "ml-2 p-2 my-auto alert alert-danger"}>{this.state.yearError}</p>
+                    </div>
+                    
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -143,6 +154,7 @@ export default class Calendar extends Func {
     }
 
     showDifferentComp(eventThatMonth) {
+        const user = this.state.data.user;
         if (this.state.data.qwerty === "1") {
             return (
                 <motion.div initial={{y:10, opacity:0}} animate={{y:-10, opacity:1}} transition={{duration:0.5}}>
@@ -151,13 +163,13 @@ export default class Calendar extends Func {
             );
         }
         else if(this.state.data.qwerty === "2"){
-            return <Lists ev={this.state.data.user.events} eventThatDay={eventThatMonth}/>
+            return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
         }
         else if (this.state.data.qwerty === "3"){
             return <Week />
         }
         else {
-            return <Lists ev={this.state.data.user.events} eventThatDay={eventThatMonth}/>
+            return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
         }
     }
     logOut = async() => {
@@ -188,9 +200,7 @@ export default class Calendar extends Func {
                 eventThatDay.push({eventName:events[i].eventName, eventDate:events[i].eventDate})
                 
             }
-            console.log(thatDay, events[i].eventDate.split(" ")[1])
         }
-        console.log(eventThatDay)
         
         let eventThatMonth = eventThatDay.map(m => {return(<span>{m.eventName}</span>)})
         
@@ -218,7 +228,7 @@ export default class Calendar extends Func {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                    <span className="day p-2 rounded text-center">{d}</span>
+                    <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
                 </td>  
                     
                 
@@ -255,8 +265,8 @@ export default class Calendar extends Func {
             <div className="container-fluid landingContainer m-0" style={this.style}>
                 <div className="row landing-page-row">
                 
-                <div className="col-md-4 p-0 right">
-                    <nav className="navbar shadow-sm navbar-left navbar-fixed m-0">
+                <div className="col-md-3 vh-100 p-0 right">
+                    <nav className="navbar navbar-left navbar-fixed m-0">
                         <div className="navbar-brand">
                             <h2 className="app-name">1999 Sharp</h2>
                         
@@ -298,10 +308,10 @@ export default class Calendar extends Func {
                 <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
                     <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
-                    <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                    <button className="add-event-btn" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
                 </div>
-                <div className="col-md-8 p-0 left">
+                <div className="col-md-9 p-0 left">
                     {this.calendarNav()}
                     {this.showDifferentComp(eventThatDay)}
                 </div>

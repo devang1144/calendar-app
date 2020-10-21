@@ -79,8 +79,20 @@ export default class Func extends Component {
         })
     }
     onYearChange = (e) => {
-        this.setYear(e.target.value);
-        this.props.onYearChange && this.props.onYearChange(e, e.target.value);
+        let value = e.target.value;
+        if (value.length > 4) {
+            console.log(value.length)
+            value = value.slice(0, 4);
+        }else if (value.length < 4) {
+            this.setState({yearError:"Year is invalid"})
+        }
+        else{
+            this.setState({yearError:""})
+        }
+        this.setState({year:value})
+        this.setYear(value);
+        this.props.onYearChange && this.props.onYearChange(e, value);
+        
     }
 
     onKeyUpYear = (e) => {
@@ -103,31 +115,27 @@ export default class Func extends Component {
         console.log(res);        
 
     }
-    showEventOnThatDate = (events) => {
-        const eventThatDay = [];
-        const date = this.state.dateContext;
-        const thatDay = date.format("MMM,YYYY");
-        const length = (events === undefined) ? 0: events.length;
-        for (let i=0;i<length;i++) {
-            if(thatDay === events[i].eventDate.split(" ")[1]) {
-                eventThatDay.push({eventName:events[i].eventName})
-                
-            }
-            console.log(thatDay, events[i].eventDate.split(" ")[1])
-        }
-        this.setState({eventThatDay})
-        console.log(eventThatDay)
-    }   
+  
     onDayClick = (e, events, day) => {
+        const date = this.state.dateContext;
         this.setState({
             selectedDay: day
         }, () => {
-            console.log(this.state.selectedDay);
-            console.log(this.state.dateContext.format("MMM,YYYY"))
+            const eventThatDay = [];
+            const thatDay = this.state.selectedDay + " " + date.format("MMM,YYYY");
+            console.log(thatDay)
+            const length = (events === undefined) ? 0: events.length;
+            for (let i=0;i<length;i++) {
+                if(thatDay === events[i].eventDate) {
+                    eventThatDay.push({eventName:events[i].eventName, eventDate:events[i].eventDate})
+                    
+                }
+                console.log(thatDay, events[i].eventDate)
+            }
+            this.setState({eventOnThatDay:eventThatDay}, () => {console.log(this.state.eventOnThatDay)})
+            
         });
         this.props.onDayClick && this.props.onDayClick(e, day);
-
-        this.showEventOnThatDate(e, events, day)
     }
     changeValue(text) {
         this.setState({dropDownValue: text})
