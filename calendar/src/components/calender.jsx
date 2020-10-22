@@ -38,7 +38,7 @@ export default class Calendar extends Func {
             user:[], 
             eventName:""
         },
-        logStatus:false,
+        logStatus:true,
         uname1:Cookies.get('uname'),
     }
     // schema={
@@ -175,16 +175,17 @@ export default class Calendar extends Func {
      
     logOut = async() => {
         const data = await Cookies.remove('lauth');
-        this.setState({
-            logStatus:false
-        })
+        
         this.setState({
             user:[]
         },()=>{
             Cookies.remove('uname')
             
         })
-        return <Redirect to="/login" />
+        this.setState({
+            logStatus:false
+        }, () => {console.log(this.state.logStatus)})
+        
         // window.location.reload(false);
         // Cookies.set('IsLoggedIn',false)
     }
@@ -195,6 +196,7 @@ export default class Calendar extends Func {
     }
     
     render() {
+        if(!this.state.logStatus)return <Redirect to="/"/>
         const events = this.state.data.user.events;
         const eventThatDay = [];
         const date = this.state.dateContext;

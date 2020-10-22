@@ -51,7 +51,7 @@ export default class LoginPage extends Component {
         console.log(this.state.userData)
         if(this.state.redirect) {
             this.setState({redirect:false})
-            return <Redirect to="/d"/>
+            return <Redirect to="/loading"/>
             
         }
         return (
