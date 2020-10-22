@@ -6,12 +6,14 @@ import Year from './components/Year';
 import Signup from './components/signupPage';
 import LoginPage from './components/loginPage';
 import Test from './components/testPage';
+import HomePage from './components/HomePage';
 function App() {
   return (
     <div>
       <Router>
           <Switch>
-              <Route path='/' exact component={Calender}/>
+              <Route path='/' exact component={HomePage}/>
+              <Route path='/d' exact component={Calender}/>
               <Route path='/month' component={Months}/>
               <Route path='/year' component={Year}/>
               <Route path='/signup' component={Signup}/>

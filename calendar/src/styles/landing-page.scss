@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Nunito&display=swap');
+.is-nunito {
+    font-family: 'Nunito';
+}
+.is-fjalla {
+    font-family: 'Fjalla One';
+}
+.brand {
+    font-size: 27px !important;
+}
+.background-white {
+    background: #fff !important;
+}
+.sign-up {
+    background: #000;
+    color: #fff;
+    border-radius: 20px !important;
+    padding: 10px !important;
+    &:hover {
+        text-decoration: none !important;
+        color: #fff;
+        cursor: pointer;
+    }
+}
+.landing-page-heading {
+    font-size: 70px;
+}
+.container-calendar-wqewe {
+    width: 36%;
+    margin: 0 auto !important;
+    transform: rotate3d(.5,-.866,0,15deg) rotate(-1deg);
+    background-color: rgba(242, 232, 195, 0.4);
+    border-radius: 20px;
+}
+.container-row {
+    width: 75%;
+    margin: 0 auto !important;
+    background-color:rgba(242, 232, 195, 0.4);
+    border-radius: 20px;
+}
+.heading-2 {
+    font-size: 40px;
+}
+.footer {
+    width: 80%;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media screen and (max-width:505px) {
+    .container-calendar-wqewe {
+        width: 90%;
+        margin: 0 auto !important;
+        transform: rotate3d(.5,-.866,0,15deg) rotate(-1deg);
+        border-radius: 20px;
+    }
+}

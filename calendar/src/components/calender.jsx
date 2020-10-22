@@ -273,23 +273,20 @@ export default class Calendar extends Func {
                 <div className="col-md-3 vh-100 p-0 right">
                     <nav className="navbar navbar-left navbar-fixed m-0">
                         <div className="navbar-brand">
-                            <h2 className="app-name">1999 Sharp</h2>
-                        
+                            <h2 className="app-name">1999 Sharp</h2>  
                         </div>
                         <div className="navbar-nav d-flex flex-row ml-auto">
                         <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
                         </div>
-                        
                     </nav>
                     <nav className="navbar m-0">
-                        <div style={{flex:7}}>
                     <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
-                        <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date ml-3">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
-                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i></div>
-                        <div className=" justify-content-end " style={{flex:3}}>
-                            {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks-ls is-white ">signup</span></Link>}
-                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks-ls is-white ml-2">login</span></Link>}
-                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p ml-5" onClick={this.logOut}>Logout</button> }
+                    <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
+                        <div className=" justify-content-end">
+                            {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
+                            {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
+                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
                         </div>
                     </nav>
                     <span>
