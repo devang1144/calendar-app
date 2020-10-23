@@ -5,6 +5,7 @@ import moment from 'moment';
 import '../styles/landing-page.scss'
 import Calendar from './calender';
 import ScrollReveal from 'scrollreveal';
+import dashboard from '../assets/dashboard.svg';
 export default class HomePage extends Calendar {
     
     state = {
@@ -41,7 +42,7 @@ export default class HomePage extends Calendar {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                    <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
+                    <span className="day rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
                 </td>  
                     
                 
@@ -77,35 +78,32 @@ export default class HomePage extends Calendar {
             <React.Fragment>
             <div className="container-fluid shadow-sm">
                 <div className="container">
-                <nav class="navbar navbar-expand-lg">
+                <nav class="navbar navbar-expand-lg m-0">
                     <h1 class="navbar-brand brand is-fjalla">1999 Sharp</h1>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="landingPageNavbar">
                         <div class="navbar-nav ml-auto align-items-center">
-                        <Link style={{textDecoration:"none", color:"#000"}} className="mr-3 is-nunito" to="/contact">Contact</Link>
-                        <Link style={{textDecoration:"none", color:"#000"}} className="mr-3 is-nunito" to="/faq">FAQ</Link>
-                        <Link style={{textDecoration:"none", color:"#000"}} className="mr-3 is-nunito" to="/login">sign in</Link>
-                        <Link style={{textDecoration:"none"}} className="sign-up is-nunito" to="/"><span className="">sign up for free</span></Link>
+                        <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/contact">Contact</Link>
+                        <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/faq">FAQ</Link>
+                        <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/login">sign in</Link>
+                        <Link className="sign-up is-nunito" to="/signup"><span className="">sign up for free</span></Link>
                         </div>
                     </div>
                 </nav>
                 </div>   
             </div>
             <div className="vh-100">
-            <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className=" mt-4 text-center is-nunito row d-flex justify-content-center align-items-center background-white">
-                <div className="col-md-12">
-                <span className=" font-weight-bold landing-page-heading">Your shcedule<br/>management tool</span>
+            <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className="mt-4 text-center is-nunito row d-flex justify-content-center align-items-center background-white">
+                <div className="col-md-12 mt-5">
+                <span className=" font-weight-bold landing-page-heading">Your schedule<br/>management tool</span>
                 </div>
                 <div className="col-md-12">
-                <h3>Keep yourself updated and organised</h3>
+                <p classname="landing-page-heading2">Keep yourself updated and organised</p>
                 </div>    
             </motion.div>
-            <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className="is-nunito text-center jumbotron d-flex justify-content-center background-white">
-                
-            </motion.div>
-            <div className="container-calendar-wqewe shadow-lg">
+            <div className="container-calendar-wqewe  mt-5">
             <div className="d-flex justify-content-center align-items-center">
                     <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
                     <h4 className="is-poppins mt-4 mb-4">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
@@ -127,18 +125,25 @@ export default class HomePage extends Calendar {
             
             <div className="row container-row p-4">
                 <div className="col is-nunito d-flex flex-column font-weight-bold">
-                    <div className="row mb-4"><span className="mb-2 heading-2">Manage, organise your events<br/>in Dashboard</span><br/></div>
-                    <div className="row"><span className="">try it <span className="sign-up">sign up for free</span></span></div>
+                    <div className="row mb-4"><span className="mb-2 ml-2 mt-3 heading-2">Manage, organise your events<br/>in Dashboard</span><br/></div>
+                    <div className="row"><span className="ml-2 mt-3 mr-2">try it <Link to="/signup"><span className="sign-up">sign up for free</span></Link></span></div>
                     
                     
                 </div>
-                <div className="col"></div>
+                <div className="col">
+                    <img src={dashboard} className="img img-fluid" alt=""/>
+                </div>
             </div>
             <div className="row container-row mt-5 p-4">
                 <div className="col"></div>
                 <div className="col is-nunito d-flex flex-column font-weight-bold">
-                    <div className="row mb-4"><span className="mb-2 heading-2">We keep track of your events :)</span><br/></div>            
+                    <div className="row mb-4"><span className="mb-2 heading-2">We keep track of your events</span><br/>
+                    <span>We'll notify you before deadline, so no need to worry :)</span>
+                    </div>            
                 </div>
+            </div>
+            <div className="row mt-4 p-4">
+                <div className="col-md-12  d-flex justify-content-center align-items-center"><span className="sign-up">Get started</span><i class="fa pl-2 fa-arrow-right"></i></div>
             </div>
             <footer className="footer p-2 border-top mt-5">
                 <div className="row">

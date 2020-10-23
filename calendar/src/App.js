@@ -8,6 +8,8 @@ import LoginPage from './components/loginPage';
 import Test from './components/testPage';
 import HomePage from './components/HomePage';
 import Loading from './components/logload';
+import Glog from './components/googlelogin';
+import Contact from './components/contact';
 function App() {
   return (
     <div>
@@ -21,6 +23,8 @@ function App() {
               <Route path='/login' component={LoginPage}/>
               <Route path='/test' component={Test}/>
               <Route path='/loading' component={Loading} />
+              <Route path='/glog' component={Glog} />
+              <Route path='/contact' component={Contact} />
           </Switch>
       </Router>
     </div>
