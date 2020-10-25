@@ -86,13 +86,15 @@ export default class HomePage extends Calendar {
             <React.Fragment>
             <div className="container-fluid shadow-sm">
                 <div className="container">
-                <nav class="navbar navbar-expand-lg m-0">
-                    <h1 class="navbar-brand brand is-fjalla">1999 Sharp</h1>
+                <nav className="navbar navbar-expand-lg m-0">
+                    <h1 className="navbar-brand brand is-fjalla">1999 Sharp</h1>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon m-1"></span>
+                        <span class="navbar-toggler-icon m-1"></span>
+                        <span class="navbar-toggler-icon m-1"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="landingPageNavbar">
-                        <div class="navbar-nav ml-auto align-items-center">
+                    <div className="collapse navbar-collapse" id="landingPageNavbar">
+                        <div className="navbar-nav ml-auto align-items-center">
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/contact">Contact</Link>
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/faq">FAQ</Link>
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/login">sign in</Link>
@@ -105,7 +107,7 @@ export default class HomePage extends Calendar {
                 
             </div>
             <div className="vh-100">
-            <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className="mt-4 text-center is-nunito row d-flex justify-content-center align-items-center background-white">
+            <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className="mt-4 text-center is-nunito m-0 row d-flex justify-content-center align-items-center background-white">
                 <div className="col-md-12 mt-5">
                 <span className=" font-weight-bold landing-page-heading">Your schedule<br/>management tool</span>
                 </div>
@@ -152,7 +154,7 @@ export default class HomePage extends Calendar {
                     </div>            
                 </div>
             </div>
-            <div className="row mt-4 p-4">
+            <div className="row m-0 mt-4 p-4">
                 <div className="col-md-12  d-flex justify-content-center align-items-center"><span className="sign-up"><Link style={{color:"#fff"}} to="/signup">Get started</Link></span><i class="fa pl-2 fa-arrow-right"></i></div>
             </div>
             <footer className="footer p-2 border-top mt-5">

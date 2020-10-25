@@ -331,6 +331,17 @@ td {
 .left {
     background-color: #fff;
 }
+.navbar-toggler {
+    &:focus {
+        outline: none !important;
+    }
+    .navbar-toggler-icon {
+        display: flex;
+        flex-direction: column;
+        background: #000;
+        height: 2px !important;
+    }
+}
 .i-page {
     opacity: 0.5;
     font-size: 40px;
@@ -382,6 +393,9 @@ td {
           border-radius: 20%;
       }
   }
+::selection {
+    background-color: rgba(121, 209, 205, 0.3);
+}
 @media screen and (max-width:550) {
     .row {
         display: flex !important;
