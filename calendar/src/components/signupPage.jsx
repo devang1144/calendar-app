@@ -20,9 +20,9 @@ export default class Signup extends Form {
         errors:{}
     }
     schema = {
-        name:Joi.string().label("username").min(6).required(),
-        email:Joi.string().email().label("E-mail").required(),
-        password:Joi.string().min(6).label("password").required()
+        name:Joi.string().label("Username").min(6).required(),
+        email:Joi.string().email().label("Email").required(),
+        password:Joi.string().min(6).label("Password").required()
     }
     doSubmit() {
         const payload = {
@@ -31,12 +31,14 @@ export default class Signup extends Form {
             password:this.state.data.password
         }
         axios({
-            url:'/api/user/register',
+            url:'http://localhost:1234/api/user/register',
             method:'POST',
             data: payload
-        }).then(
+        })
+        .then(() => console.log("wedfejhwf"))
+        .then(
             this.setState({redirect:true})
-        );
+        )
     }
 
     render() {

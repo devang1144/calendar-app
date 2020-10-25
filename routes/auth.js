@@ -8,12 +8,12 @@ dotenv.config();
 router.post('/register', async(req, res) => {
 
     //Validation
-    const{ error } = registerValidation(req.body);
-    if(error)return res.status(400).send(error.details[0].message);
+    // const{ error } = registerValidation(req.body);
+    // if(error)return res.status(400).send(error.details[0].message);
     
     //checking if a user already exists in the database
     const emailExist = await User.findOne({email:req.body.email});
-    if(emailExist) return res.status(400).send('Email already exists');
+    if(emailExist) return res.send('Email already exists');
     
     //Hash passwords
     const salt = await bcrypt.genSalt(10);
@@ -22,9 +22,15 @@ router.post('/register', async(req, res) => {
 
     //create a new user
     const user = new User({
-        name:req.body.name,
         email:req.body.email,
-        password:hashedPassword,
+        accounts:[
+            {
+                kind:req.body.kind,
+                uid:req.body.name,
+                password:hashedPassword
+            }
+            
+        ],
         events:req.body.events
     });
     try{
@@ -37,16 +43,33 @@ router.post('/register', async(req, res) => {
     //LOGIN
 
     router.post('/login', async (req, res) => {
-        const { error } = loginValidation(req.body);
-        if(error)return res.status(400).send(error.details[0].message);
+        // const { error } = loginValidation(req.body);
+        // if(error)return res.status(400).send(error.details[0].message);
         
         //checking if user is already logged in
         const user = await User.findOne({email:req.body.email});
         if(!user) return res.status(400).send("Email doesn't exists");
         
         //Password is correct
-        const validPass = await bcrypt.compare(req.body.password, user.password);
+        const validPass = await bcrypt.compare(req.body.password, user.accounts[0].password);
         if(!validPass) return res.status(400).send('Invalid Password');
+
+        //create and assign a token
+        const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);
+        res.header('auth-token', token).send(token);
+        
+    });
+    router.post('/glogin', async (req, res) => {
+        // const { error } = loginValidation(req.body);
+        // if(error)return res.status(400).send(error.details[0].message);
+        
+        //checking if user is already logged in
+        const user = await User.findOne({email:req.body.email});
+        if(!user) return res.status(400).send("Email doesn't exists");
+        
+        //Password is correct
+        // const validPass = await bcrypt.compare(req.body.password, user.accounts[0].password);
+        // if(!validPass) return res.status(400).send('Invalid Password');
 
         //create and assign a token
         const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);

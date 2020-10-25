@@ -16,6 +16,7 @@ import Lists from './month';
 import Week from './weeks';
 import Clock from './Clock';
 import ArrowDown from '../assets/arrow_down.svg';
+import Logout from './googleLogout';
 export default class Calendar extends Func {
     state = {
         dateContext: moment(),
@@ -166,10 +167,11 @@ export default class Calendar extends Func {
             return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
         }
         else if (this.state.data.qwerty === "3"){
-            return <Week />
+            return <Week/>
         }
         else {
-            return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
+            // return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
+            return <Week  today={this.state.dateContext}/>
         }
     }
      
@@ -185,14 +187,23 @@ export default class Calendar extends Func {
         this.setState({
             logStatus:false
         }, () => {console.log(this.state.logStatus)})
-        
-        // window.location.reload(false);
-        // Cookies.set('IsLoggedIn',false)
     }
 
     displayUserName(name) {
         if (name === undefined)return;
         return name;
+    }
+    logoutButton() {
+        const user = this.state.data.user
+        const kind = user.accounts === undefined ? null : user.accounts[0].kind;
+        if(kind === "Google") return <Logout/>
+        else {
+            return (
+                <div>
+                {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
+                </div>
+            );
+        }
     }
     
     render() {
@@ -288,7 +299,7 @@ export default class Calendar extends Func {
                         <div className=" justify-content-end">
                             {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
                             {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
-                            {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
+                            {this.logoutButton()}
                         </div>
                     </nav>
                     <span>
@@ -315,6 +326,7 @@ export default class Calendar extends Func {
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
                     <button className="add-event-btn" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
+                <Logout/>
                 </div>
                 <div className="col-md-9 p-0 left">
                     {this.calendarNav()}

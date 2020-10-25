@@ -6,6 +6,9 @@ import '../styles/landing-page.scss'
 import Calendar from './calender';
 import ScrollReveal from 'scrollreveal';
 import dashboard from '../assets/dashboard.svg';
+import Login from './googlelogin';
+import {Redirect} from 'react-router-dom';
+import Cookies from 'js-cookie';
 export default class HomePage extends Calendar {
     
     state = {
@@ -15,9 +18,14 @@ export default class HomePage extends Calendar {
     }
     componentDidMount() {
         ScrollReveal().reveal('.timeline-item',{ delay: 800, duration:1000, origin:"bottom", opacity:0.2, reset:true });
+        if(Cookies.get('lauth') != undefined) {
+            return <Redirect to="/d" />
+        }
+        
     }
     
     render() {
+        console.log(Cookies.get())
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {
@@ -42,7 +50,7 @@ export default class HomePage extends Calendar {
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
                 <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                    <span className="day rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
+                    <span className="day rounded text-center p-2">{d}</span>
                 </td>  
                     
                 
@@ -89,10 +97,12 @@ export default class HomePage extends Calendar {
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/faq">FAQ</Link>
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/login">sign in</Link>
                         <Link className="sign-up is-nunito" to="/signup"><span className="">sign up for free</span></Link>
+                        <Login/>
                         </div>
                     </div>
                 </nav>
                 </div>   
+                
             </div>
             <div className="vh-100">
             <motion.div initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}} className="mt-4 text-center is-nunito row d-flex justify-content-center align-items-center background-white">
@@ -143,7 +153,7 @@ export default class HomePage extends Calendar {
                 </div>
             </div>
             <div className="row mt-4 p-4">
-                <div className="col-md-12  d-flex justify-content-center align-items-center"><span className="sign-up">Get started</span><i class="fa pl-2 fa-arrow-right"></i></div>
+                <div className="col-md-12  d-flex justify-content-center align-items-center"><span className="sign-up"><Link style={{color:"#fff"}} to="/signup">Get started</Link></span><i class="fa pl-2 fa-arrow-right"></i></div>
             </div>
             <footer className="footer p-2 border-top mt-5">
                 <div className="row">

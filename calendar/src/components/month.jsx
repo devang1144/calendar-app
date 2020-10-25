@@ -21,15 +21,17 @@ export default class Lists extends Component {
         data[input.name] = input.value;
         this.setState({ data });
     };
-    componentDidMount = async() => {
-        const {data:events} = await axios.get("api/listItems");
-        this.setState({events});
-        const { data: user } = await axios.get('/api/user/login');
-        this.setState({ev:this.props.ev});
-        this.setState({eventThatDay:this.props.eventThatDay});
+    componentDidMount = () => {
+        const length = this.props.ev === undefined ? 0 : this.props.ev.length;
+        if (length) {
+            this.setState({ev:this.props.ev});
+        }
+        
+        this.setState({eventThatDay:this.props.eventThatDay});        
     }
     displayEvents() {
-        if(this.state.ev) {
+        const length = this.props.ev === undefined ? 0 : this.props.ev.length;
+        if(length) {
             return (
                 <motion.table className="table events-table shadow p-0 m-2 events" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
                     <thead>
@@ -39,7 +41,7 @@ export default class Lists extends Component {
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </thead>
                     <tbody>
-                    {this.state.ev.map(e => 
+                    {this.props.ev.map(e => 
                             <tr className="p-0 is-poppins is-white">
                                 <td><span className="eventName">{e.eventName}</span></td>
                                 <td className="text-info">{e.moment.split("T")[0]}</td>
@@ -56,7 +58,7 @@ export default class Lists extends Component {
         }
         else {
             return (
-                <Link to="/login" className="is-white">Login to use</Link>   
+                <span className="is-white i-page is-poppins">No events added</span>   
             );
         }
     }
@@ -107,6 +109,7 @@ export default class Lists extends Component {
         );
     }
     render() {
+        console.log(this.state.ev)
         return (
             <div> 
                 <div className="d-inline">

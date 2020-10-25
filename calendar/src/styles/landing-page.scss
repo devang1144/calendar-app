@@ -26,6 +26,13 @@
         border-radius: 6px;
     }
 }
+.fa-google {
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 .sign-up {
     background: #000;
     color: #fff;
@@ -118,6 +125,42 @@ textarea {
     }
   }
 @media screen and (max-width:505px) {
+    .container-calendar-wqewe {
+        display: flex !important;
+        flex-direction: column;
+        width: 98%;
+    }
+    .container-contact-form {
+        width: 90%; 
+    }
+    .landing-page-heading {
+        font-size: 30px;
+    }
+    .landing-page-heading2 {
+        font-size: 13px !important;
+    }
+
+}
+
+@media screen and (max-width:767.98px) {
+    .container-calendar-wqewe {
+        display: flex !important;
+        flex-direction: row;
+        width: 98%;
+    }
+    .container-contact-form {
+        width: 90%; 
+    }
+    .landing-page-heading {
+        font-size: 30px;
+    }
+    .landing-page-heading2 {
+        font-size: 13px !important;
+    }
+
+}
+
+@media screen and (max-width:991.98px) {
     .container-calendar-wqewe {
         display: flex !important;
         flex-direction: column;
