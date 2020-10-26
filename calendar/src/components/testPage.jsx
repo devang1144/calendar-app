@@ -4,9 +4,12 @@ export default class Test extends Component {
 
     render() {
         return (
-            <div>
-                <input type="radio"/>   
+            <div className="container d-flex justify-content-center align-items-center vh-100">
+            <div class="spinner-border text-dark m-2 mb-4" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
+            <p style={{fontSize:"50px"}}>Loading...</p>
+        </div>
         )
     }
 }

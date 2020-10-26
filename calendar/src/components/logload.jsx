@@ -21,10 +21,12 @@ export default class Loading extends Component{
     }
     render(){
 
-        let element = <div>
-            <i class="fa fa-spinner" aria-hidden="true"></i>
-            <p style={{fontSize:"20px"}}>loading</p>
-        </div>;
+        let element = <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div class="spinner-border text-dark m-2 mb-4" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p style={{fontSize:"50px"}}>Loading...</p>
+    </div>;
 
         if(!this.state.loading){
             element = <Redirect to='/d' />
