@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require("cors");
 const verifyToken = require('./routes/verifyToken');
+const nodemailer = require('nodemailer');
+const { getMaxListeners } = require('./model/usermodel');
 dotenv.config();
 
 //connect to DB
@@ -63,5 +65,36 @@ app.post('/api/user', async(req, res) => {
         res.status(400).send(err);
     }
 });
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: "acw.dnsp@gmail.com",
+        pass: 'ilovekanpur3000' 
+    }
+});
+app.post('/api/user/contactmsg',(res,req) =>{
+
+
+    let mailOptions = {
+        from: "acw.dnsp@gmail.com", 
+        to: "namanpatel453@gmail.com", 
+        subject: 'New Responce Recived',
+        text: `
+            Someone tried to cotact you.
+            Details:
+              `
+    };
+    transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            return log('Error occurs');
+        }
+        return log('Email sent!!!');
+    });
+    res.send({
+        success: true,
+        message: 'It works'
+      });
+
+})
 
 app.listen(PORT, () => console.log(`server started at ${PORT}`));

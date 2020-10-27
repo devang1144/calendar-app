@@ -13,11 +13,11 @@ export default class Contact extends Component {
     }
     handleRadio = ({currentTarget:input}) => {
         const data = {...this.state.data};
-        data[input.name] = input.value;
+        data[input.id] = input.value;
         this.setState({ data });
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = async(e) => {
         const data = this.state.data;
         e.preventDefault();
         const payload = {
@@ -25,11 +25,13 @@ export default class Contact extends Component {
             email:data.email,
             query:data.query
         }
-        
+        const {data : msg}=  await axios.post('api/user/contactmsg',payload);
+        console.log(msg);
 
     }
+    
     render() {
-        
+        console.log(this.state.data)
         return (
             <React.Fragment>
                 <div className="container-fluid shadow-sm">
@@ -56,11 +58,11 @@ export default class Contact extends Component {
                     <p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>
                     <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
                         <label htmlFor="" className="is-nunito">Your Name</label>
-                        <input className="contact mb-3" type="text" value={this.state.data.name}/>
+                        <input className="contact mb-3" id="name" type="text" value={this.state.data.name} onChange={this.handleRadio}/>
                         <label htmlFor="" className="is-nunito mt-2">Email</label>
-                        <input className="contact mb-2" type="text" value={this.state.data.email}/>
+                        <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
                         <label htmlFor="" className="mt-2 is-nunito">Write your doubts here</label>
-                        <textarea rows="7" className="contact-textarea is-nunito" type="textarea" value={this.state.data.query}/>
+                        <textarea rows="7" className="contact-textarea is-nunito" id="query" type="textarea" value={this.state.data.query} onChange={this.handleRadio}/>
                         <button className="mt-3 add-event-btn">Send</button>
                     </form>
                     <div className="row">
