@@ -12,9 +12,23 @@ const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const { getMaxListeners } = require('./model/usermodel');
 dotenv.config();
-
 //connect to DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("Database is connected!"));
+
+//email credentials
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: "acw.dnsp@gmail.com",
+        pass: process.env.PASSWORD 
+    }
+});
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 
 //Middlewares
 app.use(express.json());
@@ -41,11 +55,31 @@ app.post('/api/user/:id',(req,res)=>{
                 events:{
                     "eventName":req.body.eventName,
                     "eventDate":req.body.eventDate,
-                    "moment":req.body.moment
+                    "moment":req.body.moment,
                 }
             }
         }).exec()
         res.send("success")
+        // const data = Data.findById({_id:req.params.id})
+        // console.log(data)
+        let mailOptions = {
+            from: "acw.dnsp@gmail.com", 
+            to: req.body.email, 
+            subject: `New event added on ${req.body.eventDate}`,
+            text: `
+            Event : ${req.body.eventName}, is scheduled on ${req.body.eventDate}
+                  `
+        };
+        transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            return console.log('Error occurs');
+        }
+            return console.log('Email sent!!!');
+        });
+        res.send({
+            success: true,
+            message: 'It works'
+        });
     }
     catch(err) {
         res.status(400).send(err);
@@ -66,13 +100,7 @@ app.post('/api/user', async(req, res) => {
         res.status(400).send(err);
     }
 });
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: "acw.dnsp@gmail.com",
-        pass: 'ilovekanpur3000' 
-    }
-});
+
 app.post('/user/c',async (req, res) =>{
     // console.log(`${req.query}, ${req.email}`);
     const c = new contact({
@@ -105,7 +133,7 @@ app.post('/user/c',async (req, res) =>{
     res.send({
         success: true,
         message: 'It works'
-      });
+    });
 
 })
 
