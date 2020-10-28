@@ -7,24 +7,24 @@ export default class Week extends Component{
         dateArray : [],
           
     }
-    displayWeeks() {
-        const props = this.props.today;
-        for(let i=1;i<=7;i++) {
-            this.state.dateArray.push({date:props.get("date") + i - props.day() - 1, day:moment.weekdaysShort()[i-1]})
-        }
-        return(
-            <thead>
-                <th></th>
-                {this.state.dateArray.map(m => 
-                    <th>{m.day}<br/>{m.date}</th>
-                )}
-            </thead>
-        );
-    }
+    // displayWeeks() {
+    //     const props = this.props.today;
+    //     for(let i=1;i<=7;i++) {
+    //         this.state.dateArray.push({date:props.get("date") + i - props.day() - 1, day:moment.weekdaysShort()[i-1]})
+    //     }
+    //     return(
+    //         <thead>
+    //             <th></th>
+    //             {this.state.dateArray.map(m => 
+    //                 <th>{m.day}<br/>{m.date}</th>
+    //             )}
+    //         </thead>
+    //     );
+    // }
     render () { 
         return (
             <div className="m-4">
-               <table className="table">
+               {/* <table className="table">
                    {this.displayWeeks()}
                    <tbody>
                        <tr>00:00</tr>
@@ -52,7 +52,7 @@ export default class Week extends Component{
                        <tr>22:00</tr>
                        <tr>23:00</tr>
                    </tbody>
-               </table>
+               </table> */}
             </div>
         );
     }

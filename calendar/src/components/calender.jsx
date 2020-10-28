@@ -170,8 +170,8 @@ export default class Calendar extends Func {
             return <Week/>
         }
         else {
-            // return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
-            return <Week  today={this.state.dateContext}/>
+             return <Lists ev={user.events} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay} dateContext={this.state.dateContext} eventOnThatDay={this.state.eventOnThatDay}/>
+            //return <Week  today={this.state.dateContext}/>
         }
     }
      

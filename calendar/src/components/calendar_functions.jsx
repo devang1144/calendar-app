@@ -109,7 +109,8 @@ export default class Func extends Component {
         const event = {
             eventName:this.state.data.eventName,
             eventDate:(this.state.selectedDay) + " " + (this.state.dateContext.format("MMM")) + "," + (this.state.dateContext.format("yy")) ,
-            moment:this.state.currentDateContext._d
+            moment:this.state.currentDateContext._d,
+            email: this.state.data.user.email
         };
          const { data:res } = await axios.post(`/api/user/${id}`, event);
         console.log(res);        

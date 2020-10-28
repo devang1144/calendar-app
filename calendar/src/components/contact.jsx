@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class Contact extends Component {
     
     state = {
@@ -27,10 +29,18 @@ export default class Contact extends Component {
         }
         const {data:d}=  await axios.post('/user/c',payload);
         console.log(d);
+        this.setState({
+            data: {
+                name:"",
+                email:"",
+                query:""
+            }
+        }, () => {toast.success("Response received! We'll contact you shortly")})
 
     }
     
     render() {
+        console.log(this.state.data)
         return (
             <React.Fragment>
                 <div className="container-fluid shadow-sm">
@@ -72,6 +82,7 @@ export default class Contact extends Component {
                     </div>
                 </div>
             </div>
+            <ToastContainer autoClose={3000}/>
             </React.Fragment>
             
             
