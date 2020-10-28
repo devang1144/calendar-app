@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require("cors");
 const verifyToken = require('./routes/verifyToken');
+const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const { getMaxListeners } = require('./model/usermodel');
 dotenv.config();
@@ -72,16 +73,27 @@ let transporter = nodemailer.createTransport({
         pass: 'ilovekanpur3000' 
     }
 });
-app.post('/api/user/contactmsg',(res,req) =>{
-
-
+app.post('/user/c',async (req, res) =>{
+    // console.log(`${req.query}, ${req.email}`);
+    const c = new contact({
+        name:req.body.name,
+        email:req.body.email,
+        query:req.body.query
+    })
+    try{
+        const savedUser = await c.save();
+        res.send(savedUser);
+    }catch(err) {
+        res.status(400).send(err);
+    }
     let mailOptions = {
         from: "acw.dnsp@gmail.com", 
         to: "namanpatel453@gmail.com", 
-        subject: 'New Responce Recived',
+        subject: 'New Responce Received',
         text: `
-            Someone tried to cotact you.
-            Details:
+            ${req.name}
+            ${req.query}
+            ${req.email}
               `
     };
     transporter.sendMail(mailOptions, (err, data) => {

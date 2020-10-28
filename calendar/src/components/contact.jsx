@@ -18,20 +18,19 @@ export default class Contact extends Component {
     };
 
     handleSubmit = async(e) => {
-        const data = this.state.data;
         e.preventDefault();
+        const data = this.state.data;
         const payload = {
             name:data.name,
             email:data.email,
             query:data.query
         }
-        const {data : msg}=  await axios.post('api/user/contactmsg',payload);
-        console.log(msg);
+        const {data:d}=  await axios.post('/user/c',payload);
+        console.log(d);
 
     }
     
     render() {
-        console.log(this.state.data)
         return (
             <React.Fragment>
                 <div className="container-fluid shadow-sm">
