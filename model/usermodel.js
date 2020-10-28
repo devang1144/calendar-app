@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     email: { type:String, required:true, max:255, min:6 },
     events: [ event ],
     accounts:[ account ],
-    date: { type:Date, default:Date.now }
+    date: { type:Date, default:Date.now },
+    resetpass: String
 })
 
 module.exports = mongoose.model('User', userSchema);

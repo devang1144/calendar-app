@@ -87,14 +87,14 @@ app.post('/user/c',async (req, res) =>{
         res.status(400).send(err);
     }
     let mailOptions = {
-        from: "acw.dnsp@gmail.com", 
-        to: "namanpatel453@gmail.com", 
-        subject: 'New Responce Received',
-        text: `
-            ${req.name}
-            ${req.query}
-            ${req.email}
-              `
+            from: "acw.dnsp@gmail.com", 
+            to: "namanpatel453@gmail.com", 
+            subject: 'Someone tried to contact you',
+            text: `
+                ${req.body.name}
+                ${req.body.query}
+                ${req.body.email}
+                  `
     };
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {

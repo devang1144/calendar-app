@@ -10,6 +10,7 @@ import HomePage from './components/HomePage';
 import Loading from './components/logload';
 import Glog from './components/googlelogin';
 import Contact from './components/contact';
+import Emailveri from './components/emailveri';
 function App() {
   return (
     <div>
@@ -25,6 +26,7 @@ function App() {
               <Route path='/loading' component={Loading} />
               <Route path='/glog' component={Glog} />
               <Route path='/contact' component={Contact} />
+              <Route path='/emailveri' component={Emailveri} />
           </Switch>
       </Router>
     </div>

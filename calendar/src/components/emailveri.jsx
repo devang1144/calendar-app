@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-export default class Contact extends Component {
+
+export default class Emailveri extends Component {
     
     state = {
         data :{
-            name:"",
+
             email:"",
-            query:""
+            resetpass:""
+
         }
         
     }
@@ -22,20 +22,16 @@ export default class Contact extends Component {
     handleSubmit = async(e) => {
         e.preventDefault();
         const data = this.state.data;
-        const payload = {
-            name:data.name,
-            email:data.email,
-            query:data.query
-        }
-        const {data:d}=  await axios.post('/user/c',payload);
-        console.log(d);
-        this.setState({
-            data: {
-                name:"",
-                email:"",
-                query:""
-            }
-        }, () => {toast.success("Response received! We'll contact you shortly")})
+        
+        // const {data:d}=  await axios.post('/user/c',payload);
+        // console.log(d);
+        // this.setState({
+        //     data: {
+        //         name:"",
+        //         email:"",
+        //         query:""
+        //     }
+        // }, () => {toast.success("Response received! We'll contact you shortly")})
 
     }
     
@@ -62,27 +58,16 @@ export default class Contact extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-fluid align-items-center d-flex vh-100 m-0">
-                <div className="container-contact-form p-4">
-                    <p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>
+            <div className="d-flex align-items-center">
+                    {/*<p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>*/}
                     <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito">Your Name</label>
-                        <input className="contact mb-3" id="name" type="text" value={this.state.data.name} onChange={this.handleRadio}/>
-                        <label htmlFor="" className="is-nunito mt-2">Email</label>
+                        <label htmlFor="" className="is-nunito mt-2">Enter Your Registered Email</label>
                         <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
-                        <label htmlFor="" className="mt-2 is-nunito">Write your doubts here</label>
-                        <textarea rows="7" className="contact-textarea is-nunito" id="query" type="textarea" value={this.state.data.query} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Send</button>
+                        <button className="mt-3 add-event-btn">Get One Time Password</button>
                     </form>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Link style={{textDecoration:"none", color:"#222"}} to="/"><span className="bth">Back to Home<i class="fa pl-2 fa-arrow-right"></i></span></Link>
-                        </div>
-                        <div className="col-md-6"></div>
-                    </div>
+                    
                 </div>
-            </div>
-            <ToastContainer autoClose={3000}/>
+            
             </React.Fragment>
             
             

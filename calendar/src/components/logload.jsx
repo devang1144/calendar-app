@@ -13,7 +13,7 @@ export default class Loading extends Component{
         loading: true
     }
 
-    
+     
     componentDidMount = async() => {
         const { data:user } = await axios.get('/api/user/login');
             this.setState({ user, loading:false })
