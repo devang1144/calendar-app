@@ -13,6 +13,7 @@ const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const { getMaxListeners } = require('./model/usermodel');
+const bcrypt = require('bcryptjs');
 dotenv.config();
 //connect to DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("Database is connected!"));
@@ -149,8 +150,8 @@ app.put('/otppass',async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.pass1, salt);
     // console.log(token);
-    const m= Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts[0].password":hashedPassword}})
-    res.send(token);
+    await Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts" : { "password" : hashedPassword }}})
+    res.send("Password Changed");
 })
 app.put('/api/user/login',(req,res)=>{
     const query= {"email":req.body.email}
