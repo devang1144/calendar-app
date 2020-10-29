@@ -12,6 +12,7 @@ const verifyToken = require('./routes/verifyToken');
 const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
 // const route2 = require('./routes/route2');
@@ -133,14 +134,14 @@ app.post('/user/c',async (req, res) =>{
                 Message : ${req.body.query}
                   `,
             html: `
-            <img style="border:2px solid #ffc600" src="https://i.ibb.co/VtKcgYs/1999-Sharp.png" alt="1999-Sharp">
-            <div style="width:70%; height:50%; margin:0 auto; background-color:#fff;">
-                <h4>Sender's Name</h4>
-                <p>${req.body.name}</p>
-                <h4>Sender's email</h4>
-                <p>${req.body.email}</p>
-                <h4>Message</h4>
-                <p>${req.body.query}</p>
+            <div style="padding:10px; border-radius: 6px; width:70%; height:50%; margin:0 auto; background-color: white;">
+            <img style="border:2px solid #ffc600; margin:0 auto;" src="https://i.ibb.co/VtKcgYs/1999-Sharp.png" alt="1999-Sharp">    
+                <h4 style="color: black;">Sender's Name</h4>
+                <p style="color: black;">${req.body.name}</p>
+                <h4 style="color: black;">Sender's email</h4>
+                <p style="color: black;">${req.body.email}</p>
+                <h4 style="color: black;">Message</h4>
+                <p style="color: black;">${req.body.query}</p>
             </div>
             
             `
@@ -167,7 +168,7 @@ app.put('/otppass',async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.pass1, salt);
     // console.log(token);
-    const m= Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts[0].password":hashedPassword}})
+    await Data.findOneAndUpdate({email:req.body.email}, { "$set" : {"accounts" : { "password" : hashedPassword }}})
     res.send(token);
 })
 app.put('/api/user/login',(req,res)=>{
@@ -186,9 +187,13 @@ app.put('/api/user/login',(req,res)=>{
         subject: 'Password Reset attempted',
             text: `
             Pls use below code to reset your password
-
             Verification Code : ${p}
-                `
+                `,
+            html: `<div style="padding:10px; border-radius: 6px; width:70%; height:50%; margin:0 auto; background-color: white;">
+            <img style="border:2px solid #ffc600; margin:0 auto;" src="https://i.ibb.co/VtKcgYs/1999-Sharp.png" alt="1999-Sharp">    
+                <h5 style="color: black;">Pls use below code to reset your password</h5>
+                <p style="color: black;">Verification Code : ${p}</p>
+            </div>`
     };
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
