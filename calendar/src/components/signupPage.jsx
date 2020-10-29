@@ -26,6 +26,7 @@ export default class Signup extends Form {
     }
     doSubmit() {
         const payload = {
+            kind:"internal",
             name:this.state.data.name,
             email:this.state.data.email,
             password:this.state.data.password

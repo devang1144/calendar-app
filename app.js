@@ -168,16 +168,21 @@ app.put('/otppass',async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.pass1, salt);
     // console.log(token);
-    await Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts" : { "password" : hashedPassword }}})
+    // await Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts" : { "password" : hashedPassword }}}, { overwrite: false })
+    // res.send("Password Changed");
+    const user = await Data.findOne({email:req.body.email})
+    const account = user.accounts;
+    console.log(account[0].uid);
+    await Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts" : { "kind":account[0].kind, "uid":account[0].uid, "password" : hashedPassword }}})
     res.send("Password Changed");
 })
-app.put('/api/user/login',(req,res)=>{
+app.put('/api/user/login',async (req,res)=>{
     const query= {"email":req.body.email}
     //console.log(req.body.email)
     const p=otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets:false});
     
-    const m = Data.findOneAndUpdate(req.body ,{"$set" : {"resetpass":p}}).then(resp=>{
-        console.log("otp set")
+    await Data.findOneAndUpdate(req.body ,{"$set" : {"resetpass":p}}).then(resp=>{
+        console.log(resp)
     })
     //console.log(m)
     //console.log(resp.resetpass)

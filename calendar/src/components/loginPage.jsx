@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import { motion } from 'framer-motion';
 import NavLogin from './NavLogin';
 import Cookies from 'js-cookie';
+import Emailveri from './emailveri';
 import '../styles/login.css';
 
 export default class LoginPage extends Component {
@@ -72,7 +73,8 @@ export default class LoginPage extends Component {
                     <input className="form-control" name="password" id="pass" type="password" onChange={this.handleChangePass} value={this.state.password}/>
                     </div>
                     <button className="add-event-btn is-white">Login</button> 
-                    <p className="p-4">Don't have a account, <Link to="/signup">signup</Link></p>   
+                    <p className="pt-4">Don't have a account, <Link to="/signup">signup</Link></p>
+                    <p className=""><Link to="/emailveri">Forgot password</Link></p>   
                 </motion.form>    
             </div>
             </React.Fragment>

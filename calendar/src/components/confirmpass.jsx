@@ -28,7 +28,7 @@ class ConfirmPswd extends Component {
         e.preventDefault();
         const payload={
             email:this.state.email,
-            pass1:this.state.pass1
+            pass1:this.state.data.pass1
         }
         await axios.put('/otppass',payload).then(res=> console.log(res))
 
@@ -38,6 +38,7 @@ class ConfirmPswd extends Component {
     }
     
     render() {
+        console.log(this.state.data.pass1)
         if(this.state.cnf){
             return <Redirect to='/login' />
         }
@@ -65,8 +66,7 @@ class ConfirmPswd extends Component {
                 <div className="container-email-verify d-flex justify-content-center align-items-center ">
                 <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
                     <label for="New Password" className="mt-3">Enter New Password</label>
-                    <input type='password' name='New Password'  id='pass1' className="contact mb-2">
-                    </input>
+                    <input type='password' name='New Password'  id='pass1' className="contact mb-2" onChange={this.handleRadio}/>
                     {/* <label for="Confirm Password" className="mt-3">Password</label>
                     <input type='password' name='Confirm Password' id='pass2' className="contact mb-2">
                     </input> */}
