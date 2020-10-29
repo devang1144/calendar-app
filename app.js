@@ -125,13 +125,25 @@ app.post('/user/c',async (req, res) =>{
     }
     let mailOptions = {
             from: "acw.dnsp@gmail.com", 
-            to: "namanpatel453@gmail.com", 
+            to: 'namanpatel453@gmail.com, devang.iitk@gmail.com', 
             subject: 'Someone tried to contact you',
             text: `
-                ${req.body.name}
-                ${req.body.query}
-                ${req.body.email}
-                  `
+                Sender's Name : ${req.body.name}
+                Sender's email : ${req.body.email}
+                Message : ${req.body.query}
+                  `,
+            html: `
+            <img style="border:2px solid #ffc600" src="https://i.ibb.co/VtKcgYs/1999-Sharp.png" alt="1999-Sharp">
+            <div style="width:70%; height:50%; margin:0 auto; background-color:#fff;">
+                <h4>Sender's Name</h4>
+                <p>${req.body.name}</p>
+                <h4>Sender's email</h4>
+                <p>${req.body.email}</p>
+                <h4>Message</h4>
+                <p>${req.body.query}</p>
+            </div>
+            
+            `
     };
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
@@ -173,12 +185,9 @@ app.put('/api/user/login',(req,res)=>{
         to: req.body.email, 
         subject: 'Password Reset attempted',
             text: `
-            Hey you fucking Bastard,
-            Here is an otp for changing your password for your account in 1999 sharp
-                ${p}
-            don't dare to share this otp at any cost or login system will be fucked
-            signing off motherfucker
+            Pls use below code to reset your password
 
+            Verification Code : ${p}
                 `
     };
     transporter.sendMail(mailOptions, (err, data) => {
