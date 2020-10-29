@@ -196,7 +196,10 @@ export default class Calendar extends Func {
     logoutButton() {
         const user = this.state.data.user
         const kind = user.accounts === undefined ? null : user.accounts[0].kind;
-        if(kind === "Google") return <Logout/>
+        if(kind === "Google") {
+            return <Logout/>
+        }
+        
         else {
             return (
                 <div>

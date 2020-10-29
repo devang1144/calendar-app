@@ -19,7 +19,7 @@ export default class Func extends Component {
     }
     currentDay = () => {
         return this.state.dateContext.format("D");
-    }
+    } 
 
     firstDayOfMonth = () => {
         let dateContext = this.state.dateContext;

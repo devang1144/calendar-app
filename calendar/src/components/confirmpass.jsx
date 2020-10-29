@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import '../styles/calender.scss';
+import {Link, Redirect} from 'react-router-dom';
+import Joi from 'joi-browser';
 import Cookies from 'js-cookie';
-import Otppage from './otp'
+import axios from 'axios';
 
-export default class Emailveri extends Component {
-    
+class ConfirmPswd extends Component {
     state = {
-        cnfp:false,
+        email:Cookies.get('pmail'),
+        cnf:false,
         data :{
-
-            email:""
-
+            pass1:"",
+            pass2:""
         }
         
+    }
+    schema = {
+        pass1:Joi.string().min(6).label("Password").required()
     }
     handleRadio = ({currentTarget:input}) => {
         const data = {...this.state.data};
@@ -23,27 +24,26 @@ export default class Emailveri extends Component {
     };
 
     handleSubmit = async(e) => {
+        // const token= jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);
         e.preventDefault();
-        const data = this.state.data;
-        console.log(this.state.data )
-        const msg= await axios.put('/api/user/login',{"email":this.state.data.email});
-        console.log(msg)
-        Cookies.set('pmail',this.state.data.email);
-        console.log(Cookies.get('pmail'))
-        this.setState({
-            cnfp:true
-        })
+        const payload={
+            email:this.state.email,
+            pass1:this.state.pass1
+        }
+        const {data:user} = await axios.put('/otppass',payload)
 
+        this.setState({
+            cnf:true
+        })
     }
     
     render() {
-        console.log(this.state.data)
-        if(this.state.cnfp){
-            return <Redirect to='/otp' />
+        if(this.state.cnf){
+            return <Redirect to='/login' />
         }
         return (
             <React.Fragment>
-                <div className="container-fluid shadow-sm">
+                 <div className="container-fluid shadow-sm">
                 <div className="container">
                 <nav class="navbar navbar-expand-lg">
                     <Link to="/" style={{textDecoration:"none", color:"#000"}}><h1 class="navbar-brand brand is-fjalla">1999 Sharp</h1></Link>
@@ -62,22 +62,21 @@ export default class Emailveri extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-email-verify d-flex justify-content-center align-items-center ">
+                <div className="container-email-verify d-flex justify-content-center align-items-center ">
                 <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito mt-2">Enter Your Registered Email</label>
-                        <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Get One Time Password</button>
+                    <label for="New Password" className="mt-3">Enter New Password</label>
+                    <input type='password' name='New Password'  id='pass1' className="contact mb-2">
+                    </input>
+                    {/* <label for="Confirm Password" className="mt-3">Password</label>
+                    <input type='password' name='Confirm Password' id='pass2' className="contact mb-2">
+                    </input> */}
+                    <button className="mt-3 add-event-btn">Set this one</button>
                 </form>
             </div>
-            <div className="otp-display">
-                    {/*<p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>*/}
-                    {/* <Otppage /> */}
-                    
-                </div>
-            
             </React.Fragment>
             
-            
-        )
+        );
     }
 }
+
+export default ConfirmPswd;
