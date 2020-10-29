@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import '../styles/calender.scss';
 import Cookies from 'js-cookie';
-import Otppage from './otp'
+import axios from 'axios';
 
-export default class Emailveri extends Component {
-    
+class Otppage extends Component {
     state = {
-        cnfp:false,
+        email:Cookies.get('pmail'),
+        cnf:false,
         data :{
-
-            email:""
-
+            otp:""
         }
         
     }
@@ -26,20 +22,20 @@ export default class Emailveri extends Component {
         e.preventDefault();
         const data = this.state.data;
         console.log(this.state.data )
-        const msg= await axios.put('/api/user/login',{"email":this.state.data.email});
-        console.log(msg)
-        Cookies.set('pmail',this.state.data.email);
-        console.log(Cookies.get('pmail'))
-        this.setState({
-            cnfp:true
-        })
-
+        const {data:user}=await axios.post('/otppass',{email:this.state.email})
+        console.log(user.resetpass)
+        if(this.state.data.otp === user.resetpass){
+            this.setState({
+                cnf:true
+            })
+        }
     }
-    
     render() {
-        console.log(this.state.data)
-        if(this.state.cnfp){
-            return <Redirect to='/otp' />
+        if(this.state.cnf){
+            return <Redirect to='/cnfp' />
+        }
+        if(!Cookies.get('pmail')){
+            return <Redirect to='/emailveri' />
         }
         return (
             <React.Fragment>
@@ -62,22 +58,22 @@ export default class Emailveri extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-email-verify d-flex justify-content-center align-items-center ">
+            <div className="container-email-verify d-flex justify-content-center align-items-center">
                 <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito mt-2">Enter Your Registered Email</label>
-                        <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Get One Time Password</button>
+                        <label htmlFor="" className="is-nunito mt-2">An Otp has been sent to your email </label>
+                        <input className="contact mb-2" id="otp" type="text" value={this.state.data.otp} onChange={this.handleRadio}/>
+                        <button className="mt-3 add-event-btn">Proceed</button>
                 </form>
             </div>
-            <div className="otp-display">
+            <div className="">
                     {/*<p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>*/}
-                    {/* <Otppage /> */}
                     
-                </div>
+                    
+            </div>
             
             </React.Fragment>
-            
-            
-        )
+        );
     }
 }
+
+export default Otppage;

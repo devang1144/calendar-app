@@ -331,6 +331,11 @@ td {
 .left {
     background-color: #fff;
 }
+.container-email-verify {
+    width: 90%;
+    margin: 0 auto !important;
+    height: 50vh;
+}
 .i-page {
     opacity: 0.5;
     font-size: 40px;
@@ -361,6 +366,12 @@ td {
 //   .fa-inbox {
 //       color: #C2A026;
 //   }
+.otp-display{
+    //display:none !important;
+}
+.email-display{
+    display:none !important;
+}
 .form-search button {
     background: transparent !important;
     border: none;

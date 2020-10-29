@@ -11,6 +11,8 @@ import Loading from './components/logload';
 import Glog from './components/googlelogin';
 import Contact from './components/contact';
 import Emailveri from './components/emailveri';
+import Otppage from './components/otp';
+import ConfirmPswd from './components/confirmpass'
 function App() {
   return (
     <div>
@@ -27,6 +29,8 @@ function App() {
               <Route path='/glog' component={Glog} />
               <Route path='/contact' component={Contact} />
               <Route path='/emailveri' component={Emailveri} />
+              <Route path='/otp' component={Otppage} />
+              <Route path='/cnfp' component={ConfirmPswd} />
           </Switch>
       </Router>
     </div>

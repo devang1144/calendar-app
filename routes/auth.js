@@ -31,7 +31,8 @@ router.post('/register', async(req, res) => {
             }
             
         ],
-        events:req.body.events
+        events:req.body.events,
+        resetpass:""
     });
     try{
         const savedUser = await user.save();

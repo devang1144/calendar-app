@@ -7,9 +7,11 @@ const posts = require('./routes/posts');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require("cors");
+const otpGenerator = require('otp-generator');
 const verifyToken = require('./routes/verifyToken');
 const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
 // const route2 = require('./routes/route2');
@@ -42,7 +44,9 @@ app.use('/api/user', authRoute);
 
 app.get('/api/user/register', (req, res) => {
     Data.find({}).then(data => res.json(data));
+
 })
+
 
 app.get('/api/user/login', (req, res) => {
     Data.find({ }).then(data => res.json(data));
@@ -87,6 +91,9 @@ app.post('/api/user/:id',(req,res)=>{
         res.status(400).send(err);
     }
     
+})
+app.post('/otppass',(req,res)=>{
+    Data.findOne({email:req.body.email}).then(data=> res.json(data))
 })
 app.get('/api/user', (req, res) => {
     Data.find({ }).then(data => res.json(data));
@@ -142,6 +149,52 @@ app.post('/user/c',async (req, res) =>{
 app.post('/api/user/:id1/:id2', (req, res) => {
     Data.findOneAndUpdate({_id: req.params.id1}, { "$pull" : { "events" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
  }); 
+app.put('/otppass',async(req,res)=>{
+
+    // const token = jwt.sign({pass:req.body.pass1}, process.env.TOKEN_SECRET);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.pass1, salt);
+    // console.log(token);
+    const m= Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts[0].password":hashedPassword}})
+    res.send(token);
+})
+app.put('/api/user/login',(req,res)=>{
+    const query= {"email":req.body.email}
+    //console.log(req.body.email)
+    const p=otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets:false});
+    
+    const m = Data.findOneAndUpdate(req.body ,{"$set" : {"resetpass":p}}).then(resp=>{
+        console.log("otp set")
+    })
+    //console.log(m)
+    //console.log(resp.resetpass)
+    let mailOptions = {
+        from: "acw.dnsp@gmail.com", 
+        to: req.body.email, 
+        subject: 'Password Reset attempted',
+            text: `
+            Hey you fucking Bastard,
+            Here is an otp for changing your password for your account in 1999 sharp
+                ${p}
+            don't dare to share this otp at any cost or login system will be fucked
+            signing off motherfucker
+
+                `
+    };
+    transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            return log('Error occurs');
+        }
+        return log('Email sent!!!');
+    });
+    res.send({
+        success: true,
+        message: 'It works'
+    });
+    console.log(p)
+    console.log(req.body)
+    //res.send("otp printed")
+})
 
 app.get('/api/user/:id1/:id2', (req, res) => {
    Data.findOne({
