@@ -30,7 +30,7 @@ class ConfirmPswd extends Component {
             email:this.state.email,
             pass1:this.state.pass1
         }
-        const {data:user} = await axios.put('/otppass',payload)
+        await axios.put('/otppass',payload).then(res=> console.log(res))
 
         this.setState({
             cnf:true

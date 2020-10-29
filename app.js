@@ -168,8 +168,8 @@ app.put('/otppass',async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.pass1, salt);
     // console.log(token);
-    await Data.findOneAndUpdate({email:req.body.email}, { "$set" : {"accounts" : { "password" : hashedPassword }}})
-    res.send(token);
+    await Data.findOneAndUpdate({email:req.body.email},{"$set":{"accounts" : { "password" : hashedPassword }}})
+    res.send("Password Changed");
 })
 app.put('/api/user/login',(req,res)=>{
     const query= {"email":req.body.email}
