@@ -47,7 +47,7 @@ export default class Lists extends Component {
                                 <td className="text-info">{e.moment.split("T")[0]}</td>
                                 <td className="text-danger">{e.eventDate}</td>
                                 <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true"></i>
-                                <i className="fa fa-trash pl-2"></i>
+                                <i className="fa fa-trash pl-2" onClick={() => this.handleDelete(e._id)}></i>
                                 </td>
                             </tr>
                         )}
@@ -98,7 +98,7 @@ export default class Lists extends Component {
                             <tr className="p-0 is-poppins is-white">
                                 <td><span className="eventName">{e.eventName}</span></td>
                                 <td><span className="eventName text-danger">{e.eventDate}</span></td>
-                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true" onClick={this.handleEdit}></i>
                                 <i className="fa fa-trash pl-2"></i>
                                 </td>
                             </tr>
@@ -107,6 +107,17 @@ export default class Lists extends Component {
                     
                 </motion.table>
         );
+    }
+    handleDelete = id => {
+        axios.delete(`http://localhost:1234/api/user/${Cookies.get("lauth")}/${id}`)
+        .then(res => {
+            if(res.data){
+                console.log(res.data)
+            }
+         }).then(() => {
+            this.getCompletedList();
+         })
+        .catch(err => console.log(err))
     }
     render() {
         console.log(this.state.ev)

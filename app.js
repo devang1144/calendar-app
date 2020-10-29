@@ -11,6 +11,8 @@ const verifyToken = require('./routes/verifyToken');
 const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const { getMaxListeners } = require('./model/usermodel');
+const { ObjectId } = require('mongodb');
+// const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("Database is connected!"));
@@ -136,5 +138,17 @@ app.post('/user/c',async (req, res) =>{
     });
 
 })
+// Data.findOne({_id:"5f951a3521086627b08217be"}).findOne({"events._id":"5f9924dfc72cd38f8b1c2ca4"}).then(data => console.log(data))
+app.post('/api/user/:id1/:id2', (req, res) => {
+    Data.findOneAndUpdate({_id: req.params.id1}, { "$pull" : { "events" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
+ }); 
 
+app.get('/api/user/:id1/:id2', (req, res) => {
+   Data.findOne({
+      _id: req.params.id1 , 
+      'events._id' : req.params.id2
+    },{ 
+        "events.$" : 1 
+     },).then(data => res.json(data)) 
+}); 
 app.listen(PORT, () => console.log(`server started at ${PORT}`));

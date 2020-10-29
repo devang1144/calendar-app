@@ -207,6 +207,7 @@ export default class Calendar extends Func {
     }
     
     render() {
+        console.log(Cookies.get("lauth"))
         if(!this.state.logStatus)return <Redirect to="/"/>
         const events = this.state.data.user.events;
         const eventThatDay = [];
