@@ -45,6 +45,10 @@ input {
 .todays-date {
     font-weight: 500;
 }
+.today {
+    color: #30861B;
+    background-color: rgba(48, 178, 61, 0.2);
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -115,19 +119,15 @@ input::-webkit-inner-spin-button {
     background: #555; 
   }
 
-.col-md-4 {
-    overflow: auto;
+table {
+    overflow: scroll !important;
 }
-.col-md-8 {
+.col-md-9 {
     height: 100vh;
-    overflow: scroll;
+    overflow: scroll !important;
 }
 .date-heading {
     color: #89C283;
-}
-.radio {
-    display: none;
-    padding: 6px;
 }
 
 .footer {
@@ -139,6 +139,10 @@ input::-webkit-inner-spin-button {
         }
     }
 }
+.radio {
+    display: none;
+    padding: 6px;
+}
 
 .radio-labels {
     margin: 0.4rem;
@@ -149,24 +153,38 @@ input::-webkit-inner-spin-button {
         opacity: 1;
     }
 }
+input[type="radio"]:checked + label {
+    color: #7F00AC;
+    // font-weight: 600;
+    // border-bottom: 3px solid #000;
+    background-color: rgba(148, 5, 198, 0.15) !important;
+    border-radius: 6px;
+    transition: all 0.4s ease;
+    transform: translateY(5px);
+    font-size: 16px;
+    ::after {
+        filter: blur(10px);
+        transition: 0.2s ease-in-out;
+    }
+}
+
 .dropdown-toggle::after { 
     content: none !important; 
 } 
 .month-name {
     border-radius: 8px;
-    color: #777;
+    color: #000;
+    &:hover {
+        background-color: rgba(255, 247, 202, 0.8);
+        cursor: pointer;
+    }
 }
 .btn {
     background: transparent !important;
     border: 0 !important;
     color: #000 !important;
 }
-input[type="radio"]:checked + label {
-    color: #000;
-    font-weight: 600;
-    border-bottom: 3px solid #000;
-    font-size: 16px;
-}
+
 .month-button {
     color: #000 !important;
 }
@@ -179,9 +197,9 @@ input[type=number] {
 }
 .day {
     &:hover {
-        background-color: rgba(18,112,55,0.2);
+        background-color: rgba(56,190,248,0.2);
         border-radius: 30% !important;
-        color: #000;
+        color: #0C75A4;
         font-weight: 400;
         cursor: pointer;
     }
@@ -193,10 +211,10 @@ input[type=number] {
 
 .day-year {
     &:hover {
-        background-color: rgba(95, 34, 36, 0.4);
+        background-color: rgba(255, 247, 202, 1);
         border-radius: 50%;
         color: #000;
-        font-weight: 400;
+        font-weight: 700;
         cursor: pointer; 
     }
 }
