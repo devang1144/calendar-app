@@ -3,11 +3,13 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom';
+import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
 export default class Lists extends Component {
     state = {
         events:[],
         ev:[],
-        eventThatDay:[]
+        eventThatDay:[],
+        eventname:""
     }
     renderRadio(name, label, id, onChange, value, ...rest) {
         return (<div className="form-check">
@@ -46,7 +48,26 @@ export default class Lists extends Component {
                                 <td><span className="eventName">{e.eventName}</span></td>
                                 <td className="text-info">{e.moment.split("T")[0]}</td>
                                 <td className="text-danger">{e.eventDate}</td>
-                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                <td className="d-flex">
+                                <OverlayTrigger
+                                    rootClose
+                                    trigger="click"
+                                    placement="top"
+                                    overlay={
+                                        <Popover className="edit-popover">
+                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Content>
+                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                            <label htmlFor="event">Edit Event </label>
+                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        </form>
+                                        </Popover.Content>
+                                        </Popover>
+                                    }
+                                    >
+                                    <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                    </OverlayTrigger>
                                 <i className="fa fa-trash pl-2" onClick={() => this.handleDelete(e._id)}></i>
                                 </td>
                             </tr>
@@ -75,7 +96,26 @@ export default class Lists extends Component {
                             <tr className="p-0 is-poppins is-white">
                                 <td><span className="eventName">{e.eventName}</span></td>
                                 <td><span className="eventName text-danger">{e.eventDate}</span></td>
-                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                <td className="d-flex">
+                                <OverlayTrigger
+                                    rootClose
+                                    trigger="click"
+                                    placement="top"
+                                    overlay={
+                                        <Popover className="edit-popover">
+                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Content>
+                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                            <label htmlFor="event">Edit Event </label>
+                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        </form>
+                                        </Popover.Content>
+                                        </Popover>
+                                    }
+                                    >
+                                    <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                    </OverlayTrigger>
                                 <i className="fa fa-trash pl-2"></i>
                                 </td>
                             </tr>
@@ -98,7 +138,26 @@ export default class Lists extends Component {
                             <tr className="p-0 is-poppins is-white">
                                 <td><span className="eventName">{e.eventName}</span></td>
                                 <td><span className="eventName text-danger">{e.eventDate}</span></td>
-                                <td className="d-flex"><i class="fa fa-pencil pr-2" aria-hidden="true" onClick={this.handleEdit}></i>
+                                <td className="d-flex">
+                                <OverlayTrigger
+                                    rootClose
+                                    trigger="click"
+                                    placement="top"
+                                    overlay={
+                                        <Popover className="edit-popover">
+                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Content>
+                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                            <label htmlFor="event">Edit Event </label>
+                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        </form>
+                                        </Popover.Content>
+                                        </Popover>
+                                    }
+                                    >
+                                    <i class="fa fa-pencil pr-2" aria-hidden="true" onClick={this.handleEdit}></i>
+                                    </OverlayTrigger>
                                 <i className="fa fa-trash pl-2"></i>
                                 </td>
                             </tr>
