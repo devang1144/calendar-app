@@ -9,6 +9,7 @@ import dashboard from '../assets/dashboard.svg';
 import Login from './googlelogin';
 import {Redirect} from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Footer from './footer';
 export default class HomePage extends Calendar {
     
     state = {
@@ -88,7 +89,7 @@ export default class HomePage extends Calendar {
                 <div className="container">
                 <nav className="navbar navbar-expand-lg m-0">
                     <h1 className="navbar-brand brand is-fjalla">1999 Sharp</h1>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler d-flex" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon m-1"></span>
                         <span class="navbar-toggler-icon m-1"></span>
                         <span class="navbar-toggler-icon m-1"></span>
@@ -99,7 +100,7 @@ export default class HomePage extends Calendar {
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/faq">FAQ</Link>
                         <Link style={{color:"#000"}} className="mr-3 is-nunito" to="/login">sign in</Link>
                         <Link className="sign-up is-nunito" to="/signup"><span className="">sign up for free</span></Link>
-                        <Login/>
+                        <Login class="sign-up  ml-2 border-0 m-2"/>
                         </div>
                     </div>
                 </nav>
@@ -146,10 +147,9 @@ export default class HomePage extends Calendar {
                     <img src={dashboard} className="img img-fluid" alt=""/>
                 </div>
             </div>
-            <div className="row container-row mt-5 p-4">
-                <div className="col"></div>
-                <div className="col is-nunito d-flex flex-column font-weight-bold">
-                    <div className="row mb-4"><span className="mb-2 heading-2">We keep track of your events</span><br/>
+            <div className=" container mt-5">
+                <div className="row is-nunito d-flex flex-column font-weight-bold">
+                    <div className=" mb-4"><span className="mb-2 heading-2">We keep track of your events</span><br/>
                     <span>We'll notify you before deadline, so no need to worry :)</span>
                     </div>            
                 </div>
@@ -157,16 +157,7 @@ export default class HomePage extends Calendar {
             <div className="row m-0 mt-4 p-4">
                 <div className="col-md-12  d-flex justify-content-center align-items-center"><span className="sign-up"><Link style={{color:"#fff"}} to="/signup">Get started</Link></span><i class="fa pl-2 fa-arrow-right"></i></div>
             </div>
-            <footer className="footer p-2 border-top mt-5">
-                <div className="row">
-                    <div className="col-md-4"><h2 className="is-fjalla mt-5">1999 Sharp</h2><h6>Your schedule<br/>management tool</h6></div>
-                    <div className="col-md-1"><h4 className="is-fjalla mt-5">Links</h4><h6>Sign up</h6><h6>Sign in</h6></div>
-                    <div className="col-md-1"><h4 className="is-fjalla mt-5">Product</h4><h6>Overview</h6></div>
-                    <div className="col-md-1"><h4 className="is-fjalla mt-5">Contact us</h4><h6>Email us</h6></div>
-                    <div className="col-md-5"></div>
-                </div>
-                
-            </footer>
+            <Footer/>
         </React.Fragment> 
         )
     }

@@ -4,7 +4,7 @@ import Joi from 'joi-browser';
 import Cookies, { set } from 'js-cookie';
 import axios from 'axios';
 import Form from './common/form';
-
+import { motion } from 'framer-motion';
 class ConfirmPswd extends Component {
     state = {
         email:Cookies.get('pmail'),
@@ -74,16 +74,22 @@ class ConfirmPswd extends Component {
                 </nav>
                 </div>   
             </div>
-                <div className="container-email-verify d-flex justify-content-center align-items-center ">
-                <form onSubmit={e => this.handleSubmit(e)} className="form-group border p-4 d-flex flex-column">
-                    <label htmlFor="New Password" className="mt-3">Enter New Password</label>
-                    <input type='password' name='New Password'  id='pass1' className="contact mb-2" onChange={this.handleChange}/>
-                    <label htmlFor="New Password" className="mt-3">Confirm Password</label>
-                    <input type='password' name='Confirm Password'  id='pass2' className="contact mb-2" onChange={this.handleChange}/>
-                    {alert}
-                    <button disabled={m} className="mt-3 add-event-btn">Change password</button>
-                    
-                </form>
+            <div className="container-fluid align-items-center d-flex vh-100 m-0">
+                <div className="container-signup is-poppins d-flex justify-content-center align-items-center">
+                    <div className="row row-form p-5">
+                        <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                            <h1>Change password</h1>
+                            <form onSubmit={e => this.handleSubmit(e)}>
+                            <label htmlFor="New Password" className="mt-3">Enter New Password</label>
+                            <input type='password' name='New Password'  id='pass1' className="form-control mb-2" onChange={this.handleChange}/>
+                            <label htmlFor="New Password" className="mt-3">Confirm Password</label>
+                            <input type='password' name='Confirm Password'  id='pass2' className="form-control mb-2" onChange={this.handleChange}/>
+                            {alert}
+                            <button disabled={m} className="mt-3 add-signup-btn">Change password</button>
+                            </form>
+                        </motion.div>
+                    </div>
+                </div>
             </div>
             </React.Fragment>
             

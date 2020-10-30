@@ -15,9 +15,11 @@ $backgroundColorHover: rgba(200, 200, 200, 0.33);
 .is-bold {
     font-weight: 600;
 }
-.cursor-p {
-    cursor: pointer;
-} 
+.fa-angle-left, .fa-angle-right {
+    &:hover {
+        cursor: pointer;
+    }
+}
 .year-value {
     width: 100px !important;
     background: #222 !important;
@@ -128,6 +130,16 @@ input::-webkit-inner-spin-button {
     padding: 6px;
 }
 
+.footer {
+    a {
+        color: #181818;
+        &:hover {
+            color: #000;
+            border-bottom: 2px solid #000;
+        }
+    }
+}
+
 .radio-labels {
     margin: 0.4rem;
     padding: 6px;
@@ -143,6 +155,9 @@ input::-webkit-inner-spin-button {
 .month-name {
     border-radius: 8px;
     color: #777;
+    &:hover {
+        background-color: rgba(255, 247, 202, 0.6);
+    }
 }
 .btn {
     background: transparent !important;
@@ -387,12 +402,22 @@ td {
     opacity: 0.6;
   }
 
-  .arrow {
+.arrow {
       &:hover {
           background: rgba(18,112,55,0.2);
           border-radius: 20%;
       }
-  }
+}
+.container-signup { 
+    padding-top: 4rem;
+    width: 70%;
+    margin: 0 auto;
+}
+.row-form {
+    padding: 6rem;
+    background-color: rgba(255, 247, 202, 0.6);
+    border-radius: 10px;
+}
 @media screen and (max-width:550) {
     .row {
         display: flex !important;

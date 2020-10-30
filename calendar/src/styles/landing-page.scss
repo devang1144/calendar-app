@@ -3,7 +3,7 @@
 .is-nunito {
     font-family: 'Nunito';
 }
-.is-fjalla {
+.is-fjalla { 
     font-family: 'Fjalla One';
 }
 .brand {
@@ -11,7 +11,7 @@
     padding: 6px;
     &:hover {
         cursor: pointer;
-        background: #f5f5f5;
+        background: rgba(255, 247, 202, 0.4);
         border-radius: 8px;
     }
 }
@@ -20,25 +20,36 @@
 }
 .bth{
     padding: 4px;
+    padding-left: 1rem;
+    transition-delay: 0.1s !important;
+    -webkit-transition-property: background, transform;
+    -webkit-transition-duration: 0.5s, 0.2s;
     &:hover {
         cursor: pointer;
-        background: #f2f2f2;
+        background: #ffe5a9;
         border-radius: 6px;
+        transition:all 0.2s !important;
+        transform: translateY(-3px) !important;
     }
 }
+
 .fa-google {
     background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-  }
+}
+.navbar-toggler-icon {
+    height: 2px !important;
+    background: #000;
+}
 .sign-up {
     background: #000;
     color: #fff;
-    border-radius: 10px !important;
+    font-weight: 600;
+    border-radius: 7px !important;
     padding: 3px 6px !important;
-    opacity: 0.8;
     transition-delay: 0.1s !important;
     -webkit-transition-property: background, transform;
     -webkit-transition-duration: 0.5s, 0.2s;
@@ -57,8 +68,9 @@
 .container-calendar-wqewe {
     width: 36%;
     margin: 0 auto !important;
+    padding: 1.25rem;
     transform: rotate3d(.8,-.866,0,15deg) rotate(-1deg);
-    background-color: rgba(242, 232, 195, 0.4);
+    background-color: rgba(255, 247, 202, 0.8);
     border-radius: 20px;
 }
 .container-row {
@@ -100,8 +112,46 @@
         
     }
 }
+.add-signup-btn {
+    background: #FAD684 !important;
+    color: #000;
+    margin-top: 5px;
+    font-family: 'Nunito';
+    padding: 3px !important;
+    border: 2px solid #000;
+    border-radius: 4px ;
+    transition-delay: 0.1s !important;
+    -webkit-transition-property: background, transform;
+    -webkit-transition-duration: 0.5s, 0.2s;
+    &:focus {
+        outline: none !important;
+    }
+    &:hover {
+        transition:all 0.2s !important;
+        transform: translateY(-3px) !important;
+    }
+    &:disabled {
+        background: #c4c4c4 !important;
+        color: #000 !important;
+    }
+}
+.container-fluid-signup {
+    background: #fff;
+}
 .container-contact-form {
     width: 30% ;
+    margin: 0 auto !important;
+    background-color: rgba(255, 247, 202, 0.7);
+    input {
+        border: none !important;
+        border-bottom: 2px solid #c4c4c4 !important;
+        background-color: rgba(255, 247, 202, 0.1);
+    }
+    input:focus {
+        border-bottom: 2px solid #FAD684 !important;
+    }
+}
+.container01 {
     margin: 0 auto !important;
     border: 2px solid #000;
     box-shadow: 4px 3px #000;
@@ -121,9 +171,10 @@ textarea {
     border: 2px solid #c4c4c4 !important;
     &:focus {
         outline: none !important;
-        border-left: 2px solid #17EB1F !important;
+        box-shadow: none !important;
+        border: 2px solid #68C5FA !important;
     }
-  }
+}
 @media screen and (max-width:505px) {
     .container-calendar-wqewe {
         display: flex !important;

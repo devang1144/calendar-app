@@ -15,6 +15,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
+const cron = require('node-cron');
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
@@ -27,6 +28,26 @@ let transporter = nodemailer.createTransport({
         user: "acw.dnsp@gmail.com",
         pass: process.env.PASSWORD 
     }
+});
+cron.schedule('47 16 * * *',()=>{
+    console.log("it's time and it fucking works")
+    let mailOptions = {
+        from: "acw.dnsp@gmail.com", 
+        to: "devang.iitk@gmail.com", 
+        subject: `Just a routine mail`,
+        text: `
+        its time and it fucking works
+              `
+    };
+    transporter.sendMail(mailOptions, (err, data) => {
+    if (err) {
+        return console.log('Error occurs');
+    }
+        return console.log('Email sent!!!');
+    });
+},{
+    schedule:true,
+    timezone: "Asia/Kolkata"
 });
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

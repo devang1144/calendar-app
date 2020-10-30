@@ -65,11 +65,11 @@ export default class Year extends Func {
                     </div>
             </nav>
         );
-    }
+    } 
 
     renderMonths() {
         let allMonths=[];
-        const colors = [""];
+        const colors = ["#000"];
         for(let i=0;i<12;i++) {
             let monthNo = i;
             let dateContext = Object.assign({}, moment());
@@ -81,7 +81,7 @@ export default class Year extends Func {
             <div className="row">
                 {allMonths.map(m => 
                     <div className="col-md-4 p-5">
-                        <h3 className="month-name is-poppins text-info is-bold" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h3>
+                        <h3 className="month-name is-poppins" style={{color:`${m.color}`}}>{m.dateContext.format("MMMM")}</h3>
                         <table className="table">
                             <tbody>
                             <tr>
