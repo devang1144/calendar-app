@@ -297,7 +297,7 @@ export default class Calendar extends Func {
                         </div>
                     </nav>
                     <nav className="navbar m-0">
-                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left"></i>
+                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left cursor-p"></i>
                     <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
                         <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
                         <div className=" justify-content-end">

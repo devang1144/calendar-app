@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import Login from './googlelogin';
 
 class Otppage extends Component {
     state = {
@@ -31,6 +33,10 @@ class Otppage extends Component {
         }
     }
     render() {
+        const otp = this.state.data;
+        let m = true;
+        if (otp.otp.length === 6)m=false
+        console.log(this.state.data.otp)
         if(this.state.cnf){
             return <Redirect to='/cnfp' />
         }
@@ -58,20 +64,18 @@ class Otppage extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-email-verify d-flex justify-content-center align-items-center">
-                <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito mt-2">An Otp has been sent to your email </label>
-                        <input className="contact mb-2" id="otp" type="text" value={this.state.data.otp} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Proceed</button>
-                </form>
-            </div>
-            <div className="">
-                    {/*<p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>*/}
-                    
-                    
-            </div>
-            
-            </React.Fragment>
+            <div className="container-signup is-poppins d-flex justify-content-center align-items-center">
+                    <div className="row row-form">
+                        <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                            <h4 className="mb-3">Enter 6-digit verification code send to <span className="font-weight-bold">{this.state.email}</span></h4>
+                            <form onSubmit={e => this.handleSubmit(e)}>
+                                <input className="form-control"  id="otp" type="text" value={this.state.data.otp} onChange={this.handleRadio}/>
+                                <button disabled={m} className="add-signup-btn mt-3">Proceed</button>
+                            </form>
+                        </motion.div>
+                    </div>
+                </div>
+         </React.Fragment>
         );
     }
 }

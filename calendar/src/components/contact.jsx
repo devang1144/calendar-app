@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
+import Login from './googlelogin';
+import Footer from './footer';
 export default class Contact extends Component {
     
     state = {
@@ -63,26 +66,28 @@ export default class Contact extends Component {
                 </div>   
             </div>
             <div className="container-fluid align-items-center d-flex vh-100 m-0">
-                <div className="container-contact-form p-4">
-                    <p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>
-                    <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito">Your Name</label>
-                        <input className="contact mb-3" id="name" type="text" value={this.state.data.name} onChange={this.handleRadio}/>
-                        <label htmlFor="" className="is-nunito mt-2">Email</label>
-                        <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
-                        <label htmlFor="" className="mt-2 is-nunito">Write your doubts here</label>
-                        <textarea rows="7" className="contact-textarea is-nunito" id="query" type="textarea" value={this.state.data.query} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Send</button>
-                    </form>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Link style={{textDecoration:"none", color:"#222"}} to="/"><span className="bth">Back to Home<i class="fa pl-2 fa-arrow-right"></i></span></Link>
-                        </div>
-                        <div className="col-md-6"></div>
+                <div className="container-signup is-poppins d-flex justify-content-center align-items-center">
+                    <div className="row row-form">
+                        <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                            <h1>Don't think much, just post your doubt here</h1>
+                            <form onSubmit={e => this.handleSubmit(e)}>
+                            <label className="mt-4" htmlFor="name">name</label>
+                            <input onChange={this.handleRadio} value={this.state.data.name} className="form-control" id="name" name="name"/>
+                            <label className="mt-4" htmlFor="name">email</label>
+                            <input onChange={this.handleRadio} value={this.state.data.email} className="form-control" id="email" name="email"/>
+                            <label className="mt-4" htmlFor="name">Write your doubts here</label>
+                            <textarea rows="7" onChange={this.handleRadio} value={this.state.data.query} className="form-control is-nunito" id="query" name="query"/>
+                            <button className="add-signup-btn mt-4">Send</button>
+                            </form>
+                            <div className="row mt-5">
+                                <Link style={{textDecoration:"none", color:"#222"}} to="/"><span className="bth">Back to Home<i class="fa pl-2 fa-arrow-right"></i></span></Link>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
             <ToastContainer autoClose={3000}/>
+            <Footer/>
             </React.Fragment>
             
             

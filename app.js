@@ -30,11 +30,11 @@ let transporter = nodemailer.createTransport({
     }
 });
 //node-cron schedule
-cron.schedule('8 16 * * *',()=>{
+cron.schedule('47 16 * * *',()=>{
     console.log("it's time and it fucking works")
     let mailOptions = {
         from: "acw.dnsp@gmail.com", 
-        to: "namanpatel453@gmail.com", 
+        to: "devang.iitk@gmail.com", 
         subject: `Just a routine mail`,
         text: `
         its time and it fucking works

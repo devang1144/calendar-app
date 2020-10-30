@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import Login from './googlelogin';
 import '../styles/calender.scss';
 import Cookies from 'js-cookie';
 import Otppage from './otp'
-
+import Footer from './footer'
 export default class Emailveri extends Component {
     
     state = {
@@ -62,19 +64,24 @@ export default class Emailveri extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-email-verify d-flex justify-content-center align-items-center ">
-                <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                        <label htmlFor="" className="is-nunito mt-2">Enter Your Registered Email</label>
-                        <input className="contact mb-2" id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
-                        <button className="mt-3 add-event-btn">Get One Time Password</button>
-                </form>
-            </div>
-            <div className="otp-display">
-                    {/*<p className="is-nunito font-weight-bold">Don't think much, just post your doubt here</p>*/}
-                    {/* <Otppage /> */}
-                    
+            <div className="container-signup is-poppins d-flex justify-content-start align-items-center">
+                    <div className="row row-form">
+                        <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
+                            <h2>Forgot Password</h2>
+                            <form onSubmit={e => this.handleSubmit(e)}>
+                                <label for="email">Enter Your Registered Email</label>
+                                <input className="form-control"  id="email" type="text" value={this.state.data.email} onChange={this.handleRadio}/>
+                                <button className="add-signup-btn mt-3">Get One Time Password</button>
+                            </form>
+                                <p className="pt-4">Don't have a account, <Link to="/signup">signup</Link></p>
+                                <span>or</span>
+                                <Login class="sign-up  ml-2 border-0 m-2"/>
+                            <div className="row mt-5">
+                                <Link style={{textDecoration:"none", color:"#222"}} to="/"><span className="bth">Back to Home<i class="fa pl-2 fa-arrow-right"></i></span></Link>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
-            
             </React.Fragment>
             
             
