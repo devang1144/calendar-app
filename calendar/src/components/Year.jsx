@@ -105,7 +105,7 @@ export default class Year extends Func {
                 {""}
                 </td>
             );
-        }
+        }   
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(m); d++) {
             daysInMonth.push(
@@ -126,7 +126,7 @@ export default class Year extends Func {
                     </Popover.Content>
                     </Popover>
                 }
-                >
+                > 
                 <td key={d} className="day-year p-2 text-center">
                     <span className="p-0 is-poppins" onClick={(e)=>{this.onDayClick(e, d)}}>{d}</span>
                 </td>
