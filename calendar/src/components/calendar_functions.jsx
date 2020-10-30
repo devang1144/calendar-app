@@ -128,7 +128,7 @@ export default class Func extends Component {
             const length = (events === undefined) ? 0: events.length;
             for (let i=0;i<length;i++) {
                 if(thatDay === events[i].eventDate) {
-                    eventThatDay.push({eventName:events[i].eventName, eventDate:events[i].eventDate})
+                    eventThatDay.push({_id:events[i]._id, eventName:events[i].eventName, eventDate:events[i].eventDate})
                     
                 }
                 console.log(thatDay, events[i].eventDate)

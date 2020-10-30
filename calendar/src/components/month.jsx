@@ -9,7 +9,10 @@ export default class Lists extends Component {
         events:[],
         ev:[],
         eventThatDay:[],
-        eventname:""
+        eventname:"",
+        data: {
+            editEvent:""
+        }
     }
     renderRadio(name, label, id, onChange, value, ...rest) {
         return (<div className="form-check">
@@ -17,7 +20,7 @@ export default class Lists extends Component {
                     <label className="radio-labels is-white is-poppins" htmlFor={id}>{label}</label>
                 </div>
             );
-    };
+    }; 
     handleRadio = ({currentTarget:input}) => {
         const data = {...this.state.data};
         data[input.name] = input.value;
@@ -31,6 +34,18 @@ export default class Lists extends Component {
         
         this.setState({eventThatDay:this.props.eventThatDay});        
     }
+    handleDelete = async(e, id) => {
+        console.log(this.id)
+        const {data:newEvent} = await axios.put(`/api/user/${Cookies.get('lauth')}/${id}`);
+        console.log(newEvent);
+    }
+    handleEdit = async(e, id) => {
+        const payload = {
+            newEvent : this.state.data.editEvent
+        }
+        const {data:newEvent} = axios.put(`api/user/e/${Cookies.get('lauth')}/${id}`, payload);
+        console.log(newEvent);
+    }
     displayEvents() {
         const length = this.props.ev === undefined ? 0 : this.props.ev.length;
         if(length) {
@@ -43,11 +58,11 @@ export default class Lists extends Component {
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </thead>
                     <tbody>
-                    {this.props.ev.map(e => 
+                    {this.props.ev.map(m => 
                             <tr className="p-0 is-poppins is-white">
-                                <td><span className="eventName">{e.eventName}</span></td>
-                                <td className="text-info">{e.moment.split("T")[0]}</td>
-                                <td className="text-danger">{e.eventDate}</td>
+                                <td><span className="eventName">{m.eventName}</span></td>
+                                <td className="text-info">{m.moment.split("T")[0]}</td>
+                                <td className="text-danger">{m.eventDate}</td>
                                 <td className="d-flex">
                                 <OverlayTrigger
                                     rootClose
@@ -57,9 +72,9 @@ export default class Lists extends Component {
                                         <Popover className="edit-popover">
                                         <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
                                             <label htmlFor="event">Edit Event </label>
-                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
                                             <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                                         </form>
                                         </Popover.Content>
@@ -68,7 +83,7 @@ export default class Lists extends Component {
                                     >
                                     <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
                                     </OverlayTrigger>
-                                <i className="fa fa-trash pl-2" onClick={() => this.handleDelete(e._id)}></i>
+                                <i className="fa fa-trash pl-2" onClick={(e) => this.handleDelete(e, m._id)}></i>
                                 </td>
                             </tr>
                         )}
@@ -92,10 +107,10 @@ export default class Lists extends Component {
                         <th>&nbsp;&nbsp;&nbsp;</th>
                     </thead>
                     <tbody>
-                    {this.props.eventThatDay.map(e => 
+                    {this.props.eventThatDay.map(m => 
                             <tr className="p-0 is-poppins is-white">
-                                <td><span className="eventName">{e.eventName}</span></td>
-                                <td><span className="eventName text-danger">{e.eventDate}</span></td>
+                                <td><span className="eventName">{m.eventName}</span></td>
+                                <td><span className="eventName text-danger">{m.eventDate}</span></td>
                                 <td className="d-flex">
                                 <OverlayTrigger
                                     rootClose
@@ -105,9 +120,9 @@ export default class Lists extends Component {
                                         <Popover className="edit-popover">
                                         <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
                                             <label htmlFor="event">Edit Event </label>
-                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
                                             <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                                         </form>
                                         </Popover.Content>
@@ -116,7 +131,7 @@ export default class Lists extends Component {
                                     >
                                     <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
                                     </OverlayTrigger>
-                                <i className="fa fa-trash pl-2"></i>
+                                <i className="fa fa-trash pl-2" onClick={(e) => this.handleDelete(e, m._id)}></i>
                                 </td>
                             </tr>
                         )}
@@ -134,10 +149,10 @@ export default class Lists extends Component {
                         <th>&nbsp;&nbsp;&nbsp;</th>
                     </thead>
                     <tbody>
-                    {this.props.eventOnThatDay.map(e => 
+                    {this.props.eventOnThatDay.map(m => 
                             <tr className="p-0 is-poppins is-white">
-                                <td><span className="eventName">{e.eventName}</span></td>
-                                <td><span className="eventName text-danger">{e.eventDate}</span></td>
+                                <td><span className="eventName">{m.eventName}</span></td>
+                                <td><span className="eventName text-danger">{m.eventDate}</span></td>
                                 <td className="d-flex">
                                 <OverlayTrigger
                                     rootClose
@@ -147,18 +162,18 @@ export default class Lists extends Component {
                                         <Popover className="edit-popover">
                                         <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleSubmit(e, Cookies.get('lauth'))} className="form-group p-5">
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
                                             <label htmlFor="event">Edit Event </label>
-                                            <input name="eventName" onChange={this.handleRadio} value={e.eventName} className="form-control add-event" id="event" type="text"/>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
                                             <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
                                     }
                                     >
-                                    <i class="fa fa-pencil pr-2" aria-hidden="true" onClick={this.handleEdit}></i>
+                                    <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
                                     </OverlayTrigger>
-                                <i className="fa fa-trash pl-2"></i>
+                                <i className="fa fa-trash pl-2" onClick={(e) => this.handleDelete(e, m._id)}></i>
                                 </td>
                             </tr>
                         )}
@@ -167,19 +182,9 @@ export default class Lists extends Component {
                 </motion.table>
         );
     }
-    handleDelete = id => {
-        axios.delete(`http://localhost:1234/api/user/${Cookies.get("lauth")}/${id}`)
-        .then(res => {
-            if(res.data){
-                console.log(res.data)
-            }
-         }).then(() => {
-            this.getCompletedList();
-         })
-        .catch(err => console.log(err))
-    }
+
     render() {
-        console.log(this.state.ev)
+        console.log(this.state.data.editEvent)
         return (
             <div> 
                 <div className="d-inline">

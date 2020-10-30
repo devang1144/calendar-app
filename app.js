@@ -159,10 +159,10 @@ app.post('/user/c',async (req, res) =>{
 
 })
 // Data.findOne({_id:"5f951a3521086627b08217be"}).findOne({"events._id":"5f9924dfc72cd38f8b1c2ca4"}).then(data => console.log(data))
-app.delete('/api/user/:id1/:id2', (req, res) => {
-    Data.findOne({_id: req.params.id1}, { "events" : { "$pull" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
+// app.delete('/api/user/:id1/:id2', (req, res) => {
+//     Data.findOne({_id: req.params.id1}, { "events" : { "$pull" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
     
-}); 
+// }); 
 app.put('/otppass',async(req,res)=>{
 
     // const token = jwt.sign({pass:req.body.pass1}, process.env.TOKEN_SECRET);
@@ -215,6 +215,17 @@ app.put('/api/user/login',async (req,res)=>{
     console.log(req.body)
     //res.send("otp printed")
 })
+
+app.put('/api/user/:id1/:id2', async (req, res) => {
+    // const user = await Data.findById(req.params.id1);
+    const data = await Data.update({_id:req.params.id1}, { '$pull' : { "events" : { "_id" : req.params.id2 } } } )
+    res.send(data)
+});
+
+app.put('/api/user/e/:id1/:id2', async (req, res) => {
+    const data = await Data.update({_id:req.params.id1, "events._id":req.params.id2}, { '$set' : { 'events.$.eventName' : req.body.newEvent } } )
+    res.send(data)
+});
 
 app.get('/api/user/:id1/:id2', (req, res) => {
    Data.findOne({
