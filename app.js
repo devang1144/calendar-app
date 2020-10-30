@@ -34,7 +34,7 @@ cron.schedule('8 16 * * *',()=>{
     console.log("it's time and it fucking works")
     let mailOptions = {
         from: "acw.dnsp@gmail.com", 
-        to: "anshikagangwar289@gmail.com", 
+        to: "namanpatel453@gmail.com", 
         subject: `Just a routine mail`,
         text: `
         its time and it fucking works
