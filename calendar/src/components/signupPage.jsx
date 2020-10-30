@@ -6,7 +6,6 @@ import NavSignUp from './navSignUp';
 import {  Redirect } from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from './common/form';
-import Input from './common/input';
 import '../styles/login.css';
 
 export default class Signup extends Form {
@@ -63,5 +62,5 @@ export default class Signup extends Form {
             </div>
             </React.Fragment>
         )
-    }
+    } 
 }

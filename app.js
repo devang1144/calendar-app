@@ -159,9 +159,10 @@ app.post('/user/c',async (req, res) =>{
 
 })
 // Data.findOne({_id:"5f951a3521086627b08217be"}).findOne({"events._id":"5f9924dfc72cd38f8b1c2ca4"}).then(data => console.log(data))
-app.post('/api/user/:id1/:id2', (req, res) => {
-    Data.findOneAndUpdate({_id: req.params.id1}, { "$pull" : { "events" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
- }); 
+app.delete('/api/user/:id1/:id2', (req, res) => {
+    Data.findOne({_id: req.params.id1}, { "events" : { "$pull" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
+    
+}); 
 app.put('/otppass',async(req,res)=>{
 
     // const token = jwt.sign({pass:req.body.pass1}, process.env.TOKEN_SECRET);

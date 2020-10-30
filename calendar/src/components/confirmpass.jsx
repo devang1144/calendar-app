@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import Joi from 'joi-browser';
-import Cookies from 'js-cookie';
+import Cookies, { set } from 'js-cookie';
 import axios from 'axios';
+import Form from './common/form';
 
 class ConfirmPswd extends Component {
     state = {
@@ -10,14 +11,13 @@ class ConfirmPswd extends Component {
         cnf:false,
         data :{
             pass1:"",
-            pass2:""
-        }
-        
+            pass2:"",
+            
+        },
+        isMatching:true
     }
-    schema = {
-        pass1:Joi.string().min(6).label("Password").required()
-    }
-    handleRadio = ({currentTarget:input}) => {
+
+    handleChange = ({currentTarget:input}) => {
         const data = {...this.state.data};
         data[input.id] = input.value;
         this.setState( { data });
@@ -38,7 +38,18 @@ class ConfirmPswd extends Component {
     }
     
     render() {
-        console.log(this.state.data.pass1)
+        const pass = this.state.data;
+        let m = true;
+        if (pass.pass1 === pass.pass2 && pass.pass1.length >= 6)m=false;
+        else {
+            m=true;
+        }
+        let alert = <div></div>
+        if (pass.pass1.length <= pass.pass2.length && pass.pass1 !== pass.pass2) {
+            alert = <div class="alert alert-danger" role="alert">
+            password does not match
+          </div>
+        }
         if(this.state.cnf){
             return <Redirect to='/login' />
         }
@@ -64,13 +75,14 @@ class ConfirmPswd extends Component {
                 </div>   
             </div>
                 <div className="container-email-verify d-flex justify-content-center align-items-center ">
-                <form onSubmit={e => this.handleSubmit(e)} className="form-group d-flex flex-column">
-                    <label for="New Password" className="mt-3">Enter New Password</label>
-                    <input type='password' name='New Password'  id='pass1' className="contact mb-2" onChange={this.handleRadio}/>
-                    {/* <label for="Confirm Password" className="mt-3">Password</label>
-                    <input type='password' name='Confirm Password' id='pass2' className="contact mb-2">
-                    </input> */}
-                    <button className="mt-3 add-event-btn">Set this one</button>
+                <form onSubmit={e => this.handleSubmit(e)} className="form-group border p-4 d-flex flex-column">
+                    <label htmlFor="New Password" className="mt-3">Enter New Password</label>
+                    <input type='password' name='New Password'  id='pass1' className="contact mb-2" onChange={this.handleChange}/>
+                    <label htmlFor="New Password" className="mt-3">Confirm Password</label>
+                    <input type='password' name='Confirm Password'  id='pass2' className="contact mb-2" onChange={this.handleChange}/>
+                    {alert}
+                    <button disabled={m} className="mt-3 add-event-btn">Change password</button>
+                    
                 </form>
             </div>
             </React.Fragment>

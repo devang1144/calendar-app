@@ -22,7 +22,7 @@ export default class Form extends Component {
         e.preventDefault();
         const errors = this.validate();
         this.setState({errors: errors || {} });
-        this.doSubmit();
+        this.doSubmit(e);
     };
     handleChange = ({currentTarget:input}) => {
         const errors = {...this.state.errors};
