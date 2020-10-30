@@ -159,7 +159,7 @@ export default class Calendar extends Func {
         if (this.state.data.qwerty === "1") {
             return (
                 <motion.div initial={{y:10, opacity:0}} animate={{y:-10, opacity:1}} transition={{duration:0.5}}>
-                    <Year dateContext={this.state.dateContext}/>
+                    <Year dateContext={this.state.dateContext} eventThatDay={eventThatMonth} selectedDay={this.state.selectedDay}/>
                 </motion.div>
             );
         }
@@ -210,7 +210,7 @@ export default class Calendar extends Func {
     }
     
     render() {
-        console.log(Cookies.get("lauth"))
+        console.log(this.state.dateContext.year(), this.state.today.year())
         if(!this.state.logStatus)return <Redirect to="/"/>
         const events = this.state.data.user.events;
         const eventThatDay = [];
@@ -245,15 +245,13 @@ export default class Calendar extends Func {
                 </td>
             );
         }
-        
+        let class1 = "day p-2 rounded text-center";
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
-                <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                    <span className="day p-2 rounded text-center" onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
-                </td>  
-                    
-                
+                <td key={d} id="tddd">
+                    <span  className={(d === this.state.today.date() && (this.state.dateContext.month() === this.state.today.month()) && (this.state.dateContext.year() === this.state.today.year())) ? "today "+class1:""+class1} onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
+                </td>    
             );
         }
 

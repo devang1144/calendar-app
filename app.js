@@ -16,7 +16,6 @@ const bcrypt = require('bcryptjs');
 const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
-const cron = require('node-cron');
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB

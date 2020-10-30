@@ -116,7 +116,11 @@ export default class Func extends Component {
         console.log(res);        
 
     }
-  
+    ondayClickYear = (e, d, m) => {
+        this.setState({dateContext:m});
+        this.setState({selectedDay:d});
+        
+    }
     onDayClick = (e, events, day) => {
         const date = this.state.dateContext;
         this.setState({
