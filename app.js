@@ -13,6 +13,7 @@ const contact = require('./model/contact');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
 const cron = require('node-cron');
@@ -29,6 +30,7 @@ let transporter = nodemailer.createTransport({
         pass: process.env.PASSWORD 
     }
 });
+//node-cron schedule
 cron.schedule('47 16 * * *',()=>{
     console.log("it's time and it fucking works")
     let mailOptions = {
