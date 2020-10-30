@@ -106,7 +106,7 @@ export default class Calendar extends Func {
                                 {this.months.map(m => 
                                     <li className="is-white" onClick={(e)=> {this.changeMonth(e, m)}}>
                                         <span className="dropdown-months">{m}</span>
-                                    </li>
+                                    </li> 
                                     )}
                                 
                             </ul>
