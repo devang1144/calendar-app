@@ -344,15 +344,20 @@ export default class Calendar extends Func {
                     <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
                     <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
                     {/* timer goes here */}
-                    <span onClick={this.timechange} className="remind">Remind On</span>
+                    <div >
+
+        <span onClick={this.timechange} className="remind badge badge-warning mt-3 ml-3 mb-3">Remind On {this.state.time}hrs▼</span>
                     {this.state.timeshow && <div className={this.state.timeshow===true?"timepicker ModalOpen":"timepicker ModalClosed"} >
                     <TimeKeeper
                                 time={this.state.time}
                                 onChange={(data) => this.setState({
                                     time:data.formatted24
                                 })}
+                                onDoneClick={this.timechange}
                             />
                     </div>}
+                    </div>
+                    
 
                     <button className="add-event-btn" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
