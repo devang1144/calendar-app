@@ -68,7 +68,7 @@ class Otppage extends Component {
                     <div className="row row-form">
                         <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
                             <h4 className="mb-3">Enter 6-digit verification code send to <span className="font-weight-bold">{this.state.email}</span></h4>
-                            <form onSubmit={e => this.handleSubmit(e)}>
+                            <form onSubmit={e => this.handleSubmit(e)}> 
                                 <input className="form-control"  id="otp" type="text" value={this.state.data.otp} onChange={this.handleRadio}/>
                                 <button disabled={m} className="add-signup-btn mt-3">Proceed</button>
                             </form>

@@ -46,12 +46,12 @@ export default class HomePage extends Calendar {
                 </td>
             );
         }
-        
+        let class1 = "day p-2 rounded text-center";
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
-                <td key={d} id="tddd" className={d === this.state.today.date() ? "today dropdown days":"dropdown days"}>
-                    <span className="day rounded text-center p-2">{d}</span>
+                <td key={d} id="tddd">
+                    <span className={(d === this.state.today.date() && (this.state.dateContext.month() === this.state.today.month()) && (this.state.dateContext.year() === this.state.today.year())) ? "today "+class1:" "+class1}>{d}</span>
                 </td>  
                     
                 

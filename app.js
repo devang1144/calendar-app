@@ -208,7 +208,7 @@ app.post('/user/c',async (req, res) =>{
 // app.delete('/api/user/:id1/:id2', (req, res) => {
 //     Data.findOne({_id: req.params.id1}, { "events" : { "$pull" : { "_id" : req.params.id2 } } }, { safe: true, multi:true }).then(data => res.json(data)) 
     
-// }); 
+// });  
 app.put('/otppass',async(req,res)=>{
 
     // const token = jwt.sign({pass:req.body.pass1}, process.env.TOKEN_SECRET);
