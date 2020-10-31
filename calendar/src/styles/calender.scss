@@ -33,7 +33,7 @@ input {
     border:none !important;
     outline: none !important;
     box-shadow: none !important;
-    border: 2px solid #000 !important;
+    // border: 2px solid #000 !important;
 }
 .fa-inbox, .fa-bell-o {
     &:hover {
@@ -84,7 +84,6 @@ input::-webkit-inner-spin-button {
     display: block;
     animation-name: dropdown;
     animation-duration: 0.5s;
-    
   }
   .dropdown-months {
       &:hover {
@@ -285,7 +284,7 @@ table {
     border-radius: 20px !important;
 }
 .fa-trash, .fa-pencil {
-    display: none !important;
+    // display: none !important;
     &:hover {
         color: #B10DFF;
     }
@@ -304,7 +303,9 @@ tr {
 td {
     color: #000;
 }
-
+.some-wrapper .react-timekeeper__clock-wrapper {
+    background: #fff;
+}
 .navbar-right {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -317,11 +318,14 @@ td {
 // }
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
-    border-radius: 6px !important;
+    // border-radius: 6px !important;
+    border-bottom: 3px solid #000 !important;
+    border-radius: 0 !important;
     color: #000 !important;
     &:focus {
         outline: none !important;
         box-shadow: none !important;
+        border-bottom: 3px solid #0C75A4 !important;
     }
 }
 .add-event-form {
@@ -370,32 +374,7 @@ td {
     opacity: 0.5;
     font-size: 40px;
 }
-// .landingContainer {
-//     border-top: 8px solid rgba(237, 207, 136, 0.7);
-// }
-//time-picker
-.remind{
-    cursor: pointer;
-}
-.timepicker{    
-    transition: all 0.3 ease-out;
-}
-.ModalOpen {
-    animation: openModal 0.4s ease-out forwards;
-}
-.ModalClosed {
-    animation: closeModal 0.4s ease-out forwards;
-}
 
-@keyframes openModal {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(0);   }
-}
-
-@keyframes closeModal {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100%);}
-}
 .search-input-box {
     color: #000;
     background: #fff;
@@ -406,7 +385,8 @@ td {
 }
 ::placeholder {
     color: #000;
-    opacity: 0.6; 
+    opacity: 0.6;
+    font-family: 'Poppins';
   }
   
   :-ms-input-placeholder { 
@@ -424,6 +404,13 @@ td {
 }
 .email-display{
     display:none !important;
+}
+.remind {
+    &:hover {
+        background: rgba(255, 247, 202, 0.8);
+        border-radius: 4px;
+        cursor: pointer;
+    }
 }
 .form-search button {
     background: transparent !important;

@@ -14,10 +14,14 @@ import { Redirect } from 'react-router-dom';
 import Year from './Year';
 import Lists from './month';
 import Week from './weeks';
+import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
 import Clock from './Clock';
 import ArrowDown from '../assets/arrow_down.svg';
 import Logout from './googleLogout';
 import TimeKeeper from 'react-timekeeper';
+
+
 export default class Calendar extends Func {
     state = {
         dateContext: moment(),
@@ -42,8 +46,9 @@ export default class Calendar extends Func {
         },
         logStatus:true,
         uname1:Cookies.get('uname'),
-        time:"10:00",
-        timeshow:false
+        time:"",
+        timeshow:false,
+        anchorEl:null
     }
     // schema={
     //     year:Joi.number().min(4).max(4).label("Year").required()
@@ -219,6 +224,11 @@ export default class Calendar extends Func {
             );
         }
     }
+    handleClickAway=()=>{
+        this.setState({
+            timeshow:false
+        })
+    }
     
     render() {
         console.log(this.state.time)
@@ -299,7 +309,9 @@ export default class Calendar extends Func {
                 </tr>
             );
         })
-        
+        let open = Boolean(this.state.anchorEl);
+        let idd = this.open ? 'simple-popover' : undefined;
+        console.log(this.state.time)
         return (
             <div className="container-fluid landingContainer m-0" style={this.style}>
                 <div className="row landing-page-row">
@@ -323,9 +335,7 @@ export default class Calendar extends Func {
                             {this.logoutButton()}
                         </div>
                     </nav>
-                    <span>
-                            
-                    </span>
+                    
                     
                 <motion.table className="table" initial={{y:10, opacity:0}} animate={{y:-20, opacity:1}} transition={{duration:0.7}}>
                     <thead>
@@ -341,25 +351,32 @@ export default class Calendar extends Func {
                    
                 </div>
                 <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
-                    <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
-                    <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
-                    {/* timer goes here */}
-                    <div >
-
-        <span onClick={this.timechange} className="remind badge badge-warning mt-3 ml-3 mb-3">Remind On {this.state.time}hrs▼</span>
-                    {this.state.timeshow && <div className={this.state.timeshow===true?"timepicker ModalOpen":"timepicker ModalClosed"} >
-                    <TimeKeeper
-                                time={this.state.time}
-                                onChange={(data) => this.setState({
-                                    time:data.formatted24
-                                })}
-                                onDoneClick={this.timechange}
-                            />
-                    </div>}
-                    </div>
+                    <input name="eventName" placeholder={`Add Event ${this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}`} onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event mb-3" id="event" type="text"/>
+                    <span className="remind is-poppins" aria-describedby={idd} onClick={this.handleClickk}>
+                        Remind On {this.state.time === "" ? "🡶" : this.state.time}
+                    </span>
                     
-
-                    <button className="add-event-btn" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                    <div>
+                    <Popover
+                        id={idd}
+                        open={open}
+                        anchorEl={this.state.anchorEl}
+                        onClose={this.handleClosee}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    >
+                        <div className="some-wrapper">
+                        <TimeKeeper onChange={(data) => this.setState({time:data.formatted24})} />
+                        </div>
+                    </Popover>
+                    </div>
+                    <button className="add-signup-btn mt-2" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
                 </div>
                 <div className="col-md-9 p-0 left">
