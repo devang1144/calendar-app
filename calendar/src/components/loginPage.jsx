@@ -22,7 +22,8 @@ export default class LoginPage extends Component {
             user:[{_id:"fjwretrgkfkg"}],
             flag:false,
             userData:[],
-            userDetails:{}
+            userDetails:{},
+            type:"password"
         }
     handleSubmit = async(e) => {
         e.preventDefault();
@@ -45,6 +46,11 @@ export default class LoginPage extends Component {
         data[input.name] = input.value;
         this.setState({ data });
     };
+    showpassword =()=>{
+        this.setState({
+            type:"input"
+        })
+    }
     render() {
         console.log(this.state.data)
         if(this.state.redirect) {
