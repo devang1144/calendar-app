@@ -33,7 +33,7 @@ input {
     border:none !important;
     outline: none !important;
     box-shadow: none !important;
-    border: 2px solid #000 !important;
+    // border: 2px solid #000 !important;
 }
 .fa-inbox, .fa-bell-o {
     &:hover {
@@ -84,7 +84,6 @@ input::-webkit-inner-spin-button {
     display: block;
     animation-name: dropdown;
     animation-duration: 0.5s;
-    
   }
   .dropdown-months {
       &:hover {
@@ -285,7 +284,7 @@ table {
     border-radius: 20px !important;
 }
 .fa-trash, .fa-pencil {
-    display: none !important;
+    // display: none !important;
     &:hover {
         color: #B10DFF;
     }
@@ -317,7 +316,9 @@ td {
 // }
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
-    border-radius: 6px !important;
+    // border-radius: 6px !important;
+    border-bottom: 3px solid #000 !important;
+    border-radius: 0 !important;
     color: #000 !important;
     &:focus {
         outline: none !important;
@@ -383,7 +384,8 @@ td {
 }
 ::placeholder {
     color: #000;
-    opacity: 0.6; 
+    opacity: 0.6;
+    font-family: 'Poppins';
   }
   
   :-ms-input-placeholder { 

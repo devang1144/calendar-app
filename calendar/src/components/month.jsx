@@ -171,7 +171,7 @@ export default class Lists extends Component {
                                         </Popover>
                                     }
                                     >
-                                    <i class="fa fa-pencil pr-2" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil pr-2"></i>
                                     </OverlayTrigger>
                                 <i className="fa fa-trash pl-2" onClick={(e) => this.handleDelete(e, m._id)}></i>
                                 </td>

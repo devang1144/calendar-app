@@ -1,0 +1,17 @@
+.sidenav {
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: all 0.4s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }

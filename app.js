@@ -30,26 +30,26 @@ let transporter = nodemailer.createTransport({
     }
 });
 //node-cron schedule
-cron.schedule('47 16 * * *',()=>{
-    console.log("it's time and it fucking works")
-    let mailOptions = {
-        from: "acw.dnsp@gmail.com", 
-        to: "devang.iitk@gmail.com", 
-        subject: `Just a routine mail`,
-        text: `
-        its time and it fucking works
-              `
-    };
-    transporter.sendMail(mailOptions, (err, data) => {
-    if (err) {
-        return console.log('Error occurs');
-    }
-        return console.log('Email sent!!!');
-    });
-},{
-    schedule:true,
-    timezone: "Asia/Kolkata"
-});
+// cron.schedule('40 20 * * *',()=>{
+//     console.log("it's time and it works")
+//     let mailOptions = {
+//         from: "acw.dnsp@gmail.com", 
+//         to: "devang.iitk@gmail.com", 
+//         subject: `Just a routine mail`,
+//         text: `
+//         its time and it fucking works
+//               `
+//     };
+//     transporter.sendMail(mailOptions, (err, data) => {
+//     if (err) {
+//         return console.log('Error occurs');
+//     }
+//         return console.log('Email sent!!!');
+//     });
+// },{
+//     schedule:true,
+//     timezone: "Asia/Kolkata"
+// });
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -79,6 +79,30 @@ app.get('/api/user/login', (req, res) => {
 // })
 app.post('/api/user/:id',(req,res)=>{
     try{
+        const str=req.body.eventDate.split(" ");
+        const mon=str[1].split(",")[0];
+        const final="0 0 "+str[0]+" "+mon+" *";
+        cron.schedule(final,()=>{
+            console.log("it's time and it works")
+            let mailOptions = {
+                from: "acw.dnsp@gmail.com", 
+                to: req.body.email, 
+                subject: `Just a routine mail`,
+                text: `
+                its time and it fucking works
+                      `
+            };
+            transporter.sendMail(mailOptions, (err, data) => {
+            if (err) {
+                return console.log('Error occurs');
+            }
+                return console.log('Email sent!!!');
+            });
+        },{
+            schedule:true,
+            timezone: "Asia/Kolkata"
+        });
+        console.log(final);
         Data.findByIdAndUpdate({_id:req.params.id}, 
         { $push: {
                 events:{

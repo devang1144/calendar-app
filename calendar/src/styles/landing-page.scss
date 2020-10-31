@@ -133,6 +133,7 @@
     &:disabled {
         background: #c4c4c4 !important;
         color: #000 !important;
+        transform: translateY(0px) !important;
     }
 }
 .container-fluid-signup {
