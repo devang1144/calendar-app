@@ -17,6 +17,7 @@ import Week from './weeks';
 import Clock from './Clock';
 import ArrowDown from '../assets/arrow_down.svg';
 import Logout from './googleLogout';
+import TimeKeeper from 'react-timekeeper';
 export default class Calendar extends Func {
     state = {
         dateContext: moment(),
@@ -41,6 +42,8 @@ export default class Calendar extends Func {
         },
         logStatus:true,
         uname1:Cookies.get('uname'),
+        time:"10:00",
+        timeshow:false
     }
     // schema={
     //     year:Joi.number().min(4).max(4).label("Year").required()
@@ -174,6 +177,11 @@ export default class Calendar extends Func {
             //return <Week  today={this.state.dateContext}/>
         }
     }
+    timechange=()=>{
+        this.setState({
+            timeshow:this.state.timeshow === false? true:false
+        })
+    }
      
     logOut = async() => {
         const data = await Cookies.remove('lauth');
@@ -213,6 +221,7 @@ export default class Calendar extends Func {
     }
     
     render() {
+        console.log(this.state.time)
         console.log(this.state.dateContext.year(), this.state.today.year())
         if(!this.state.logStatus){
             console.log(this.state.logStatus)
@@ -335,6 +344,25 @@ export default class Calendar extends Func {
                     {/* <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label> */}
                     <input name="eventName" placeholder={`Add Event ${this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}`} onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
                     <button className="add-signup-btn mt-3" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                    <label htmlFor="event">Add Event {this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}</label>
+                    <input name="eventName" onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event" id="event" type="text"/>
+                    {/* timer goes here */}
+                    <div >
+
+        <span onClick={this.timechange} className="remind badge badge-warning mt-3 ml-3 mb-3">Remind On {this.state.time}hrs▼</span>
+                    {this.state.timeshow && <div className={this.state.timeshow===true?"timepicker ModalOpen":"timepicker ModalClosed"} >
+                    <TimeKeeper
+                                time={this.state.time}
+                                onChange={(data) => this.setState({
+                                    time:data.formatted24
+                                })}
+                                onDoneClick={this.timechange}
+                            />
+                    </div>}
+                    </div>
+                    
+
+                    <button className="add-event-btn" disabled={this.state.data.eventName === undefined ? true: (this.state.data.eventName.length === 0 ? true:false)}>add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
                 </form>
                 </div>
                 <div className="col-md-9 p-0 left">

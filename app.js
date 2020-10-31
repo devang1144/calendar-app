@@ -79,9 +79,11 @@ app.get('/api/user/login', (req, res) => {
 // })
 app.post('/api/user/:id',(req,res)=>{
     try{
+        const time=req.body.eventTime.split(":")
+        console.log(time[0])
         const str=req.body.eventDate.split(" ");
         const mon=str[1].split(",")[0];
-        const final="0 0 "+str[0]+" "+mon+" *";
+        const final=time[1]+" "+time[0]+" "+str[0]+" "+mon+" *";
         cron.schedule(final,()=>{
             console.log("it's time and it works")
             let mailOptions = {
