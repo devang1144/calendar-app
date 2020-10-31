@@ -135,7 +135,7 @@ export default class Calendar extends Func {
                         <div className="collapse navbar-collapse">
                         <div className="navbar-nav is-white">
                         {this.renderRadio("qwerty", "Year", "year", this.handleRadio, "1")}
-                        {this.renderRadio("qwerty", "month", "month", this.handleRadio, "2")}
+                        {this.renderRadio("qwerty", "Dashboard", "month", this.handleRadio, "2")}
                         {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}     
                         </div> 
                     </div>
@@ -197,6 +197,9 @@ export default class Calendar extends Func {
         const user = this.state.data.user
         const kind = user.accounts === undefined ? null : user.accounts[0].kind;
         if(kind === "Google") {
+            // this.setState({
+            //     logStatus:false
+            // })
             return <Logout/>
         }
         
@@ -211,7 +214,10 @@ export default class Calendar extends Func {
     
     render() {
         console.log(this.state.dateContext.year(), this.state.today.year())
-        if(!this.state.logStatus)return <Redirect to="/"/>
+        if(!this.state.logStatus){
+            console.log(this.state.logStatus)
+            return <Redirect to="/"/>
+        }
         const events = this.state.data.user.events;
         const eventThatDay = [];
         const date = this.state.dateContext;
@@ -246,11 +252,15 @@ export default class Calendar extends Func {
             );
         }
         let class1 = "day p-2 rounded text-center";
-        let daysInMonth = [];
+        let daysInMonth = []; 
+        //calendar days
         for (let d = 1; d <= this.daysInMonth(); d++) {
             daysInMonth.push(
-                <td key={d} id="tddd">
-                    <span  className={(d === this.state.today.date() && (this.state.dateContext.month() === this.state.today.month()) && (this.state.dateContext.year() === this.state.today.year())) ? "today "+class1:""+class1} onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
+                <td key={d} id="tddd"> 
+                    <span  className={
+                        (d === this.state.today.date() && (this.state.dateContext.month() === this.state.today.month())
+                         && (this.state.dateContext.year() === this.state.today.year())) ? "today "+class1:" "+class1} 
+                         onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
                 </td>    
             );
         }

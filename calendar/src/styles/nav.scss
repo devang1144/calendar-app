@@ -34,3 +34,18 @@
         
     }
 }
+.input-icons i{
+    position: absolute;
+
+}
+.input-cnf{
+    padding-right: 3px;
+}
+.show-icon{
+    opacity: 60% !important;
+    text-align: right !important;
+    &:hover{
+        
+        opacity: 80% !important;
+    }
+}
