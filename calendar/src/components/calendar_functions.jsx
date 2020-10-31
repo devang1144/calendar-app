@@ -106,14 +106,17 @@ export default class Func extends Component {
     handleSubmit = async (e) => {
         const id = Cookies.get('lauth') ? Cookies.get('lauth') : console.log("fmklsdg"); 
         e.preventDefault();
+        console.log(this.state.time);
         const event = {
             eventName:this.state.data.eventName,
             eventDate:(this.state.selectedDay) + " " + (this.state.dateContext.format("MMM")) + "," + (this.state.dateContext.format("yy")) ,
             moment:this.state.currentDateContext._d,
+            eventTime:this.state.time,
             email: this.state.data.user.email
         };
          const { data:res } = await axios.post(`/api/user/${id}`, event);
-        console.log(res);        
+        console.log(res);  
+
 
     }
     ondayClickYear = (e, d, m) => {
@@ -173,6 +176,7 @@ export default class Func extends Component {
     
     
     render() {
+        
         return (
             <div>
                 

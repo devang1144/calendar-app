@@ -373,6 +373,29 @@ td {
 // .landingContainer {
 //     border-top: 8px solid rgba(237, 207, 136, 0.7);
 // }
+//time-picker
+.remind{
+    cursor: pointer;
+}
+.timepicker{    
+    transition: all 0.3 ease-out;
+}
+.ModalOpen {
+    animation: openModal 0.4s ease-out forwards;
+}
+.ModalClosed {
+    animation: closeModal 0.4s ease-out forwards;
+}
+
+@keyframes openModal {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0);   }
+}
+
+@keyframes closeModal {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%);}
+}
 .search-input-box {
     color: #000;
     background: #fff;

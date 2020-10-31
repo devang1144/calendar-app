@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import Popover from '@material-ui/core/Popover';
 import '../styles/nav.scss'
+import TimePicker from 'react-time-picker'
+import TimeKeeper from 'react-timekeeper';
 export default class Test extends Component {
     state={
         type:"password",
-        type2:"password"
+        type2:"password",
+        time:"10:00"
     }
     showpassword =()=>{
         this.setState({
             type: this.state.type === 'input' ? 'password':'input'
+        })
+    }
+    Onchangetime=time=>{
+        this.setState({
+            time:time
         })
     }
     showcnfp=()=>{
@@ -19,7 +27,8 @@ export default class Test extends Component {
     }
 
     render() {
-        const cls="fa fa-fw fa-eye field-icon "
+        console.log(this.state.time)
+
         return (
             <div className="container d-flex justify-content-center align-items-center vh-100">
             <form onSubmit={e => this.handleSubmit(e)}>
@@ -46,6 +55,23 @@ export default class Test extends Component {
                             
                             
                             </form>
+                            <div>
+                            <TimeKeeper
+                                time={this.state.time}
+                                onChange={(data) => this.setState({
+                                    time:data.formatted24
+                                })}
+                            />
+                            {/* <span>Time is {this.state.time}</span> */}
+                            </div>
+                                                    {/* <div>
+                                <TimePicker
+                                onChange={this.Onchangetime}
+                                value={this.state.time}
+                                locale="sv-sv"
+                                maxTime="23:59"
+                                />
+                            </div> */}
         </div>
        
         )
