@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 $backgroundColor : rgba(200, 200, 200, 0.25);
 $backgroundColorHover: rgba(200, 200, 200, 0.33);
 @import './nav';
@@ -217,19 +219,26 @@ input[type=number] {
         cursor: pointer; 
     }
 }
-:root {
+.some-wrapper {
+    .react-timekeeper__clock-wrapper {
+        background: #383838;
+    }
+    .react-timekeeper__clock {
+        background: rgba(20, 20, 20, 0.2);
+    }
+} 
 
+:root {
     --main-box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
     --main-bg: #000;
-    --main-font-family: 'Roboto', sans-serif;
+    --main-font-family: 'Work Sans';
 
-    --meridiem-bg-color: rgba(56, 190, 248, 0.3);
-    --meridiem-text-color: #0C75A4;
-    --top-bg:#181818;
-    --top-colon-color: #8C8C8C;
-    --top-text-color: #8C8C8C;
-    --top-selected-color: #89bfd6;
-    --top-meridiem-color: #8C8C8C;
+    
+    --top-bg:#383838;
+    --top-colon-color: #B4B4B4;
+    --top-text-color: #E1E1E1;
+    --top-selected-color: rgba(13, 147, 223, 0.7);;
+    --top-meridiem-color: #B4B4B4;
 
     --dropdown-border: 2px solid #000;
     --dropdown-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -239,18 +248,20 @@ input[type=number] {
     --clock-wrapper-bg: #f4f4f4;
     --clock-bg: #fff;
 
-    --hand-line-color: #40b4e9;
-    --hand-circle-center: #40b4e9;
-    --hand-circle-outer: #40b4e9;
-    --hand-minute-circle: #40b4e9;
+    --hand-line-color: rgba(13, 147, 223, 0.4);
+    --hand-circle-center: rgba(13, 147, 223, 0.7);
+    --hand-circle-outer: rgba(13, 147, 223, 0.7);
+    --hand-minute-circle: rgba(13, 147, 223, 0.7);
     
-    --numbers-text-color: #000;
+    --numbers-text-color: #fff;
     --numbers-font-size-reg: 16px; // 12h mode only
     --numbers-font-size-inner: 15px; // 24h mode only
     --numbers-font-size-outer: 13px;
 
-    --meridiem-selected-bg-color: rgba(56, 190, 248, 0.6);;
-    --meridiem-selected-text-color: #0e5779;
+    --meridiem-bg-color: #444;
+    --meridiem-text-color: #999;
+    --meridiem-selected-bg-color: rgba(13, 147, 223, 0.7);
+    --meridiem-selected-text-color: #fff;
 }
 ::selection {
     background-color: rgba(0, 231, 217, 0.2);
@@ -340,9 +351,7 @@ tr {
 td {
     color: #000;
 }
-.some-wrapper .react-timekeeper__clock-wrapper {
-    background: #fff;
-}
+
 .navbar-right {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -433,12 +442,7 @@ td {
   ::-ms-input-placeholder {
    color: #000;
   }
-//   .fa-inbox {
-//       color: #C2A026;
-//   }
-.otp-display{
-    //display:none !important;
-}
+
 .email-display{
     display:none !important;
 }

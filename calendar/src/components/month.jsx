@@ -99,6 +99,8 @@ export default class Lists extends Component {
         }
     }
     displayEventForThisMonth() {
+        const length = this.props.eventThatDay.length;
+        if (length != 0)
         return (
             <motion.table className="table events-table shadow p-0 m-2 events" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
                     <thead>
@@ -139,8 +141,15 @@ export default class Lists extends Component {
                     
                 </motion.table>
         );
+        else {
+            return (
+                <h4 className="text-muted is-poppins">No event scheduled for this month</h4>
+            );
+        }
     }
     displayEventForThisDay() {
+        const length = this.props.eventOnThatDay.length;
+        if (length != 0)
         return (
             <motion.table className="table events-table shadow p-0 m-2 events" initial={{y:20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
                     <thead>
@@ -181,6 +190,11 @@ export default class Lists extends Component {
                     
                 </motion.table>
         );
+        else {
+            return (
+                <h4 className="text-muted is-poppins">No event scheduled for this date</h4>
+            );
+        }
     }
 
     render() {

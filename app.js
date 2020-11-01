@@ -32,11 +32,11 @@ let transporter = nodemailer.createTransport({
 );
 //node-cron schedule
 let from = `1999 Sharp <acw.dnsp@gmail.com>`
-// cron.schedule('44 19 * * *',()=>{
+// cron.schedule('49 21 * * *',()=>{
 //     console.log("it's time and it works")
 //     let mailOptions = {
 //         from: from, 
-//         to: "namanpatel453@gmail.com", 
+//         to: "devang.iitk@gmail.com", 
 //         subject: `Just a routine mail`,
 //         text: `
 //         its time and it fucking works
@@ -71,7 +71,55 @@ app.get('/api/user/register', (req, res) => {
     Data.find({}).then(data => res.json(data));
 
 })
+app.get('/search',async (req,res)=>{
+    const q=req.body.query;
+    const user =await Data.findById({_id:req.body.id})
+    // const ans=await Data.find({
+        
+    //     "events.eventName":q
+    // })
+    const ans=await Data.find({
+        events:{$elemMatch :{
+            "eventName":q
+        }
+    }}
+    )
+    const m=await ans[0].events.find({
+        "eventName":q
+    })
+    res.send(ans)
+    console.log(ans[0].events)
+    console.log(m)
+    // Data.find({events:{
+    //     eventName:{
+    //         $text:{
+    //             $search: q
+    //         }
+    //     }
 
+    // }
+            
+    //     },{
+    //         _id:0,
+    //         _v:0
+
+    //     },function(err,data){
+    //         res.send(data)
+
+    //     }
+    // )
+    // Data.findOne({
+    //     events:{
+    //         eventName:{
+    //             $regex: new RegExp(q)
+    //         }
+    //     }
+    // },
+    // {
+    //     _id:0,
+    //     _v:0
+    // }).then(data=>res.send(json(data)))
+})
 
 app.get('/api/user/login', (req, res) => {
     Data.find({ }).then(data => res.json(data));
