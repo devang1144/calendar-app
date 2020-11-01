@@ -16,6 +16,7 @@ const bcrypt = require('bcryptjs');
 const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
+const webpush = require('web-push');
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
@@ -30,6 +31,24 @@ let transporter = nodemailer.createTransport({
     }
     }
 );
+// const vapidKeys = webpush.generateVAPIDKeys();
+ 
+// webpush.setGCMAPIKey('<Your GCM API Key Here>');
+// webpush.setVapidDetails(
+//   'mailto:acw.dnsp@gmail.com',
+//   vapidKeys.publicKey,
+//   vapidKeys.privateKey
+// );
+ 
+// // This is the same output of calling JSON.stringify on a PushSubscription
+// const pushSubscription = {
+//   endpoint: '.....',
+//   keys: {
+//     auth: '.....',
+//     p256dh: '.....'
+//   }
+// };
+// webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
 //node-cron schedule
 let from = `1999 Sharp <acw.dnsp@gmail.com>`
 // cron.schedule('49 21 * * *',()=>{

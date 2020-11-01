@@ -225,7 +225,7 @@ export default class Lists extends Component {
                     </div>
                 </div>
                        
-            </div>
+            </div> 
         )
     }
 }

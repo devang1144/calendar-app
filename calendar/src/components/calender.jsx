@@ -222,7 +222,7 @@ export default class Calendar extends Func {
         else {
             return (
                 <div>
-                {this.state.logStatus && <button className="is-white add-event-btn cursor-p" onClick={this.logOut}>Logout</button> }
+                {this.state.logStatus && <button className="is-white  cursor-p" onClick={this.logOut}>Logout</button> }
                 </div>
             );
         }
@@ -273,7 +273,7 @@ export default class Calendar extends Func {
                 </td>
             );
         }
-        let class1 = "day p-2 rounded text-center";
+        let class1 = "day p-2 text-center";
         let daysInMonth = []; 
         //calendar days
         for (let d = 1; d <= this.daysInMonth(); d++) {
@@ -282,7 +282,9 @@ export default class Calendar extends Func {
                     <span  className={
                         (d === this.state.today.date() && (this.state.dateContext.month() === this.state.today.month())
                          && (this.state.dateContext.year() === this.state.today.year())) ? "today "+class1:" "+class1} 
-                         onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}</span>
+                         onClick={e => this.onDayClick(e,this.state.data.user.events , d)}>{d}
+                         
+                    </span>
                 </td>    
             );
         }

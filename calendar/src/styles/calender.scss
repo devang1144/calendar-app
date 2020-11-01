@@ -50,6 +50,14 @@ input {
 .today {
     color: #30861B;
     background-color: rgba(48, 178, 61, 0.2);
+    border-bottom: 2px solid #30861B ;
+    border-width: 2px;
+}
+.dot {
+    height: 4px !important;
+    width: 4px !important;
+    background-color:#7F00AC;
+    border-radius: 50%;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -123,9 +131,15 @@ input::-webkit-inner-spin-button {
 table {
     overflow: scroll !important;
 }
+#tddd {
+    height: 7vh;
+}
 .col-md-9 {
     height: 100vh;
     overflow: scroll !important;
+}
+.google-btn {
+    background-color: #2C91FF !important;
 }
 .date-heading {
     color: #89C283;
@@ -199,7 +213,7 @@ input[type=number] {
 .day {
     &:hover {
         background-color: rgba(56,190,248,0.2);
-        border-radius: 30% !important;
+        // border-radius: 30% !important;
         color: #0C75A4;
         font-weight: 400;
         cursor: pointer;
