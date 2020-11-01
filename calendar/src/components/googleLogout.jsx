@@ -18,11 +18,10 @@ function Logout() {
   });
 
   return (
-    <Button variant="contained" className="google-btn" color="primary" onClick={signOut}>
-      <i className="fa fa-google pr-2"></i>
-
+    <span className="m-4" onClick={signOut}>
+      <i className="fa fa-google pr-2 mt-2 mb-2"></i>
       <span className="buttonText">Sign out</span>
-    </Button>
+    </span>
   );
 }
 

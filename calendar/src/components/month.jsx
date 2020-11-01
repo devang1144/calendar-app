@@ -3,7 +3,10 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom';
-import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import IconButton from '@material-ui/core/IconButton';
+import AlarmIcon from '@material-ui/icons/Alarm';
+import Button from '@material-ui/core/Button';
 export default class Lists extends Component {
     state = {
         events:[],
@@ -70,12 +73,12 @@ export default class Lists extends Component {
                                     placement="top"
                                     overlay={
                                         <Popover className="edit-popover">
-                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Title as="h3" className="popover-title p-3 is-poppins">Edit this event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
-                                            <label htmlFor="event">Edit Event </label>
-                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
-                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
+                                            <label htmlFor="event">New event name</label>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
+                                            <Button variant="outlined" color="success" >Save Changes</Button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
@@ -120,12 +123,12 @@ export default class Lists extends Component {
                                     placement="top"
                                     overlay={
                                         <Popover className="edit-popover">
-                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Title as="h3" className="popover-title p-3 is-poppins">Edit this event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
-                                            <label htmlFor="event">Edit Event </label>
-                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
-                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
+                                        <label htmlFor="event">New event name</label>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
+                                            <Button variant="outlined" color="success" >Save Changes</Button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
@@ -169,12 +172,12 @@ export default class Lists extends Component {
                                     placement="top"
                                     overlay={
                                         <Popover className="edit-popover">
-                                        <Popover.Title as="h3" className="popover-title">New event</Popover.Title>
+                                        <Popover.Title as="h3" className="popover-title p-3 is-poppins">Edit this event</Popover.Title>
                                         <Popover.Content>
-                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="form-group p-5">
-                                            <label htmlFor="event">Edit Event </label>
-                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event" id="event" type="text"/>
-                                            <button className="add-event-btn">add event<i className="fa fa-plus pl-2 mt-1 pr-2" style={{color:"#000"}}></i></button>
+                                        <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
+                                        <label htmlFor="event">New event name</label>
+                                            <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
+                                            <Button variant="outlined" color="success" >Save Changes</Button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
@@ -206,7 +209,9 @@ export default class Lists extends Component {
                 </div>
                 <div className="row m-0">
                     <div className="col-md-7 p-5">
-                        <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events<i className="fa pl-3 text-danger fa-clock-o" aria-hidden="true"></i></h3>
+                        <h3 className="is-white is-poppins pb-2 pl-2">Scheduled Events<IconButton className="alarm-btn" color="secondary" aria-label="add an alarm">
+        <AlarmIcon  size="medium"/>
+      </IconButton></h3>
                         {this.displayEvents()}
                         
                     </div>
@@ -225,7 +230,7 @@ export default class Lists extends Component {
                     </div>
                 </div>
                        
-            </div> 
+            </div>
         )
     }
 }

@@ -302,7 +302,15 @@ textarea {
     }
 
 }
-
+.popover-body {
+    padding: 0 !important;
+}
+.popover-header {
+    background-color: #fff !important;
+}
+.form-control {
+    border: 1px solid #000 !important;
+}
 @media screen and (max-width:991.98px) {
     .container-calendar-wqewe {
         display: flex !important;

@@ -16,7 +16,6 @@ const bcrypt = require('bcryptjs');
 const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
-const webpush = require('web-push');
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
@@ -31,31 +30,13 @@ let transporter = nodemailer.createTransport({
     }
     }
 );
-// const vapidKeys = webpush.generateVAPIDKeys();
- 
-// webpush.setGCMAPIKey('<Your GCM API Key Here>');
-// webpush.setVapidDetails(
-//   'mailto:acw.dnsp@gmail.com',
-//   vapidKeys.publicKey,
-//   vapidKeys.privateKey
-// );
- 
-// // This is the same output of calling JSON.stringify on a PushSubscription
-// const pushSubscription = {
-//   endpoint: '.....',
-//   keys: {
-//     auth: '.....',
-//     p256dh: '.....'
-//   }
-// };
-// webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
 //node-cron schedule
 let from = `1999 Sharp <acw.dnsp@gmail.com>`
-// cron.schedule('49 21 * * *',()=>{
+// cron.schedule('44 19 * * *',()=>{
 //     console.log("it's time and it works")
 //     let mailOptions = {
 //         from: from, 
-//         to: "devang.iitk@gmail.com", 
+//         to: "namanpatel453@gmail.com", 
 //         subject: `Just a routine mail`,
 //         text: `
 //         its time and it fucking works
@@ -90,55 +71,7 @@ app.get('/api/user/register', (req, res) => {
     Data.find({}).then(data => res.json(data));
 
 })
-app.get('/search',async (req,res)=>{
-    const q=req.body.query;
-    const user =await Data.findById({_id:req.body.id})
-    // const ans=await Data.find({
-        
-    //     "events.eventName":q
-    // })
-    const ans=await Data.find({
-        events:{$elemMatch :{
-            "eventName":q
-        }
-    }}
-    )
-    const m=await ans[0].events.find({
-        "eventName":q
-    })
-    res.send(ans)
-    console.log(ans[0].events)
-    console.log(m)
-    // Data.find({events:{
-    //     eventName:{
-    //         $text:{
-    //             $search: q
-    //         }
-    //     }
 
-    // }
-            
-    //     },{
-    //         _id:0,
-    //         _v:0
-
-    //     },function(err,data){
-    //         res.send(data)
-
-    //     }
-    // )
-    // Data.findOne({
-    //     events:{
-    //         eventName:{
-    //             $regex: new RegExp(q)
-    //         }
-    //     }
-    // },
-    // {
-    //     _id:0,
-    //     _v:0
-    // }).then(data=>res.send(json(data)))
-})
 
 app.get('/api/user/login', (req, res) => {
     Data.find({ }).then(data => res.json(data));
@@ -352,4 +285,17 @@ app.get('/api/user/:id1/:id2', (req, res) => {
         "events.$" : 1 
      },).then(data => res.json(data)) 
 }); 
+
+app.post('api/user/:id/search/:q', async(req, res) => {
+    const data = await Data.findById({_id:req.params.id}, {
+        events : {
+            $elemMatch : {
+                eventName: req.params.q
+            }
+        }
+    })
+    res.send(data)
+    
+});
+
 app.listen(PORT, () => console.log(`server started at ${PORT}`));

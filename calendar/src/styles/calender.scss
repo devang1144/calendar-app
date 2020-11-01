@@ -64,10 +64,23 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.dropdown {
+.dropdown{
     position: relative;
     &:hover {
         cursor: pointer;
+    }
+    ul {
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    li {
+        width: 100% !important;
+        &:hover {
+            background-color: #e0dddd;
+        }
+        span {
+            padding: 1rem;
+        }
     }
 
 }
@@ -75,15 +88,13 @@ input::-webkit-inner-spin-button {
     display: none;
     position: absolute;
     background-color: #fff;
-    padding: 2px;
     font-weight: 500;
     font-family: 'poppins';
     padding-top: 7px;
-    min-width: 160px;
     text-align: left !important;
     z-index: 1;
-    border: 2px solid #000 !important;
-    
+    border: 2px solid #c4c4c4 !important;
+    border-radius: 6px;
     &:hover {
         cursor: pointer;
         
@@ -96,9 +107,9 @@ input::-webkit-inner-spin-button {
     animation-duration: 0.5s;
   }
   .dropdown-months {
-      &:hover {
-        border-bottom: 2px solid #000;
-      }
+    //   &:hover {
+    //     border-bottom: 2px solid #000;
+    //   }
       
   }
   @keyframes dropdown {
@@ -131,16 +142,16 @@ input::-webkit-inner-spin-button {
 table {
     overflow: scroll !important;
 }
-#tddd {
-    height: 7vh;
-}
+// #tddd {
+//     height: 7vh;
+// }
 .col-md-9 {
     height: 100vh;
     overflow: scroll !important;
 }
-.google-btn {
-    background-color: #2C91FF !important;
-}
+// .google-btn {
+//     background-color: #2C91FF !important;
+// }
 .date-heading {
     color: #89C283;
 }
@@ -232,6 +243,10 @@ input[type=number] {
         font-weight: 700;
         cursor: pointer; 
     }
+}
+
+.alarm-btn {
+    outline: none !important;
 }
 .some-wrapper {
     .react-timekeeper__clock-wrapper {
@@ -365,6 +380,11 @@ tr {
 td {
     color: #000;
 }
+// .navbar {
+//     .fa-angle-left, .fa-angle-right, .todays-date {
+//         color: red;
+//     }
+// }
 
 .navbar-right {
     background: #fff;
@@ -378,9 +398,9 @@ td {
 // }
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
-    // border-radius: 6px !important;
+    // border-radius: 6px !important; 
+    border-radius: 4px !important;
     border-bottom: 3px solid #000 !important;
-    border-radius: 0 !important;
     color: #000 !important;
     &:focus {
         outline: none !important;
@@ -390,6 +410,12 @@ td {
 }
 .add-event-form {
     border-radius: 8px !important;
+}
+.uname {
+    background-color: rgba(99, 189, 255, 0.2);
+    color: #58B7FF;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 .btn {
     &:focus {

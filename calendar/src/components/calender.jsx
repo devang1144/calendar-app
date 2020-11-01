@@ -49,7 +49,8 @@ export default class Calendar extends Func {
         uname1:Cookies.get('uname'),
         time:"",
         timeshow:false,
-        anchorEl:null
+        anchorEl:null,
+        anchorEl1:null
     }
     // schema={
     //     year:Joi.number().min(4).max(4).label("Year").required()
@@ -146,8 +147,8 @@ export default class Calendar extends Func {
                         <div className="collapse navbar-collapse" id="id-dashboard">
                         <div className="navbar-nav is-white">
                         {this.renderRadio("qwerty", "Year", "year", this.handleRadio, "1")}
-                        {this.renderRadio("qwerty", "Dashboard", "month", this.handleRadio, "2")}
-                        {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}     
+                        {this.renderRadio("qwerty", "My Dashboard", "month", this.handleRadio, "2")}
+                        {/* {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}      */}
                         </div> 
                     </div>
                         </div>
@@ -221,8 +222,8 @@ export default class Calendar extends Func {
         
         else {
             return (
-                <div>
-                {this.state.logStatus && <button className="is-white  cursor-p" onClick={this.logOut}>Logout</button> }
+                <div className="m-3">
+                {this.state.logStatus && <span className="is-white cursor-p" onClick={this.logOut}>Logout</span> }
                 </div>
             );
         }
@@ -316,7 +317,11 @@ export default class Calendar extends Func {
         })
         let open = Boolean(this.state.anchorEl);
         let idd = this.open ? 'simple-popover' : undefined;
+        let open1 = Boolean(this.state.anchorEl1);
+        let idd1 = this.open1 ? 'simple-popover' : undefined;
         console.log(this.state.time)
+        let uname = (this.state.anchorEl1 === null ? "" : " uname")
+        let caret = (this.state.anchorEl1 === null ? "down" : "up")
         return (
             <div className="container-fluid landingContainer m-0" style={this.style}>
                 <div className="row landing-page-row">
@@ -326,18 +331,35 @@ export default class Calendar extends Func {
                         <div className="navbar-brand">
                             <h2 className="app-name">1999 Sharp</h2>  
                         </div>
-                        <div className="navbar-nav d-flex flex-row ml-auto">
-                        <h4 className="p-3 is-white">{Cookies.get('uname')}</h4>
+                        <div className="navbar-nav ml-auto">
+                        <h4 className={"p-2 is-white" + uname}>{Cookies.get('uname')}
+                        <i className={"fa ml-2 fa-caret-" + caret}  aria-describedby={idd1} onClick={this.handleClickkk}></i>
+                        </h4>
+                        <Popover
+                        id={idd1}
+                        open={open1}
+                        anchorEl={this.state.anchorEl1}
+                        onClose={this.handleCloseee}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    >
+                        <span>{this.logoutButton()}</span>
+                    </Popover>
                         </div>
                     </nav>
                     <nav className="navbar m-0">
-                    <i onClick={e => this.prevMonth()} className="fa p-3 fa-2x fa-angle-left cursor-p"></i>
-                    <h4 className="navbar-brand is-poppins mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
-                        <i onClick={e => this.nextMonth()} className="fa p-3 fa-2x fa-angle-right"></i>
+                    <i onClick={e => this.prevMonth()} className="fa fa-2x fa-angle-left cursor-p"></i>
+                    <h4 className="navbar-brand is-poppins m-0 mt-4 mb-4 todays-date">{this.month()}, {this.currentDate()} {moment().format('dddd')}</h4>
+                    <i onClick={e => this.nextMonth()} className="fa fa-2x fa-angle-right"></i>
                         <div className=" justify-content-end">
                             {(!this.state.logStatus) && <Link style={{textDecoration:"none"}} to="/signup"><span className="p-2 navLinks is-white">signup</span></Link>}
                             {!this.state.logStatus && <Link style={{textDecoration:"none"}} to="/login"><span className="p-2 navLinks is-white">login</span></Link>}
-                            {this.logoutButton()}
                         </div>
                     </nav>
                     
