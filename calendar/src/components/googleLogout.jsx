@@ -18,7 +18,7 @@ function Logout() {
   });
 
   return (
-    <span className="m-4" onClick={signOut}>
+    <span className="m-4 cursor-p" onClick={signOut}>
       <i className="fa fa-google pr-2 mt-2 mb-2"></i>
       <span className="buttonText">Sign out</span>
     </span>

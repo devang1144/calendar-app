@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { motion } from 'framer-motion';
+import {Modal} from 'react-bootstrap';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import list from '../assets/list.svg';
@@ -50,7 +51,12 @@ export default class Calendar extends Func {
         time:"",
         timeshow:false,
         anchorEl:null,
-        anchorEl1:null
+        anchorEl1:null,
+        anchorEl2:null,
+        searchValue:"",
+        searchResult:[],
+        showOnFocus:false,
+        showModal:false
     }
     // schema={
     //     year:Joi.number().min(4).max(4).label("Year").required()
@@ -77,7 +83,12 @@ export default class Calendar extends Func {
             })
         }
     }
-    
+    handleShowModal = () => {
+        this.setState({showModal:true})
+    }
+    handleCloseModal = () => {
+        this.setState({showModal:false})
+    }
     displayEvents() {
 
     }
@@ -104,8 +115,11 @@ export default class Calendar extends Func {
          this.setState({ isOpen: false })
       }
     calendarNav = () => {
+        let open2 = Boolean(this.state.anchorEl2);
+        let idd2 = this.open2 ? 'simple-popover' : undefined;
         return (
-            <nav className="navbar shadow-sm navbar-right m-0 navbar-expand-lg navbar-sticky-top">
+            <React.Fragment>
+                <nav className="navbar shadow-sm navbar-right m-0 navbar-expand-lg navbar-sticky-top">
                 <div className="navbar-text">
                 </div>
                     <div className="col d-flex justify-content-start align-items-center flex-row">
@@ -142,30 +156,56 @@ export default class Calendar extends Func {
                         <span className="icon-bar middle-bar"></span>
                         <span className="icon-bar bottom-bar"></span>
                     </button>
-                    <div className="row d-flex justify-content-center">
+                    <div className="row d-flex justify-content-end">
                         <div className="col">
-                        <div className="collapse navbar-collapse" id="id-dashboard">
-                        <div className="navbar-nav is-white">
-                        {this.renderRadio("qwerty", "Year", "year", this.handleRadio, "1")}
-                        {this.renderRadio("qwerty", "My Dashboard", "month", this.handleRadio, "2")}
-                        {/* {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}      */}
-                        </div> 
-                    </div>
+                            <div className="collapse navbar-collapse" id="id-dashboard">
+                                <div className="navbar-nav is-white">
+                                    {this.renderRadio("qwerty", "Year", "year", this.handleRadio, "1")}
+                                    {this.renderRadio("qwerty", "My Dashboard", "month", this.handleRadio, "2")}
+                                    {/* {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}      */}
+                                </div> 
+                                
+                            </div>
                         </div>
                     </div>
                     
-                    <div className="collapse navbar-collapse justify-content-end">
-                    <i class="fa  p-2 fa-bell-o" aria-hidden="true"></i>
-                        <i class="fa p-2 mr-2 fa-inbox" aria-hidden="true"></i>
-                    <form className="form-search" action="">
-                        <input className="search-input-box" type="search" placeholder="search events.."/>
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
+                    <div className="collapse navbar-collapse justify-content-end"  id="id-dashboard">
+                        <form className="form-search" onSubmit={this.handleSearch}>
+                            <input className="search search-input-box" onChange={this.getSearch} type="search" placeholder="search events.."/>
+                            {(this.state.searchResult.length===0? false:true) && this.showOnFocus()}
+                        </form>
+                                
                     </div>
             </nav>
+            <div></div>
+            
+            </React.Fragment>
         );
     }
 
+    showOnFocus = () => {
+        return (
+            <ul className="search-list list-group w-100">
+                {this.state.searchResult.map(m => 
+                <>
+                    <li className="list-group-item cursor-p" onClick={this.handleShowModal}>{m.eventName}</li>
+                    <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{m.eventName}</Modal.Title>
+        </Modal.Header>
+                <Modal.Body><h5>Scheduled on {m.eventDate}</h5><h5>Scheduled on {m.eventTime}</h5><h6>Event created on {m.moment}</h6></Modal.Body>
+                
+        <Modal.Footer>  
+          <Button variant="secondary" onClick={this.handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+                    )}
+            </ul>
+        );
+    }
     showDifferentComp(eventThatMonth) {
         const user = this.state.data.user;
         if (this.state.data.qwerty === "1") {
@@ -235,10 +275,8 @@ export default class Calendar extends Func {
     }
     
     render() {
-        console.log(this.state.time)
-        console.log(this.state.dateContext.year(), this.state.today.year())
+        console.log(this.state.searchResult.length)
         if(!this.state.logStatus){
-            console.log(this.state.logStatus)
             return <Redirect to="/"/>
         }
         const events = this.state.data.user.events;
@@ -319,6 +357,7 @@ export default class Calendar extends Func {
         let idd = this.open ? 'simple-popover' : undefined;
         let open1 = Boolean(this.state.anchorEl1);
         let idd1 = this.open1 ? 'simple-popover' : undefined;
+        
         console.log(this.state.time)
         let uname = (this.state.anchorEl1 === null ? "" : " uname")
         let caret = (this.state.anchorEl1 === null ? "down" : "up")
@@ -380,7 +419,7 @@ export default class Calendar extends Func {
                 <form onSubmit={e => this.handleSubmit(e, this.state.data.user._id)} className="form-group p-5">
                     <input name="eventName" placeholder={`Add Event ${this.state.selectedDay ? `on ${this.state.dateContext.format("MMMM")} ${this.state.selectedDay}, ${this.state.dateContext.format("YYYY")}`:"today"}`} onChange={this.handleRadio} value={this.state.data.eventName} className="form-control add-event mb-3" id="event" type="text"/>
                     <span className="remind is-poppins" aria-describedby={idd} onClick={this.handleClickk}>
-                        Remind On {this.state.time === "" ? "🡶" : this.state.time}
+                        Remind On {this.state.time === "" ? "▼" : this.state.time}
                     </span>
                     
                     <div>

@@ -311,6 +311,46 @@ textarea {
 .form-control {
     border: 1px solid #000 !important;
 }
+
+
+.search {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 200px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.search:focus {
+    width: 200px;
+}
+
+
+@media screen and (max-width:550px) {
+    .container-calendar-wqewe {
+        display: flex !important;
+        flex-direction: column;
+        width: 98%;
+    }
+    .container-contact-form {
+        width: 90%; 
+    }
+    .landing-page-heading {
+        font-size: 30px;
+    }
+    .landing-page-heading2 {
+        font-size: 13px !important;
+    }
+    .col {
+        h1 {
+            font-size: 26px;
+        }
+    }
+    .container-signup {
+        width: 90%;
+    }
+}
 @media screen and (max-width:991.98px) {
     .container-calendar-wqewe {
         display: flex !important;

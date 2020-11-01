@@ -179,14 +179,31 @@ export default class Func extends Component {
     
     handleClosee = () => {
         this.setState({anchorEl:null});
-      };
-      handleClickkk = (event) => {
+    };
+    handleClickkk = (event) => {
         this.setState({anchorEl1:event.currentTarget});
-      };
+    };
     
     handleCloseee = () => {
         this.setState({anchorEl1:null});
-      };
+    };
+    getSearch = async(e) => {
+        const value = e.target.value;
+        try{
+            const {data:searchResult} = await axios.get(`/api/search/user/${Cookies.get('lauth')}/${value}`)
+        this.setState({searchResult});
+        console.log(searchResult)
+        if (searchResult.length != 0) {
+            this.setState({anchorEl2:e.currentTarget})
+            }
+        }catch(err) {
+            console.log(err.response.status)
+            this.setState({
+                searchResult:[]
+            })
+        }
+        
+    }
     render() {
         
         return (

@@ -59,6 +59,9 @@ input {
     background-color:#7F00AC;
     border-radius: 50%;
 }
+.cursor-p {
+    cursor: pointer;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -380,22 +383,12 @@ tr {
 td {
     color: #000;
 }
-// .navbar {
-//     .fa-angle-left, .fa-angle-right, .todays-date {
-//         color: red;
-//     }
-// }
 
 .navbar-right {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
-// .navbar-left {
-//     background: rgba(255, 179, 0, 0.2);
-// }
-// .right {
-//     background-color: rgba(254, 255, 223, 0.5);
-// }
+
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
     // border-radius: 6px !important; 
@@ -410,6 +403,19 @@ td {
 }
 .add-event-form {
     border-radius: 8px !important;
+}
+.btn-type-2 {
+    padding: 4px;
+    border: none  !important;
+    background: #f7f1f1;
+    border: 1px solid #383838 !important;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease !important;
+    -moz-transition: all .2s ease !important;
+    transition: all .2s ease !important;
+    &:hover {
+        background: #f3f0f0;
+    }
 }
 .uname {
     background-color: rgba(99, 189, 255, 0.2);
@@ -506,8 +512,19 @@ td {
     z-index: 2;
     color: #fff;
     opacity: 0.6;
-  }
 
+    
+  }
+.form-search {
+    input {
+        -webkit-transition: all .2s ease !important;
+    -moz-transition: all .2s ease !important;
+    transition: all .2s ease !important;
+        &:focus {
+            width: 300px !important;
+        }
+    }
+}
 .arrow {
       &:hover {
           background: rgba(18,112,55,0.2);
@@ -521,8 +538,13 @@ td {
 }
 .row-form {
     padding: 6rem;
-    background-color: rgba(242, 232, 195, 0.514);
+    background-color:rgba(242, 232, 195, 0.514);
     border-radius: 10px;
+}
+.search-list {
+    z-index: 2;
+    position: absolute;
+    
 }
 @media screen and (max-width:550) {
     .row {

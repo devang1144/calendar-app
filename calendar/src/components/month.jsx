@@ -78,7 +78,7 @@ export default class Lists extends Component {
                                         <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
                                             <label htmlFor="event">New event name</label>
                                             <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
-                                            <Button variant="outlined" color="success" >Save Changes</Button>
+                                            <button className="btn-type-2" >SAVE CHANGES</button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
@@ -128,7 +128,7 @@ export default class Lists extends Component {
                                         <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
                                         <label htmlFor="event">New event name</label>
                                             <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
-                                            <Button variant="outlined" color="success" >Save Changes</Button>
+                                            <button className="btn-type-2" >SAVE CHANGES</button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>
@@ -177,7 +177,7 @@ export default class Lists extends Component {
                                         <form onSubmit={e => this.handleEdit(e, m._id)} className="p-3">
                                         <label htmlFor="event">New event name</label>
                                             <input name="editEvent" onChange={this.handleRadio} value={this.state.data.editEvent} className="form-control add-event mb-3" id="event" type="text"/>
-                                            <Button variant="outlined" color="success" >Save Changes</Button>
+                                            <button className="btn-type-2" >SAVE CHANGES</button>
                                         </form>
                                         </Popover.Content>
                                         </Popover>

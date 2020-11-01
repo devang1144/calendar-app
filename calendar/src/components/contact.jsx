@@ -47,13 +47,13 @@ export default class Contact extends Component {
         return (
             <React.Fragment>
                 <div className="container-fluid shadow-sm">
-                <div className="container">
+                <div className="container p-0">
                 <nav class="navbar navbar-expand-lg">
                     <Link to="/" style={{textDecoration:"none", color:"#000"}}><h1 class="navbar-brand brand is-fjalla">1999 Sharp</h1></Link>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon m-1"></span>
-                        <span class="navbar-toggler-icon m-1"></span>
-                        <span class="navbar-toggler-icon m-1"></span>
+                    <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="icon-bar top-bar"></span>
+                        <span className="icon-bar middle-bar"></span>
+                        <span className="icon-bar bottom-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="landingPageNavbar">
                         <div class="navbar-nav ml-auto align-items-center">
@@ -65,7 +65,7 @@ export default class Contact extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-fluid p-0 align-items-center d-flex vh-100 m-0">
+            <div className="container-fluid align-items-center d-flex m-0">
                 <div className="container-signup is-poppins d-flex justify-content-center align-items-center">
                     <div className="row row-form">
                         <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>
