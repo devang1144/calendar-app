@@ -13,6 +13,7 @@ import Contact from './components/contact';
 import Emailveri from './components/emailveri';
 import Otppage from './components/otp';
 import ConfirmPswd from './components/confirmpass'
+import Tp from './components/timepicker';
 function App() {
   return (
     <div>
@@ -31,6 +32,7 @@ function App() {
               <Route path='/emailveri' component={Emailveri} />
               <Route path='/otp' component={Otppage} />
               <Route path='/cnfp' component={ConfirmPswd} />
+              <Route path='/tp' component={Tp} />
           </Switch>
       </Router>
     </div>

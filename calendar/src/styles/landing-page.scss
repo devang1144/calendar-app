@@ -40,10 +40,50 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
 }
-.navbar-toggler-icon {
-    height: 2px !important;
-    background: #000;
+.icon-bar {
+    width: 22px;
+    height: 2px;
+    background-color: #000;
+    display: block;
+    transition: all 0.2s;
+    margin-top: 4px
 }
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+  }
+  
+  .navbar-toggler .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+  }
+  
+  .navbar-toggler .middle-bar {
+    opacity: 0;
+  }
+  
+  .navbar-toggler .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+  }
+  
+  .navbar-toggler.collapsed .top-bar {
+    transform: rotate(0);
+  }
+  
+  .navbar-toggler.collapsed .middle-bar {
+    opacity: 1;
+  }
+  
+  .navbar-toggler.collapsed .bottom-bar {
+    transform: rotate(0);
+  }
+  button.navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus{
+    outline: none !important;
+    border:none;
+    box-shadow:none;
+}
+
 .sign-up {
     background: #000;
     color: #fff;
@@ -65,18 +105,24 @@
 .landing-page-heading {
     font-size: 70px;
 }
+.section-1 {
+    height: 100vh;
+}
 .container-calendar-wqewe {
     width: 36%;
     margin: 0 auto !important;
     padding: 1.25rem;
+    
     //transform: rotate3d(.8,-.866,0,15deg) rotate(-1deg);
-    background-color: rgba(255, 247, 202, 0.8);
+    background-color: rgba(255, 247, 202, 0.5);
     border-radius: 20px;
 }
 .container-row {
     width: 75%;
     margin: 0 auto !important;
-    background-color:rgba(242, 232, 195, 0.4);
+    
+    margin-top: 2rem !important;
+    background-color:rgba(255, 247, 202, 0.5);
     border-radius: 20px;
 }
 .heading-2 {
@@ -152,6 +198,11 @@
         border-bottom: 2px solid #FAD684 !important;
     }
 }
+.footer {
+    h2, h4 {
+        margin-top: 3rem;
+    }
+}
 .container01 {
     margin: 0 auto !important;
     border: 2px solid #000;
@@ -176,6 +227,9 @@ textarea {
         border: 2px solid #68C5FA !important;
     }
 }
+// .section-1 {
+//     height: 80vh !important;
+// }
 @media screen and (max-width:505px) {
     .container-calendar-wqewe {
         display: flex !important;
@@ -191,7 +245,25 @@ textarea {
     .landing-page-heading2 {
         font-size: 13px !important;
     }
-
+    .container-row {
+        width: 90%;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .heading-2 {
+        font-size: 22px;
+    }
+    .row-2 {
+        margin-bottom: 2rem;
+    }
+    .section-1 {
+        height: 70vh;
+    }
+    .footer {
+        h2, h4 {
+            margin-top: 1rem;
+        }
+    }
 }
 
 @media screen and (max-width:767.98px) {
@@ -208,6 +280,25 @@ textarea {
     }
     .landing-page-heading2 {
         font-size: 13px !important;
+    }
+    .container-row {
+        width: 90%;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .heading-2 {
+        font-size: 28px;
+    }
+    .row-2 {
+        margin-bottom: 2rem !important;
+    }
+    .section-1 {
+        height: 70vh;
+    }
+    .footer {
+        h2, h4 {
+            margin-top: 1rem;
+        }
     }
 
 }
@@ -227,5 +318,4 @@ textarea {
     .landing-page-heading2 {
         font-size: 13px !important;
     }
-
 }
