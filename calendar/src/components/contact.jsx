@@ -65,7 +65,7 @@ export default class Contact extends Component {
                 </nav>
                 </div>   
             </div>
-            <div className="container-fluid align-items-center d-flex vh-100 m-0">
+            <div className="container-fluid p-0 align-items-center d-flex vh-100 m-0">
                 <div className="container-signup is-poppins d-flex justify-content-center align-items-center">
                     <div className="row row-form">
                         <motion.div className="col" initial={{y:40, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:1}}>

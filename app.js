@@ -91,9 +91,9 @@ app.post('/api/user/:id',(req,res)=>{
             let mailOptions = {
                 from: "acw.dnsp@gmail.com", 
                 to: req.body.email, 
-                subject: `Just a routine mail`,
+                subject: `REMINDER mail`,
                 text: `
-                its time and it fucking works
+                Your event is about to happen. Stay tuned.
                       `
             };
             transporter.sendMail(mailOptions, (err, data) => {
