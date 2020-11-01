@@ -28,13 +28,15 @@ let transporter = nodemailer.createTransport({
         user: "acw.dnsp@gmail.com",
         pass: process.env.PASSWORD 
     }
-});
+    }
+);
 //node-cron schedule
-// cron.schedule('40 20 * * *',()=>{
+let from = `1999 Sharp <acw.dnsp@gmail.com>`
+// cron.schedule('44 19 * * *',()=>{
 //     console.log("it's time and it works")
 //     let mailOptions = {
-//         from: "acw.dnsp@gmail.com", 
-//         to: "devang.iitk@gmail.com", 
+//         from: from, 
+//         to: "namanpatel453@gmail.com", 
 //         subject: `Just a routine mail`,
 //         text: `
 //         its time and it fucking works
@@ -118,7 +120,7 @@ app.post('/api/user/:id',(req,res)=>{
         // const data = Data.findById({_id:req.params.id})
         // console.log(data)
         let mailOptions = {
-            from: "acw.dnsp@gmail.com", 
+            from: from, 
             to: req.body.email, 
             subject: `New event added on ${req.body.eventDate}`,
             text: `
@@ -173,7 +175,7 @@ app.post('/user/c',async (req, res) =>{
         res.status(400).send(err);
     }
     let mailOptions = {
-            from: "acw.dnsp@gmail.com", 
+            from: from, 
             to: 'namanpatel453@gmail.com, devang.iitk@gmail.com', 
             subject: 'Someone tried to contact you',
             text: `
@@ -236,7 +238,7 @@ app.put('/api/user/login',async (req,res)=>{
     //console.log(m)
     //console.log(resp.resetpass)
     let mailOptions = {
-        from: "acw.dnsp@gmail.com", 
+        from: from, 
         to: req.body.email, 
         subject: 'Password Reset attempted',
             text: `
