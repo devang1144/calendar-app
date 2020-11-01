@@ -217,7 +217,41 @@ input[type=number] {
         cursor: pointer; 
     }
 }
+:root {
 
+    --main-box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
+    --main-bg: #000;
+    --main-font-family: 'Roboto', sans-serif;
+
+    --meridiem-bg-color: rgba(56, 190, 248, 0.3);
+    --meridiem-text-color: #0C75A4;
+    --top-bg:#181818;
+    --top-colon-color: #8C8C8C;
+    --top-text-color: #8C8C8C;
+    --top-selected-color: #89bfd6;
+    --top-meridiem-color: #8C8C8C;
+
+    --dropdown-border: 2px solid #000;
+    --dropdown-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --dropdown-text-color: #8c8c8c;
+    --dropdown-hover-bg: #EAF8FF;
+
+    --clock-wrapper-bg: #f4f4f4;
+    --clock-bg: #fff;
+
+    --hand-line-color: #40b4e9;
+    --hand-circle-center: #40b4e9;
+    --hand-circle-outer: #40b4e9;
+    --hand-minute-circle: #40b4e9;
+    
+    --numbers-text-color: #000;
+    --numbers-font-size-reg: 16px; // 12h mode only
+    --numbers-font-size-inner: 15px; // 24h mode only
+    --numbers-font-size-outer: 13px;
+
+    --meridiem-selected-bg-color: rgba(56, 190, 248, 0.6);;
+    --meridiem-selected-text-color: #0e5779;
+}
 ::selection {
     background-color: rgba(0, 231, 217, 0.2);
 }
