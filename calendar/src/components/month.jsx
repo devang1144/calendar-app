@@ -6,7 +6,8 @@ import {Link} from 'react-router-dom';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import IconButton from '@material-ui/core/IconButton';
 import AlarmIcon from '@material-ui/icons/Alarm';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+// import {Modal} from 'react-bootstrap';
 export default class Lists extends Component {
     state = {
         events:[],
@@ -49,6 +50,12 @@ export default class Lists extends Component {
         const {data:newEvent} = axios.put(`api/user/e/${Cookies.get('lauth')}/${id}`, payload);
         console.log(newEvent);
     }
+    // handleShowModal = () => {
+    //     this.setState({showModal:true})
+    // }
+    // handleCloseModal = () => {
+    //     this.setState({showModal:false})
+    // }
     displayEvents() {
         const length = this.props.ev === undefined ? 0 : this.props.ev.length;
         if(length) {
@@ -62,11 +69,16 @@ export default class Lists extends Component {
                     </thead>
                     <tbody>
                     {this.props.ev.map(m => 
+                   
                             <tr className="p-0 is-poppins is-white">
-                                <td><span className="eventName">{m.eventName}</span></td>
+                                <td><span className="eventName" onClick={this.handleShowModal}>
+                                    {m.eventName}
+                                
+                                </span></td>
                                 <td className="text-info">{m.moment.split("T")[0]}</td>
                                 <td className="text-danger">{m.eventDate}</td>
                                 <td className="d-flex">
+                               
                                 <OverlayTrigger
                                     rootClose
                                     trigger="click"
@@ -88,7 +100,10 @@ export default class Lists extends Component {
                                     </OverlayTrigger>
                                 <i className="fa fa-trash pl-2" onClick={(e) => this.handleDelete(e, m._id)}></i>
                                 </td>
+                                
                             </tr>
+                            
+                       
                         )}
                     </tbody>
                     
