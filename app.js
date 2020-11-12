@@ -16,6 +16,7 @@ const bcrypt = require('bcryptjs');
 const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
+const path = require("path");
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
@@ -58,9 +59,27 @@ app.use(function(req, res, next) {
     next();
   });
   
-
+    //   app.get('/signup', function (req, res) {
+    //     app.use(express.static("calender/build"))
+    //   });
+    //   app.get('/d', function (req, res) {
+    //     app.use(express.static("calender/build"))
+    //   });
+    //   app.get('/login', function (req, res) {
+    //     app.use(express.static("calender/build"))
+    //   });
+    //   app.get('/contact', function (req, res) {
+    //     app.use(express.static("calender/build"))
+    //   });
+    //   app.get('/emailveri', function (req, res) {
+    //     app.use(express.static("calender/build"))
+    //   });
+// if(process.env.NODE_ENV === 'production') {
+//     app.use(express.static('calendar/build'))
+// }
 //Middlewares
 app.use(express.json());
+app.use(express.static("calendar/build"));
 app.use(cors());
 app.use('/api/posts', posts);
 
