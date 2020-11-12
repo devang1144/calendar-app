@@ -112,6 +112,7 @@ app.post('/api/user/:id',(req,res)=>{
                 events:{
                     "eventName":req.body.eventName,
                     "eventDate":req.body.eventDate,
+                    "eventTime":req.body.eventTime,
                     "moment":req.body.moment,
                 }
             }
@@ -285,4 +286,26 @@ app.get('/api/user/:id1/:id2', (req, res) => {
         "events.$" : 1 
      },).then(data => res.json(data)) 
 }); 
+
+app.get('/api/search/user/:id/:q',  async(req, res) => {
+   const data = await Data.find({   
+       _id:req.params.id,
+       "events.eventName": {
+           $regex : req.params.q, $options: 'i' 
+       }
+     });
+     let searches = [];
+    if (data.length != 0) {
+       
+        data.forEach(e1 => {
+            e1.events.forEach(e2 => {
+                if (e2.eventName.toLowerCase().includes(req.params.q.toLowerCase())) {
+                    searches.push(e2);
+                } 
+            })
+        })
+    }
+    res.send(searches);
+ }); 
+ 
 app.listen(PORT, () => console.log(`server started at ${PORT}`));

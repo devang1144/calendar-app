@@ -66,10 +66,10 @@ export default class LoginPage extends Component {
                 <div className="container p-0">
                 <nav class="navbar navbar-expand-lg">
                     <Link to="/" style={{textDecoration:"none", color:"#000"}}><h1 class="navbar-brand brand is-fjalla">1999 Sharp</h1></Link>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon m-1"></span>
-                        <span class="navbar-toggler-icon m-1"></span>
-                        <span class="navbar-toggler-icon m-1"></span>
+                    <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#landingPageNavbar" aria-controls="landingPageNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="icon-bar top-bar"></span>
+                        <span className="icon-bar middle-bar"></span>
+                        <span className="icon-bar bottom-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="landingPageNavbar">
                         <div class="navbar-nav ml-auto align-items-center">

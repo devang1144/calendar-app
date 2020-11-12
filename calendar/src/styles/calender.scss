@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 $backgroundColor : rgba(200, 200, 200, 0.25);
 $backgroundColorHover: rgba(200, 200, 200, 0.33);
 @import './nav';
@@ -48,16 +50,40 @@ input {
 .today {
     color: #30861B;
     background-color: rgba(48, 178, 61, 0.2);
+    border-bottom: 2px solid #30861B ;
+    border-width: 2px;
+}
+.dot {
+    height: 4px !important;
+    width: 4px !important;
+    background-color:#7F00AC;
+    border-radius: 50%;
+}
+.cursor-p {
+    cursor: pointer;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.dropdown {
+.dropdown{
     position: relative;
     &:hover {
         cursor: pointer;
+    }
+    ul {
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    li {
+        width: 100% !important;
+        &:hover {
+            background-color: #e0dddd;
+        }
+        span {
+            padding: 1rem;
+        }
     }
 
 }
@@ -65,15 +91,13 @@ input::-webkit-inner-spin-button {
     display: none;
     position: absolute;
     background-color: #fff;
-    padding: 2px;
     font-weight: 500;
     font-family: 'poppins';
     padding-top: 7px;
-    min-width: 160px;
     text-align: left !important;
     z-index: 1;
-    border: 2px solid #000 !important;
-    
+    border: 2px solid #c4c4c4 !important;
+    border-radius: 6px;
     &:hover {
         cursor: pointer;
         
@@ -86,9 +110,9 @@ input::-webkit-inner-spin-button {
     animation-duration: 0.5s;
   }
   .dropdown-months {
-      &:hover {
-        border-bottom: 2px solid #000;
-      }
+    //   &:hover {
+    //     border-bottom: 2px solid #000;
+    //   }
       
   }
   @keyframes dropdown {
@@ -121,10 +145,16 @@ input::-webkit-inner-spin-button {
 table {
     overflow: scroll !important;
 }
+// #tddd {
+//     height: 7vh;
+// }
 .col-md-9 {
     height: 100vh;
     overflow: scroll !important;
 }
+// .google-btn {
+//     background-color: #2C91FF !important;
+// }
 .date-heading {
     color: #89C283;
 }
@@ -197,7 +227,7 @@ input[type=number] {
 .day {
     &:hover {
         background-color: rgba(56,190,248,0.2);
-        border-radius: 30% !important;
+        // border-radius: 30% !important;
         color: #0C75A4;
         font-weight: 400;
         cursor: pointer;
@@ -217,19 +247,30 @@ input[type=number] {
         cursor: pointer; 
     }
 }
-:root {
 
+.alarm-btn {
+    outline: none !important;
+}
+.some-wrapper {
+    .react-timekeeper__clock-wrapper {
+        background: #383838;
+    }
+    .react-timekeeper__clock {
+        background: rgba(20, 20, 20, 0.2);
+    }
+} 
+
+:root {
     --main-box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
     --main-bg: #000;
-    --main-font-family: 'Roboto', sans-serif;
+    --main-font-family: 'Work Sans';
 
-    --meridiem-bg-color: rgba(56, 190, 248, 0.3);
-    --meridiem-text-color: #0C75A4;
-    --top-bg:#181818;
-    --top-colon-color: #8C8C8C;
-    --top-text-color: #8C8C8C;
-    --top-selected-color: #89bfd6;
-    --top-meridiem-color: #8C8C8C;
+    
+    --top-bg:#383838;
+    --top-colon-color: #B4B4B4;
+    --top-text-color: #E1E1E1;
+    --top-selected-color: rgba(13, 147, 223, 0.7);;
+    --top-meridiem-color: #B4B4B4;
 
     --dropdown-border: 2px solid #000;
     --dropdown-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -239,18 +280,20 @@ input[type=number] {
     --clock-wrapper-bg: #f4f4f4;
     --clock-bg: #fff;
 
-    --hand-line-color: #40b4e9;
-    --hand-circle-center: #40b4e9;
-    --hand-circle-outer: #40b4e9;
-    --hand-minute-circle: #40b4e9;
+    --hand-line-color: rgba(13, 147, 223, 0.4);
+    --hand-circle-center: rgba(13, 147, 223, 0.7);
+    --hand-circle-outer: rgba(13, 147, 223, 0.7);
+    --hand-minute-circle: rgba(13, 147, 223, 0.7);
     
-    --numbers-text-color: #000;
+    --numbers-text-color: #fff;
     --numbers-font-size-reg: 16px; // 12h mode only
     --numbers-font-size-inner: 15px; // 24h mode only
     --numbers-font-size-outer: 13px;
 
-    --meridiem-selected-bg-color: rgba(56, 190, 248, 0.6);;
-    --meridiem-selected-text-color: #0e5779;
+    --meridiem-bg-color: #444;
+    --meridiem-text-color: #999;
+    --meridiem-selected-bg-color: rgba(13, 147, 223, 0.7);
+    --meridiem-selected-text-color: #fff;
 }
 ::selection {
     background-color: rgba(0, 231, 217, 0.2);
@@ -340,24 +383,17 @@ tr {
 td {
     color: #000;
 }
-.some-wrapper .react-timekeeper__clock-wrapper {
-    background: #fff;
-}
+
 .navbar-right {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
-// .navbar-left {
-//     background: rgba(255, 179, 0, 0.2);
-// }
-// .right {
-//     background-color: rgba(254, 255, 223, 0.5);
-// }
+
 .add-event {
     background-color: rgba(255, 179, 0, 0) !important;
-    // border-radius: 6px !important;
+    // border-radius: 6px !important; 
+    border-radius: 4px !important;
     border-bottom: 3px solid #000 !important;
-    border-radius: 0 !important;
     color: #000 !important;
     &:focus {
         outline: none !important;
@@ -367,6 +403,25 @@ td {
 }
 .add-event-form {
     border-radius: 8px !important;
+}
+.btn-type-2 {
+    padding: 4px;
+    border: none  !important;
+    background: #f7f1f1;
+    border: 1px solid #383838 !important;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease !important;
+    -moz-transition: all .2s ease !important;
+    transition: all .2s ease !important;
+    &:hover {
+        background: #f3f0f0;
+    }
+}
+.uname {
+    background-color: rgba(99, 189, 255, 0.2);
+    color: #58B7FF;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 .btn {
     &:focus {
@@ -433,12 +488,7 @@ td {
   ::-ms-input-placeholder {
    color: #000;
   }
-//   .fa-inbox {
-//       color: #C2A026;
-//   }
-.otp-display{
-    //display:none !important;
-}
+
 .email-display{
     display:none !important;
 }
@@ -462,8 +512,19 @@ td {
     z-index: 2;
     color: #fff;
     opacity: 0.6;
-  }
 
+    
+  }
+.form-search {
+    input {
+        -webkit-transition: all .2s ease !important;
+    -moz-transition: all .2s ease !important;
+    transition: all .2s ease !important;
+        &:focus {
+            width: 300px !important;
+        }
+    }
+}
 .arrow {
       &:hover {
           background: rgba(18,112,55,0.2);
@@ -479,6 +540,11 @@ td {
     padding: 6rem;
     background-color: rgba(255, 247, 202, 0.6);
     border-radius: 10px;
+}
+.search-list {
+    z-index: 2;
+    position: absolute;
+    
 }
 @media screen and (max-width:550) {
     .row {

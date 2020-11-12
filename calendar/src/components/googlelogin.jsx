@@ -61,7 +61,7 @@ function Login() {
     history.push("/d");
   }
   return (
-    <button onClick={signIn} className="sign-up  ml-2 border-0 m-2">
+    <button onClick={signIn} className="sign-up ml-2 border-0 m-2">
       <span className="buttonText ">Sign in with <i class="ml-1 fa fa-google" aria-hidden="true"></i></span>
     </button>
   );

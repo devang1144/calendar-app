@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import { useGoogleLogout } from 'react-google-login';
 import Cookies from 'js-cookie';
 const clientId = '846399072508-1aj3ttvbsjduqn7kl1pjjbvge2cdmtkb.apps.googleusercontent.com';
@@ -17,11 +18,10 @@ function Logout() {
   });
 
   return (
-    <button onClick={signOut} className="add-event-btn">
-      <i className="fa fa-google pr-2"></i>
-
+    <span className="m-4 cursor-p" onClick={signOut}>
+      <i className="fa fa-google pr-2 mt-2 mb-2"></i>
       <span className="buttonText">Sign out</span>
-    </button>
+    </span>
   );
 }
 
