@@ -161,7 +161,7 @@ export default class Calendar extends Func {
                             <div className="collapse navbar-collapse" id="id-dashboard">
                                 <div className="navbar-nav is-white">
                                     {this.renderRadio("qwerty", "Year", "year", this.handleRadio, "1")}
-                                    {this.renderRadio("qwerty", "Dashboard", "month", this.handleRadio, "2")}
+                                    {this.renderRadio("qwerty", "My Dashboard", "month", this.handleRadio, "2")}
                                     {/* {this.renderRadio("qwerty", "week", "week", this.handleRadio, "3")}      */}
                                 </div> 
                                 
