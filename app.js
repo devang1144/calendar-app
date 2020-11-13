@@ -83,7 +83,7 @@ app.use(express.static("calendar/build"));
 app.use(cors());
 app.use('/api/posts', posts);
 app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    res.sendFile(path.join(__dirname+'/calendar/build/index.html'));
 });
 //Route Middlewares
 app.use('/api/user', authRoute);
