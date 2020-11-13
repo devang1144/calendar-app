@@ -14,6 +14,7 @@ import Emailveri from './components/emailveri';
 import Otppage from './components/otp';
 import ConfirmPswd from './components/confirmpass'
 import Tp from './components/timepicker';
+import Faq from './components/faq';
 function App() {
   return (
     <div>
@@ -25,6 +26,7 @@ function App() {
               <Route path='/year' component={Year}/>
               <Route path='/signup' component={Signup}/>
               <Route path='/login' component={LoginPage}/>
+              <Route path='/faq' component={Faq} />
               <Route path='/test' component={Test}/>
               <Route path='/loading' component={Loading} />
               <Route path='/glog' component={Glog} />
