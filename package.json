@@ -28,6 +28,7 @@
     "nodemon": "^2.0.4",
     "otp-generator": "^2.0.0",
     "react-google-login": "^5.1.22",
+    "sass": "^1.29.0",
     "web-push": "^3.4.4"
   }
 }
