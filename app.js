@@ -25,6 +25,9 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 //email credentials
 let transporter = nodemailer.createTransport({
     service: 'gmail',
+    host: 'smtp.gmail.com',
+    secure: true,
+    port:465,
     auth: {
         user: "acw.dnsp@gmail.com",
         pass: process.env.PASSWORD 
