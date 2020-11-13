@@ -19,7 +19,7 @@ const { ObjectId } = require('mongodb');
 const path = require("path");
 // const route2 = require('./routes/route2');
 dotenv.config();
-//connect to DB 
+//connect to DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("Database is connected!"));
 
 //email credentials
