@@ -7,6 +7,7 @@ const posts = require('./routes/posts');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require("cors");
+const aws = require('aws-sdk');
 const otpGenerator = require('otp-generator');
 const verifyToken = require('./routes/verifyToken');
 const contact = require('./model/contact');
@@ -17,11 +18,21 @@ const cron = require('node-cron');
 const { getMaxListeners } = require('./model/usermodel');
 const { ObjectId } = require('mongodb');
 const path = require("path");
+
+
 // const route2 = require('./routes/route2');
 dotenv.config();
 //connect to DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("Database is connected!"));
 
+// aws.config.loadFromPath('config.json');
+
+
+// let transporter = nodemailer.createTransport({
+//     SES: new aws.SES({
+//         apiVersion: '2010-12-01'
+//     })
+// });
 //email credentials
 let transporter = nodemailer.createTransport({
     service: 'gmail',
