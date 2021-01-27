@@ -26,7 +26,7 @@ export default class HomePage extends Calendar {
     }
     
     render() {
-        console.log(Cookies.get())
+     
         const colors = ["#ffc600", "#63A92C", "#BF30F1", "#A92C42", "#FDC04B", "#2FA5D8", "#D82F43"];
         const week = [];
         for (let i=0;i<7;i++) {

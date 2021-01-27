@@ -215,7 +215,7 @@ export default class Lists extends Component {
     }
 
     render() {
-        console.log(this.state.data.editEvent)
+       
         return (
             <div> 
                 <div className="d-inline">

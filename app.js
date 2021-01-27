@@ -117,7 +117,7 @@ app.get('/api/user/login', (req, res) => {
 app.post('/api/user/:id',(req,res)=>{
     try{
         const time=req.body.eventTime.split(":")
-        console.log(time[0])
+        //console.log(time[0])
         const str=req.body.eventDate.split(" ");
         const mon=str[1].split(",")[0];
         const final=time[1]+" "+time[0]+" "+str[0]+" "+mon+" *";
@@ -141,7 +141,7 @@ app.post('/api/user/:id',(req,res)=>{
             schedule:true,
             timezone: "Asia/Kolkata"
         });
-        console.log(final);
+        //console.log(final);
         Data.findByIdAndUpdate({_id:req.params.id}, 
         { $push: {
                 events:{

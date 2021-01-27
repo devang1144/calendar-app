@@ -287,7 +287,6 @@ export default class Calendar extends Func {
         for (let i=0;i<length;i++) {
             if(thatDay === events[i].eventDate.split(" ")[1]) {
                 eventThatDay.push({_id:events[i]._id, eventName:events[i].eventName, eventDate:events[i].eventDate})
-                
             }
         }
         
@@ -375,17 +374,17 @@ export default class Calendar extends Func {
                         <i className={"fa ml-2 fa-caret-" + caret}  aria-describedby={idd1} onClick={this.handleClickkk}></i>
                         </h4>
                         <Popover
-                        id={idd1}
-                        open={open1}
-                        anchorEl={this.state.anchorEl1}
-                        onClose={this.handleCloseee}
-                        anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
+                            id={idd1}
+                            open={open1}
+                            anchorEl={this.state.anchorEl1}
+                            onClose={this.handleCloseee}
+                            anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
                         }}
                     >
                         <span>{this.logoutButton()}</span>

@@ -24,7 +24,7 @@ export default class LoginPage extends Component {
             userData:[],
             userDetails:{},
             type:"password"
-        }
+        } 
     handleSubmit = async(e) => {
         e.preventDefault();
         const payload = {
